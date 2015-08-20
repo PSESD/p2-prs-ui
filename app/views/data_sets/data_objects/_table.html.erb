@@ -1,0 +1,24 @@
+<table class="table">
+  <thead>
+    <tr>
+      <th>ID</th>
+	  <th>SIF Object Name</th>
+      <th>Filter Type</th>
+	  <th>XPath</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% for data_object in @data_set.sifDataObjects %>
+      <tr>
+        <td><%= data_object.id %></td>
+        <td><%= data_object.sifObjectName %></td>
+        <td><span class="label label-<%= data_object.filterTypeLabel == "Include" ? "success" : "default" %>"><%= data_object.filterTypeLabel %></span></td>
+        <td><code class="language-xml"><%= data_object.includeStatement %></code></td>
+        <td><%= link_to glyph(:pencil, "Edit"), edit_data_set_data_object_path(@data_set, data_object) %></td>
+        <td><%= link_to glyph(:trash, "Delete"), [@data_set, data_object], method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

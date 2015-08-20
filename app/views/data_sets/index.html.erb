@@ -1,0 +1,28 @@
+<h1>Data Sets</h1>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Name</th>
+      <th>Description</th>
+      <th colspan="2"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @data_sets.each do |data_set| %>
+      <tr>
+        <td><%= data_set.id %></td>
+        <td class="name"><%= link_to data_set.name, data_set %></td>
+        <td class="description"><%= data_set.description %> <em>(Not included in index payload)</em></td>
+        <td><%= link_to glyph(:pencil, "Edit"), edit_data_set_path(data_set) %></td>
+        <td><%= link_to glyph(:trash, "Delete"), data_set, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to glyph(:plus) + " New Dataset", new_data_set_path, class: "btn btn-default" %>

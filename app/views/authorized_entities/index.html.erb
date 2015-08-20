@@ -1,0 +1,28 @@
+<h1>Authorized Entities</h1>
+
+<table class="table">
+	<thead>
+		<tr>
+			<th>ID</th>
+			<th>Name</th>
+			<th>Services</th>
+			<th colspan="2"></th>
+		</tr>
+	</thead>
+
+	<tbody>
+		<% @authorized_entities.each do |authorized_entity| %>
+		<tr>
+			<td><%= authorized_entity.id %></td>
+			<td><%= link_to authorized_entity.name, authorized_entity %></td>
+			<td><span class="badge"><%= authorized_entity.services_count %></span></td>
+			<td><%= link_to glyph(:pencil, 'Edit'), edit_authorized_entity_path(authorized_entity) %></td>
+			<td><%= link_to glyph(:trash, 'Destroy'), authorized_entity, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+		</tr>
+		<% end %>
+	</tbody>
+</table>
+
+<br>
+
+<%= link_to glyph(:plus) + ' New Authorized Entity', new_authorized_entity_path, class: 'btn btn-default' %>

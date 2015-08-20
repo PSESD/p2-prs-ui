@@ -1,0 +1,36 @@
+<%= breadcrumbs(:authorized_entities, @authorized_entity, [@authorized_entity, @service]) %>
+<%= link_to glyph(:pencil) + " Edit", [:edit, @authorized_entity, @service], class: 'btn btn-primary pull-right' %>
+
+<h1><%= @service.name %> <small>#<%= @service.id %></small></h1>
+<p><%= @service.description %></p>
+
+<div class="panel panel-default">
+	<div class="panel-heading">
+		<h3 class="panel-title">District Authorizations</h3>
+	</div>
+	<table class="table">
+		<thead>
+			<tr>
+				<th>ID</th>
+				<th>District</th>
+				<th>Initiation Date</th>
+				<th>Expiration Date</th>
+				<th></th>
+			</tr>
+		</thead>
+		<tbody>
+			<%- for district_name, services in @service.district_services -%>
+				<%- unless services.first.empty? -%>
+					<%- for service in services.first -%>
+						<tr><td><%= service.id %></td>
+							<td><%= link_to district_name, district_service_path(service.districtId, service) %></td>
+							<td><%= service.initiationDate %></td>
+							<td><%= service.expirationDate %></td>
+							<td><%= link_to glyph('option-horizontal', 'Details'), district_service_path(service.districtId, service) %></td>
+						</tr>
+					<% end %>
+				<% end %>
+			<% end %>
+		</tbody>
+	</table>
+</div>

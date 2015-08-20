@@ -1,0 +1,42 @@
+<html>
+<head>
+	<script src="http://crypto-js.googlecode.com/svn/tags/3.1.2/build/components/core-min.js"></script>
+	<script src="http://crypto-js.googlecode.com/svn/tags/3.1.2/build/components/enc-utf16-min.js"></script>
+	<script src="http://crypto-js.googlecode.com/svn/tags/3.1.2/build/components/enc-base64-min.js"></script>
+	<script src="http://crypto-js.googlecode.com/svn/tags/3.1.2/build/rollups/hmac-sha256.js"></script>
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+	<script type="text/javascript">
+	
+	function generateAuthHeader(sessionToken, secret, timestamp) {
+		var tokenTime = sessionToken + ':' + timestamp;
+		console.log(tokenTime)
+		var hash = CryptoJS.HmacSHA256(tokenTime, secret).toString(CryptoJS.enc.Base64);
+		console.log(hash)
+		var authToken = CryptoJS.enc.Base64.stringify(CryptoJS.enc.Utf8.parse(sessionToken + ':' + hash));
+		console.log(authToken)
+		return 'SIF_HMACSHA256 ' + authToken;
+	}
+	function callApi(url, method, callback) {
+		var sessionToken = 'e6d930d6-f9d7-43f8-ba53-40c0852f3282';
+		var secret = 'MersHJHrkBqCdGexZNWNJT99';
+		var timestamp = new Date().toISOString();
+		var authToken = generateAuthHeader(sessionToken, secret, timestamp);
+		var requestSettings = {
+			type: method,
+			dataType: 'json',
+			headers: {
+				Authorization: authToken,
+				Timestamp: timestamp
+			}
+		};
+		$.ajax(url, requestSettings).done(callback);
+	}
+	callApi('https://p2cbo-prod-prs.azurewebsites.net/api/v1/districts', 'GET', function(data) {
+		console.log(data);
+	});
+	</script>
+</head>
+<body>
+<h1>Auth API Sample Page</h1>
+</body>
+</html>

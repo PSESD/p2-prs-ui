@@ -1,0 +1,2 @@
+module Districts::StudentsHelper
+end

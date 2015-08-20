@@ -1,0 +1,33 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Districts</h1>
+
+<table class="table">
+	<thead>
+		<tr>
+			<th>ID</th>
+			<th>Name</th>
+			<th>NCES LEA Code</th>
+			<th>Zone ID</th>
+			<th colspan="2"></th>
+		</tr>
+	</thead>
+
+	<tbody>
+		<% @districts.each do |district| %>
+		<tr>
+			<td><%= district.id %></td>
+			<td><%= link_to district.districtName, district %></td>
+			<td><%= district.ncesleaCode %></td>
+			<td><%= district.zoneID %></td>
+			<td><%= link_to glyph(:pencil, "Edit"), edit_district_path(district) %></td>
+			<td><%= link_to glyph(:trash, "Delete"), district, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+		</tr>
+		<% end %>
+	</tbody>
+</table>
+
+<br>
+
+<%= link_to glyph(:plus) + " New District", new_district_path, class: "btn btn-default" %>
+

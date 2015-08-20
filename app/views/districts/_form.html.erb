@@ -1,0 +1,13 @@
+<%= simple_form_for @district, wrapper: :horizontal_form do |f| %>
+	<%= f.error_notification %>
+
+	<div class="form-inputs">
+		<%= f.input :districtName, label: "District Name", hint: "Enter the official name of the district." %>
+		<%= f.input :ncesleaCode, label: "NCES LEA Code", hint: "Look up the correct code in the #{link_to("NCES LEA Code Inventory", "https://inventory.data.gov/dataset/04da5aea-5366-46d6-92de-1c4901973494/resource/37e62816-d097-42c5-9ec9-6b56abe6c4c9", target: :blank)}.".html_safe %>
+		<%= f.input :zoneID, label: "Zone ID", hint: "The SIF Zone ID where records should be routed for this district." %>
+	</div>
+
+	<div class="form-actions">
+		<%= f.button :submit %>
+	</div>
+<% end %>

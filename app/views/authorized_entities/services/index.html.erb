@@ -1,0 +1,25 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing District Services</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @district_services.each do |district_service| %>
+      <tr>
+        <td><%= link_to 'Show', district_service %></td>
+        <td><%= link_to 'Edit', edit_district_service_path(district_service) %></td>
+        <td><%= link_to 'Destroy', district_service, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Service', new_district_service_path %>

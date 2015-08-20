@@ -1,0 +1,14 @@
+<%= simple_form_for [@data_set, @data_object], wrapper: :horizontal_form do |f| %>
+	<%= f.error_notification %>
+
+	<div class="form-inputs">
+		<%= f.input :sifObjectName %>
+		<%= f.input :includeStatement %>
+		<%= f.input :filterType, as: 'radio_buttons', collection: [["Include", 0], ["Exclude", 1]] %>
+	</div>
+
+	<div class="form-actions">
+		<%= f.button :submit %>
+	</div>
+<% end %>
+<%= debug @data_object %>

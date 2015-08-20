@@ -1,0 +1,14 @@
+<h1><%= @data_set.name %> <small>#<%= @data_set.id %></small></h1>
+<p><%= @data_set.description %></p>
+
+<div class="panel panel-default">
+	<div class="panel-heading">
+		<h3 class="panel-title">Data Objects</h3>
+	</div>
+	
+	<%= render "data_sets/data_objects/table" %>
+	
+	<div class="panel-body">
+		<%= link_to glyph(:plus) + " New Data Object", new_data_set_data_object_path(@data_set), class: "btn btn-default" %>
+	</div>
+</div>

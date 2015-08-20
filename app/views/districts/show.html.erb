@@ -1,0 +1,31 @@
+<%= breadcrumbs(:districts, @district) %>
+
+<h1><%= @district.name %></h1>
+<ul class="list-inline attribute-summary">
+  <li><strong>District ID:</strong> 		<%= @district.id %></li>
+  <li><strong>NCES LEA Code:</strong> 		<%= @district.ncesleaCode %></li>
+  <li><strong>Zone ID:</strong> 			<samp><%= @district.zoneID %></samp></li>
+</ul>
+
+<div class="panel panel-default">
+	<div class="panel-heading">
+		<h3 class="panel-title">Services</h3>
+	</div>
+	<table class="table">	
+		<thead>
+			<tr>
+				<th>ID</th>
+				<th>District ID</th>
+				<th>External Service ID</th>
+				<th>Name</th>
+				<th>Initiation Date</th>
+				<th>Expiration Date</th>
+			</tr>
+		</thead>
+		<tbody>
+			<%= render partial: "districts/services/service", collection: @district.services.items %>
+		</tbody>
+	</table>
+</div>
+
+<%= link_to glyph(:plus) + " New District Service", [:new, @district, :service], class: 'btn btn-default' %>

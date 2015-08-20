@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>P2 Privacy Rules Manager</title>
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+
+	<header>
+		<%= render "layouts/nav" %>
+	</header>
+
+	<div id="flashes">
+		<% flash.each do |type, message| %>
+		<div class="alert <%= alert_class_for(type) %> alert-dismissible fade in">
+			<button type="button" class="close" aria-label="Close" data-dismiss="alert"><span aria-hidden="true">&times;</span></button>
+			<%= message %>
+		</div>
+		<% end %>
+	</div>
+
+	<div class="container">
+		<%= yield %>
+	</div>
+		
+</body>
+</html>
