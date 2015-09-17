@@ -5,6 +5,7 @@ class DataSets::DataObjectsController < DataSetsController
   # GET /data_sets/data_objects
   # GET /data_sets/data_objects.json
   def index
+    @data_objects = @data_set.sifDataObjects.group_by(&:sifObjectName)
   end
 
   # GET /data_sets/data_objects/1

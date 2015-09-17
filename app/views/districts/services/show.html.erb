@@ -31,7 +31,9 @@
 				</div>
 				<div class="list-group-item">
 					<dt>Expiration Date</dt>
-					<dd><%= @service.expirationDate %></dd>
+					<dd><%= @service.expirationDate %>
+						<%= content_tag :span, "Expired", class: "label label-danger" if @service.expired? %>
+					</dd>
 				</div>
 			</dl>
 		</div>
@@ -76,3 +78,7 @@
 	<%= link_to glyph(:plus) + " New Student", new_district_service_student_path(@district, @service), class: 'btn btn-default' %>		
 	</div>
 </div>
+
+<%= render partial: "districts/students/filters", layout: "layouts/modal", locals: { 
+		id: "filtersModal", title: "Compiled Filter Rules", dialog_class: "modal-lg"
+	} %>

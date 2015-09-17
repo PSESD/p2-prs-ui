@@ -12,11 +12,19 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'bootstrap-sass'
 gem 'simple_form'
 gem 'active_rest_client'
+gem 'nprogress-rails'
+gem 'coderay', :require =>  'coderay'
 
 group :development, :test do
   gem 'byebug'
   gem 'web-console', '~> 2.0'
   gem 'spring'
+end
+
+group :production do
+  gem 'rack-wwwhisper', '~> 1.0'
+  gem 'rails_12factor'
+  gem 'puma'
 end
 
 ruby '2.1.6'

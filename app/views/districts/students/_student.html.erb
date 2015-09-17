@@ -1,9 +1,13 @@
-<tr>
+<tr class="<%= 'danger' if student.expired? %>">
 	<td><%= student.id %></td>
 	<td><%= student.districtStudentId %></td>
 	<td><%= student.consent.try(:consentType) %></td>
 	<td><%= student.consent.try(:consentStartDate) %></td>
-	<td><%= student.consent.try(:consentEndDate) %></td>
+	<td>
+		<%= student.consent.try(:consentEndDate) %>
+		<%= content_tag :span, "Expired", class: "label label-danger" if student.expired? %>
+	</td>
+	<td><%= link_to glyph("list-alt", 'Filter Rules'), "#", 'data-url' => url_for([:filters, @district, @service, student]), 'data-toggle' => "modal", 'data-target' => "#filtersModal" %></td>
 	<td><%= link_to glyph(:pencil, 'Edit'), [:edit, @district, @service, student] %></td>
 	<td><%= link_to glyph(:trash, 'Destroy'), [@district, @service, student], method: :delete, data: { confirm: 'Are you sure?' } %></td>
 </tr>

@@ -1,8 +1,11 @@
-<tr>
+<tr class="<%= 'danger' if service.expired? %>">
 	<td><%= service.id %></td>
 	<td><%= service.districtId %></td>
 	<td><%= service.externalServiceId %></td>
 	<td><%= link_to service.name, [@district, service] %></td>
 	<td><%= service.initiationDate %></td>
-	<td><%= service.expirationDate %></td>
+	<td>
+		<%= service.expirationDate %>
+		<%= content_tag :span, "Expired", class: "label label-danger" if service.expired? %>
+	</td>
 </tr>

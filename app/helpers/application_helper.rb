@@ -1,8 +1,8 @@
 module ApplicationHelper
   
   # Simple wrapper for inserting a glyphicon
-  def glyph(key, text = "")
-    content_tag(:span, "", { :class => "glyphicon glyphicon-#{key.to_s}", "aria-hidden" => "true", "aria-label" => text } )
+  def glyph(key, text = "", options = {})
+    content_tag(:span, "", { :class => "glyphicon glyphicon-#{key.to_s} #{options[:class]}", "aria-hidden" => "true", "aria-label" => text } )
   end
   
   def alert_class_for(flash_type)
@@ -27,6 +27,19 @@ module ApplicationHelper
           concat content_tag(:li, arg, class: "active")
         elsif arg.is_a?(Symbol)
           concat content_tag(:li, link_to(arg.to_s.titleize, arg))
+        elsif arg.is_a?(ActiveRestClient::ResultIterator)
+          concat(content_tag(:li, class: "dropdown") do
+            concat(content_tag(:a, :class => "dropdown-toggle", "data-toggle" => "dropdown") do
+              concat(guess_label_text( arg.select{|a| current_page?(a) }))
+              concat(" ")
+              concat(content_tag(:span, "", class: "caret"))
+            end)
+            concat(content_tag(:ul, class: "dropdown-menu") do
+              for object in arg
+                concat(content_tag(:li, link_to(guess_label_text(object), object), class: ("active" if current_page?(object))))
+              end
+            end)
+          end)
         else
           concat content_tag(:li, link_to(guess_label_text(arg), arg))
         end

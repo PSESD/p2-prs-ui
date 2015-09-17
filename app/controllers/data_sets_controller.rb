@@ -10,6 +10,7 @@ class DataSetsController < ApplicationController
   # GET /data_sets/1
   # GET /data_sets/1.json
   def show
+    @data_objects = @data_set.sifDataObjects.group_by(&:sifObjectName)
   end
 
   # GET /data_sets/new
@@ -64,6 +65,7 @@ class DataSetsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_data_set
+      @data_sets = DataSet.all
       @data_set = DataSet.find(params[:data_set_id] || params[:id])
     end
 

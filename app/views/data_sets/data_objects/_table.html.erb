@@ -1,24 +1,57 @@
-<table class="table">
-  <thead>
-    <tr>
-      <th>ID</th>
-	  <th>SIF Object Name</th>
-      <th>Filter Type</th>
-	  <th>XPath</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
+<div>
+	<ul class="nav nav-tabs" role="tablist">
+		<%- for object_name, data_objects in @data_objects -%>
+	    <li role="presentation" class="<%= "active" if object_name == "xSre" %>">
+			<a href="#<%= object_name %>" aria-controls="<%= object_name %>" role="tab" data-toggle="tab">
+				<%= object_name %> Data Objects
+				<span class="badge"><%= data_objects.size %></span>
+			</a>
+		</li>
+		<% end %>
+	</ul>
 
-  <tbody>
-    <% for data_object in @data_set.sifDataObjects %>
-      <tr>
-        <td><%= data_object.id %></td>
-        <td><%= data_object.sifObjectName %></td>
-        <td><span class="label label-<%= data_object.filterTypeLabel == "Include" ? "success" : "default" %>"><%= data_object.filterTypeLabel %></span></td>
-        <td><code class="language-xml"><%= data_object.includeStatement %></code></td>
-        <td><%= link_to glyph(:pencil, "Edit"), edit_data_set_data_object_path(@data_set, data_object) %></td>
-        <td><%= link_to glyph(:trash, "Delete"), [@data_set, data_object], method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+	<!-- Tab panes -->
+	<div class="tab-content">
+		
+		<%- for object_name, data_objects in @data_objects -%>
+		<div role="tabpanel" class="tab-pane fade <%= "in active" if object_name == "xSre" %>" id="<%= object_name %>">
+			<table class="table">
+			  <thead>
+			    <tr>
+			      <th>ID</th>
+				  <th>SIF Object Name</th>
+			      <th>Filter Type</th>
+				  <th>XPath</th>
+			      <th colspan="3"></th>
+			    </tr>
+			  </thead>
+
+			  <tbody>
+			    <% for data_object in data_objects %>
+			      <tr>
+			        <td><%= data_object.id %></td>
+			        <td><%= data_object.sifObjectName %></td>
+			        <td><span class="label label-<%= data_object.filterTypeLabel == "Include" ? "success" : "default" %>"><%= data_object.filterTypeLabel %></span></td>
+			        <td><code class="language-xml"><%= data_object.includeStatement %></code></td>
+			        <td>
+						<%= link_to glyph(:pencil, "Edit"), edit_data_set_data_object_path(@data_set, data_object), "data-toggle" => "(disabled)modal", "data-target" => "#edit_#{data_object.id}", "data-no-turbolink" => true %></td>
+			        <td><%= link_to glyph(:trash, "Delete"), [@data_set, data_object], method: :delete, data: { confirm: 'Are you sure?' } %></td>
+			      </tr>
+			    <% end %>
+
+			  </tbody>
+			</table>
+		</div>
+		
+		<% for data_object in data_objects %>
+	        <%= render partial: "/data_sets/data_objects/form", 
+						layout: "layouts/modal", 
+						object: data_object,
+						locals: { id: "edit_#{data_object.id}", title: "Edit" } %>
+		<% end %>
+
+		<% end %>
+		
+	</div>
+</div>
+

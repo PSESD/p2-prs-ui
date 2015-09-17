@@ -1,7 +1,7 @@
 class Districts::StudentsController < DistrictsController
   before_action :set_district
   before_action :set_districts_service
-  before_action :set_districts_student, only: [:show, :edit, :update, :destroy]
+  before_action :set_districts_student, only: [:show, :edit, :update, :destroy, :filters]
 
   # GET /districts/students
   # GET /districts/students.json
@@ -18,7 +18,7 @@ class Districts::StudentsController < DistrictsController
   def new
     @student = District::Student.new
   end
-
+  
   # GET /districts/students/1/edit
   def edit
   end
@@ -26,6 +26,7 @@ class Districts::StudentsController < DistrictsController
   # POST /districts/students
   # POST /districts/students.json
   def create
+    return bulk_create if districts_student_params[:districtStudentId].include?(",")
     @student = District::Student.new(districts_student_params)
 
     respond_to do |format|
@@ -37,6 +38,29 @@ class Districts::StudentsController < DistrictsController
         format.json { render json: @student.errors, status: :unprocessable_entity }
       end
     end
+  end
+  
+  # Create a bunch of students at once.
+  def bulk_create
+    ids = districts_student_params[:districtStudentId].try(:split, ",").try(:collect, &:strip)
+    @student = District::Student.new(districts_student_params) # default object in case something goes wrong
+    
+    @students = []
+    for id in ids
+      districts_student_params[:districtStudentId] = id
+      @students << District::Student.create(districts_student_params)
+    end
+
+    respond_to do |format|
+      if @students
+        format.html { redirect_to [@district, @service], notice: "#{@students.size} student(s) were successfully created." }
+        format.json { render :show, status: :created, location: [@district, @service, @student] }
+      else
+        format.html { render :new }
+        format.json { render json: @student.errors, status: :unprocessable_entity }
+      end
+    end
+    
   end
 
   # PATCH/PUT /districts/students/1
@@ -61,6 +85,22 @@ class Districts::StudentsController < DistrictsController
       format.html { redirect_to [@district, @service], notice: 'Student was successfully destroyed.' }
       format.json { head :no_content }
     end
+  end
+  
+  def filters
+    @student.filters(
+      zoneid: @district.zoneID,
+      districtId: @district.id,
+      authorizedEntityId: @service.authorizedEntityId || 2,  ############## FIXME
+      externalServiceId: @service.externalServiceId,
+      districtStudentId: @student.districtStudentId,
+      objectType: (params[:object_type] || "xSre")
+    )
+  rescue ActiveRestClient::ResponseParseException => e
+    render inline: "<p class='alert alert-warning' role='alert'>Note: Currently this only displays filters for authorizedEntityId 2!</p>" + CodeRay.scan(e.body, :xml).html(
+      :wrap => nil,
+      :css => :style
+    )
   end
 
   private

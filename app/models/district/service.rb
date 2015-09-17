@@ -30,6 +30,10 @@ class District::Service < PrsModel
     Date.parse self[:expirationDate] rescue nil
   end
   
+  def expired?
+    expirationDate.today? || expirationDate.past? if expirationDate.is_a?(Date)
+  end
+  
   def authorized_for_data_set?(data_set)
     return false unless dataSets
     data_set_ids = dataSets.collect(&:id)

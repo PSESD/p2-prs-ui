@@ -1,7 +1,7 @@
 class PrsModel < ActiveRestClient::Base
   extend ActiveModel::Naming
   
-  base_url "https://p2cbo-dev-prs.azurewebsites.net/api/v1"
+  base_url Rails.application.secrets.prs_url
 
   before_request :add_authentication_details
   request_body_type :json

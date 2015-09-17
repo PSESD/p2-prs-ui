@@ -11,15 +11,27 @@
  * file per style scope.
  *
  *= require_tree .
+ *= require nprogress
+ *= require nprogress-bootstrap
  *= require_self
  */
 
 @import "bootstrap-sprockets";
 @import "bootstrap";
 
+footer {
+  margin: 2em 0;
+  color: #ddd;
+  font-size: 85%;
+}
+
 input[type=submit] {
   @extend .btn;
   @extend .btn-primary;
+}
+
+.breadcrumb li.dropdown {
+  cursor: pointer;
 }
 
 ul.attribute-summary > li {
@@ -31,4 +43,29 @@ ul.attribute-summary > li {
 
 td.name > a {
   font-weight: bold;
+}
+
+#filtersModal pre {
+  border: none;
+  background-color: none;
+  font-size: 11px;
+}
+
+#filtersModal .modal-body {
+  background-color: #f5f5f5;
+}
+
+.spinning {
+    animation: spin 1s infinite linear;
+    -webkit-animation: spin2 1s infinite linear;
+}
+
+@keyframes spin {
+    from { transform: scale(1) rotate(0deg); }
+    to { transform: scale(1) rotate(360deg); }
+}
+
+@-webkit-keyframes spin2 {
+    from { -webkit-transform: rotate(0deg); }
+    to { -webkit-transform: rotate(360deg); }
 }

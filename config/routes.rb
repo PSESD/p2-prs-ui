@@ -13,7 +13,11 @@ Rails.application.routes.draw do
   # Districts
   resources :districts do
     resources :services, controller: "districts/services" do
-      resources :students, controller: "districts/students"
+      resources :students, controller: "districts/students" do
+        member do
+          get 'filters'
+        end
+      end
     end
   end
   

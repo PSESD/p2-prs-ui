@@ -14,4 +14,20 @@
 //= require jquery_ujs
 //= require bootstrap
 //= require turbolinks
+//= require nprogress
+//= require nprogress-turbolinks
 //= require_tree .
+
+$( function() {
+  $('#filtersModal').on('show.bs.modal', function (event) {
+    var button = $(event.relatedTarget)
+    var url = button.data('url')
+    var elem = $(this).find("pre")
+    elem.html("<i class='glyphicon glyphicon-refresh spinning' /> Loading...")
+
+    $.ajax({ url: url })
+    .done(function( html ) {
+      elem.html( html )
+    })
+  })
+})
