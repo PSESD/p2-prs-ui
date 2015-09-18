@@ -69,3 +69,8 @@ td.name > a {
     from { -webkit-transform: rotate(0deg); }
     to { -webkit-transform: rotate(360deg); }
 }
+
+iframe#wwwhisper-iframe {
+  top: 10px !important;
+  right: 10px;
+}
