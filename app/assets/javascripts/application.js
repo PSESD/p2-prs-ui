@@ -19,6 +19,8 @@
 //= require_tree .
 
 $( function() {
+  $('[data-toggle="tooltip"]').tooltip()
+  
   $('#filtersModal').on('show.bs.modal', function (event) {
     var button = $(event.relatedTarget)
     var url = button.data('url')

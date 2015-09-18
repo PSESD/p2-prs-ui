@@ -20,6 +20,17 @@ module ApplicationHelper
     end
   end
 
+  def prs_dev_label_class
+    case Rails.application.secrets.prs_environment.downcase
+    when "dev"
+      "label-warning"
+    when "production"
+      "label-success"
+    else
+      "label-default"
+    end
+  end
+
   def breadcrumbs(*args)
     content_tag(:ol, class: "breadcrumb") do
       for arg in args

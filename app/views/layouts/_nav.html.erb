@@ -3,7 +3,11 @@
 		<!-- Brand and toggle get grouped for better mobile display -->
 		<div class="navbar-header">
 			<%= link_to "P2 Privacy Rules Manager", root_path, class: "navbar-brand" %>
-			<p class="navbar-text"><span class="label label-warning"><%= Rails.env %></span></p>
+			<p class="navbar-text">
+				<span class="label <%= prs_dev_label_class %>" data-toggle="tooltip" data-placement="bottom" title="Connected to PRS environment: <%= Rails.application.secrets.prs_url %>">
+					<%= Rails.application.secrets.prs_environment %>
+				</span>
+			</p>
 		</div>
 
 		<!-- Collect the nav links, forms, and other content for toggling -->
