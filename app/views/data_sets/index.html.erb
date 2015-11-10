@@ -15,7 +15,7 @@
       <tr>
         <td><%= data_set.id %></td>
         <td class="name"><%= link_to data_set.name, data_set %></td>
-        <td class="description"><%= data_set.description %> <em>(Not included in index payload)</em></td>
+        <td class="description"><%= data_set.description %></td>
         <td><%= link_to glyph(:pencil, "Edit"), edit_data_set_path(data_set) %></td>
         <td><%= link_to glyph(:trash, "Delete"), data_set, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>

@@ -39,6 +39,10 @@ class District::Service < PrsModel
     data_set_ids = dataSets.collect(&:id)
     data_set_ids.include? (data_set.is_a?(DataSet) ? data_set.id : data_set)
   end
+  
+  def authorized_entity
+    AuthorizedEntity.find(self[:authorizedEntityId])
+  end
     
   private
   

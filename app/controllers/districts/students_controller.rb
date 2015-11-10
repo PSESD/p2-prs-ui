@@ -91,13 +91,13 @@ class Districts::StudentsController < DistrictsController
     @student.filters(
       zoneid: @district.zoneID,
       districtId: @district.id,
-      authorizedEntityId: @service.authorizedEntityId || 2,  ############## FIXME
+      authorizedEntityId: @service.authorizedEntityId,
       externalServiceId: @service.externalServiceId,
       districtStudentId: @student.districtStudentId,
       objectType: (params[:object_type] || "xSre")
     )
   rescue ActiveRestClient::ResponseParseException => e
-    render inline: "<p class='alert alert-warning' role='alert'>Note: Currently this only displays filters for authorizedEntityId 2!</p>" + CodeRay.scan(e.body, :xml).html(
+    render inline: CodeRay.scan(e.body, :xml).html(
       :wrap => nil,
       :css => :style
     )

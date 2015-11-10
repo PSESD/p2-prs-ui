@@ -31,10 +31,11 @@ class PrsModel < ActiveRestClient::Base
   end
 
   def errors
-    obj = Object.new
-    def obj.[](key)         [] end
-    def obj.full_messages() [] end
-    obj
+    # obj = Object.new
+    # def obj.[](key)         [] end
+    # def obj.full_messages() [] end
+    # obj
+    @errors ||= ActiveModel::Errors.new(self)
   end
 
   # Override the #update method to manually set each attribute and call #save.

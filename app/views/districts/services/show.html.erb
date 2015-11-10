@@ -14,8 +14,7 @@
 			<dl class="list-group dl-horizontal">
 				<div class="list-group-item">
 					<dt>Authorized Entity</dt>
-					<dd><em class="text-muted">Not available from API yet</em>
-						<%#= link_to @service.authorized_entity.name, [@service.authorized_entity, @service] %></dd>
+					<dd><%= link_to @service.authorizedEntityName, authorized_entity_path(@service.authorizedEntityId) %></dd>
 				</div>
 				<div class="list-group-item">
 					<dt>District</dt>
