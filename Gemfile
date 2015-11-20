@@ -15,6 +15,7 @@ gem 'simple_form'
 gem 'active_rest_client'
 gem 'nprogress-rails'
 gem 'coderay', :require =>  'coderay'
+gem 'rollbar', '~> 1.2.7'
 
 group :development, :test do
   gem 'byebug'
