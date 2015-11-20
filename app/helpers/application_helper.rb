@@ -26,6 +26,8 @@ module ApplicationHelper
       "label-warning"
     when "production"
       "label-success"
+    when "prod"
+      "label-success"
     else
       "label-default"
     end

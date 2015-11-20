@@ -4,7 +4,7 @@
 		<div class="navbar-header">
 			<%= link_to "P2 Privacy Rules Manager", root_path, class: "navbar-brand" %>
 			<p class="navbar-text">
-				<span class="label <%= prs_dev_label_class %>" data-toggle="tooltip" data-placement="bottom" title="Connected to PRS environment: <%= Rails.application.secrets.prs_url %>">
+				<span class="environment label <%= prs_dev_label_class %>" data-toggle="tooltip" data-placement="bottom" title="Connected to PRS environment: <%= Rails.application.secrets.prs_url %>">
 					<%= Rails.application.secrets.prs_environment %>
 				</span>
 			</p>

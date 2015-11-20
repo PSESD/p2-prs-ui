@@ -5,6 +5,7 @@ class ApplicationController < ActionController::Base
   
   rescue_from ActiveRestClient::HTTPServerException, with: :api_error
   rescue_from ActiveRestClient::ConnectionFailedException, with: :connection_failure
+  rescue_from ActionController::RedirectBackError, with: :error_message
   
   protected
   
@@ -15,5 +16,10 @@ class ApplicationController < ActionController::Base
   
   def connection_failure(exception)
     render inline: "Error: Could not connect to PRS API."
+  end
+  
+  def error_message(exception)
+    @exception = exception
+    render action: 'error_message'
   end
 end
