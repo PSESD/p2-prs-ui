@@ -12,6 +12,8 @@ class ApplicationController < ActionController::Base
   def api_error(exception)
     flash[:error] = "PRS returned error #{exception.status}: #{exception.result.try(:message)}"
     redirect_to :back unless performed?
+  rescue ActionController::RedirectBackError
+    render inline: flash[:error]
   end
   
   def connection_failure(exception)
