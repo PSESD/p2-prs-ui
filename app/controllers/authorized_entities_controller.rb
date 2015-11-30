@@ -27,7 +27,7 @@ class AuthorizedEntitiesController < ApplicationController
     @authorized_entity = AuthorizedEntity.new(authorized_entity_params)
 
     respond_to do |format|
-      if @authorized_entity.save
+      if @authorized_entity.create
         format.html { redirect_to @authorized_entity, notice: 'Authorized entity was successfully created.' }
         format.json { render :show, status: :created, location: @authorized_entity }
       else
