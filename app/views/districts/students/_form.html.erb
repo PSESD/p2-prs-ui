@@ -6,8 +6,15 @@
 		
 		<%= f.simple_fields_for :consent do |consent| -%>
 			<%= consent.input :consentType, label: "Consent Type", input_html: { value: @student.consent.try(:consentType) }, collection: District::Student::ConsentTypes %>
-			<%= consent.input :consentStartDate, label: "Start Date", input_html: { value: @student.consent.try(:consentStartDate) } %>
-			<%= consent.input :consentEndDate, label: "End Date", input_html: { value: @student.consent.try(:consentEndDate) } %>
+			
+			<%= consent.input :valid_date_range do %>
+				<div class="input-daterange input-group">
+					<%= consent.input_field :consentStartDate, class: "form-control", placeholder: "Start Date", input_html: { value: @student.consent.try(:consentStartDate) } %>
+				    <span class="input-group-addon">to</span>
+					<%= consent.input_field :consentEndDate, class: "form-control", placeholder: "End Date", input_html: { value: @student.consent.try(:consentEndDate) } %>
+				</div>
+			<% end %>
+			
 		<% end %>
 	</div>
 
@@ -16,3 +23,4 @@
 	</div>
 	
 <% end %>
+<%= debug @student %>

@@ -31,6 +31,10 @@ footer {
   font-size: 85%;
 }
 
+form.simple_form .form-group > .col-sm-9 {
+  width: 50%;
+}
+
 input[type=submit] {
   @extend .btn;
   @extend .btn-primary;
@@ -84,4 +88,8 @@ iframe#wwwhisper-iframe {
 
 .environment.label {
   cursor: help;
+}
+
+.inline {
+  display: inline;
 }

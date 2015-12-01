@@ -33,4 +33,13 @@ $( function() {
       elem.html( html )
     })
   })
+  
+  $('.input-daterange').datepicker({
+      format: "yyyy-mm-dd",
+      todayBtn: "linked",
+      todayHighlight: true,
+      disableTouchKeyboard: true,
+      autoclose: true
+  });
+  
 })

@@ -34,3 +34,19 @@
 		</tbody>
 	</table>
 </div>
+
+<div>
+	<p class="inline">Authorize this service in &nbsp; </p>
+	<div class="dropdown inline">
+		<a id="district_select" data-target="#" href="http://example.com" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" class="btn btn-default">
+			Select District
+			<span class="caret"></span>
+		</a>
+
+		<ul class="dropdown-menu" aria-labelledby="district_select">
+			<%- for district in @districts -%>
+				<li><%= link_to district.name, new_district_service_path(district.id, externalServiceId: @service.id) %></li>
+			<% end %>
+		</ul>
+	</div>
+</div>

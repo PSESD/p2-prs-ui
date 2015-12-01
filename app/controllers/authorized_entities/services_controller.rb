@@ -11,6 +11,7 @@ class AuthorizedEntities::ServicesController < AuthorizedEntitiesController
   # GET /authorized_entity/services/1
   # GET /authorized_entity/services/1.json
   def show
+    @districts = District.all
   end
 
   # GET /authorized_entity/services/new

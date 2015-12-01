@@ -9,6 +9,8 @@ class PrsModel < ActiveRestClient::Base
   SessionToken = Rails.application.secrets.prs_session_token
   SharedSecret = Rails.application.secrets.prs_shared_secret
 
+  attr_accessor :new_record
+
   def to_param
     id.to_s
   end
@@ -18,7 +20,7 @@ class PrsModel < ActiveRestClient::Base
   end
 
   def new_record?
-     !@attributes.any?
+     !@attributes.any? || new_record
   end
   def destroyed?()  false end
   def persisted?

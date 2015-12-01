@@ -16,6 +16,8 @@ class Districts::ServicesController < DistrictsController
   # GET /district/services/new
   def new
     @service = District::Service.new
+    @service.externalServiceId = params[:externalServiceId] if params[:externalServiceId]
+    @service.new_record = true
   end
 
   # GET /district/services/1/edit

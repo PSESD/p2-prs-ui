@@ -2,34 +2,37 @@
 	<%= f.error_notification %>
 
 	<div class="form-inputs">
-		<%= f.input :externalServiceId, label: "External Service", as: :grouped_select, collection: AuthorizedEntity.all_full, group_method: :services, value_method: :id %>
-		<%= f.input :initiationDate, label: "Initiation Date" %>
-		<%= f.input :expirationDate, label: "Expiration Date" %>
+		<%= f.input :externalServiceId, label: "External Service", as: :grouped_select, collection: AuthorizedEntity.all_full, group_method: :services, value_method: :id, prompt: "-- Please select --" %>
 		
-		<div class="form-group">
-			<label class="col-sm-3 control-label">Data Sets</label>
-			<div class="col-sm-9 checkbox">
-				<ul class="list-group input-group">
-				<%- DataSet.all.each_with_index do |data_set, index| -%>
-					<li class="list-group-item">
-						<label class="boolean optional" for="service_DataSets_<%= data_set.id %>">
-							<input class="boolean optional" type="checkbox" value="<%= data_set.id %>" name="service[DataSetSummary][][id]" id="service_DataSets_<%= data_set.id %>" <%= "checked" if @service.authorized_for_data_set?(data_set) %>>
-							<%= data_set.name %>
-						</label>
-					</li>
-				<% end %>
-				</ul>
+		<%= f.input :valid_date_range do %>
+			<div class="input-daterange input-group">
+				<%= f.input_field :initiationDate, class: "form-control" %>
+			    <span class="input-group-addon">to</span>
+				<%= f.input_field :expirationDate, class: "form-control" %>
 			</div>
-		</div>
+		<% end %>
+		
+		<%= f.input :data_sets, as: :checkbox do %>
+			<ul class="list-group input-group">
+			<%- DataSet.all.each_with_index do |data_set, index| -%>
+				<li class="list-group-item">
+					<label class="boolean optional" for="service_DataSets_<%= data_set.id %>">
+						<input class="boolean optional" type="checkbox" value="<%= data_set.id %>" name="service[DataSetSummary][][id]" id="service_DataSets_<%= data_set.id %>" <%= "checked" if @service.authorized_for_data_set?(data_set) %>>
+						<%= data_set.name %>
+					</label>
+				</li>
+			<% end %>
+			</ul>
+		<% end %>
 
-		<div class="input-group">
-			<%= f.input :requiresPersonnel, label: "Requires Personnel", hint: "This district service is required to specify personnel when requesting student data, and personnel must be authorized per student.", as: :boolean, checked_value: true, unchecked_value: false %>
-		</div>
+		<%= f.input "Options", required: false do %>
+			<%= f.input :requiresPersonnel, label: "Require personnel identity information when requesting data", hint: "This district service is required to specify personnel when requesting student data, and personnel must be authorized per student.", as: :boolean, checked_value: true, unchecked_value: false %>
+		<% end %>
 
 	</div>
 
 	<div class="form-actions">
-		<%= f.button :submit %>
+		<%= f.button :submit, "Authorize Service" %>
 	</div>
 <% end %>
 

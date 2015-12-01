@@ -1,4 +1,5 @@
 <%= breadcrumbs(:authorized_entities, @authorized_entity, "New Service") %>
 <h1>New Service</h1>
+<p>A "service" is provided by an <%= link_to "authorized entity", :authorized_entities %> to students, and defines the educational purpose for needing access to student data. It might describe a community program, a contracted service, or an internal project. Once a service is defined in the system, a school district can authorize access to student information based on data-sharing rules.</p>
 
 <%= render 'form' %>

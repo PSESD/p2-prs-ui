@@ -14,7 +14,9 @@
 			<dl class="list-group dl-horizontal">
 				<div class="list-group-item">
 					<dt>Authorized Entity</dt>
-					<dd><%= link_to @service.authorizedEntityName, authorized_entity_path(@service.authorizedEntityId) %></dd>
+					<dd><%= link_to @service.authorizedEntityName, authorized_entity_path(@service.authorizedEntityId) %>
+						<small class="text-muted">#<%= @service.authorizedEntityId %></small>
+					</dd>
 				</div>
 				<div class="list-group-item">
 					<dt>District</dt>
@@ -74,7 +76,7 @@
 				</tbody>
 			</table>
 		</div>
-	<%= link_to glyph(:plus) + " New Student", new_district_service_student_path(@district, @service), class: 'btn btn-default' %>		
+	<%= link_to glyph(:plus) + " Add Students", new_district_service_student_path(@district, @service), class: 'btn btn-default' %>		
 	</div>
 </div>
 
