@@ -52,6 +52,7 @@ class PrsModel < ActiveRestClient::Base
   protected
 
   def add_authentication_details(name, request)
+    raise Exception.new("Missing authentication credentials") if SessionToken.nil? || SharedSecret.nil?
     timestamp = Time.now.utc.iso8601
     token_and_time = "#{SessionToken}:#{timestamp}"
     auth_hash = Base64.strict_encode64 OpenSSL::HMAC.digest('sha256', SharedSecret, token_and_time)
