@@ -16,6 +16,9 @@ gem 'active_rest_client'
 gem 'nprogress-rails'
 gem 'coderay', :require =>  'coderay'
 gem 'rollbar', '~> 1.2.7'
+gem 'resque'
+gem 'resque-rollbar'
+gem 'resque-status'
 
 group :development, :test do
   gem 'byebug'

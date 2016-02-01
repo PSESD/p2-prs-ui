@@ -42,25 +42,21 @@ class Districts::StudentsController < DistrictsController
   
   # Create a bunch of students at once.
   def bulk_create
-    ids = districts_student_params[:districtStudentId].try(:split, ",").try(:collect, &:strip)
-    @student = District::Student.new(districts_student_params) # default object in case something goes wrong
-    
-    @students = []
-    for id in ids
-      districts_student_params[:districtStudentId] = id
-      @students << District::Student.create(districts_student_params)
+    unless params[:id]
+      @job_id = CreateStudentsWorker.create(districts_student_params)
+      return redirect_to(bulk_create_status_district_service_students_path(@district, @service, @job_id))
     end
-
+    
+    @status = Resque::Plugins::Status::Hash.get(params[:id])
     respond_to do |format|
-      if @students
-        format.html { redirect_to [@district, @service], notice: "#{@students.size} student(s) were successfully created." }
-        format.json { render :show, status: :created, location: [@district, @service, @student] }
+      if @status
+        format.html { render :bulk_create }
+        format.json { render :show, status: :created, location: [@district, @service, :students, :bulk_create] }
       else
         format.html { render :new }
-        format.json { render json: @student.errors, status: :unprocessable_entity }
+        format.json { render json: @status.errors, status: :unprocessable_entity }
       end
     end
-    
   end
 
   # PATCH/PUT /districts/students/1

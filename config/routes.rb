@@ -14,6 +14,9 @@ Rails.application.routes.draw do
   resources :districts do
     resources :services, controller: "districts/services" do
       resources :students, controller: "districts/students" do
+        collection do
+          get 'bulk_create/:id', action: 'bulk_create', as: 'bulk_create_status'
+        end
         member do
           get 'filters'
         end
