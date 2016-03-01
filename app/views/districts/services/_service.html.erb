@@ -1,11 +1,15 @@
 <tr class="<%= 'danger' if service.expired? %>">
 	<td><%= service.id %></td>
-	<td><%= service.districtId %></td>
-	<td><%= service.externalServiceId %></td>
-	<td><%= link_to service.name, [@district, service] %></td>
+	<td><%= link_to service.authorizedEntityName, authorized_entity_path(service.authorizedEntityId) %>
+		<small class="text-muted">(#<%= service.authorizedEntityId %>)</small>
+		</td>
+	<td><%= link_to service.name, [@district, service] %>
+		<small class="text-muted">(#<%= service.externalServiceId %>)</small>
+		</td>
 	<td><%= service.initiationDate %></td>
 	<td>
 		<%= service.expirationDate %>
 		<%= content_tag :span, "Expired", class: "label label-danger" if service.expired? %>
 	</td>
+	<td><%= link_to glyph('option-horizontal', 'Details'), [@district, service] %></td>
 </tr>

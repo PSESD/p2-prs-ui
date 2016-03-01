@@ -1,4 +1,5 @@
 source 'https://rubygems.org'
+ruby '2.1.6'
 
 gem 'rails', '4.2.1'
 # gem 'sqlite3'
@@ -21,6 +22,7 @@ gem 'resque-rollbar'
 gem 'resque-status'
 
 group :development, :test do
+  gem 'dotenv'
   gem 'byebug'
   gem 'web-console', '~> 2.0'
   gem 'spring'
@@ -32,4 +34,3 @@ group :production do
   gem 'puma'
 end
 
-ruby '2.1.6'
