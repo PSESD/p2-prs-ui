@@ -1,6 +1,6 @@
 <tr class="<%= 'danger' if service.expired? %>">
 	<td><%= service.id %></td>
-	<td><%= link_to service.authorizedEntityName, authorized_entity_path(service.authorizedEntityId) %>
+	<td><%= link_to service.authorizedEntityName, authorized_entity_path(service.authorizedEntityId) rescue service.authorizedEntityName %>
 		<small class="text-muted">#<%= service.authorizedEntityId %></small>
 		</td>
 	<td><%= link_to service.name, [@district, service] %>
