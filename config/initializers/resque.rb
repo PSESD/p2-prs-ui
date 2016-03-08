@@ -5,7 +5,7 @@ require 'resque/rollbar'
 
 Resque.redis = ENV['REDIS_URL']
 
-Resque.logger.formatter = Resque::VeryVerboseFormatter.new
+# Resque.logger.formatter = Resque::VeryVerboseFormatter.new
 Resque.logger.level = Logger::DEBUG
 Resque::Failure::Multiple.classes = [ Resque::Failure::Redis, Resque::Failure::Rollbar ]
 Resque::Failure.backend = Resque::Failure::Multiple
