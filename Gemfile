@@ -20,6 +20,7 @@ gem 'rollbar', '~> 1.2.7'
 gem 'resque'
 gem 'resque-rollbar'
 gem 'resque-status'
+gem 'bundler-audit'
 
 group :development, :test do
   gem 'dotenv'
