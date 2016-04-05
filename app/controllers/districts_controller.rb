@@ -1,5 +1,5 @@
 class DistrictsController < ApplicationController
-  before_action :set_district, only: [:show, :edit, :update, :destroy]
+  before_action :set_district, only: [:show, :edit, :update, :destroy, :consent_form]
 
   # GET /districts
   # GET /districts.json
@@ -60,6 +60,19 @@ class DistrictsController < ApplicationController
       format.html { redirect_to districts_url, notice: 'District was successfully destroyed.' }
       format.json { head :no_content }
     end
+  end
+  
+  def consent_form
+    empty_list_alert = "Please select at least one organization to include on the form and try again."
+    mismatched_datasets_alert = "All organizations must have the same datasets in order to be included on the same form."
+    return redirect_to(:back, alert: empty_list_alert) unless params[:services]
+    
+    @services = params[:services].collect{ |id| District::Service.find(district_id: @district.id, id: id) }
+    @dataSets = @services.collect{ |d| d.dataSets }
+    return redirect_to(:back, alert: mismatched_datasets_alert) if @dataSets.collect{|d| d.collect(&:id) }.uniq.size > 1
+      
+    @body_class = "consent_form"
+    @container_class = "container-fluid"
   end
 
   private

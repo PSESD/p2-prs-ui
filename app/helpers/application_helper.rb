@@ -2,7 +2,11 @@ module ApplicationHelper
   
   # Simple wrapper for inserting a glyphicon
   def glyph(key, text = "", options = {})
-    content_tag(:span, "", { :class => "glyphicon glyphicon-#{key.to_s} #{options[:class]}", "aria-hidden" => "true", "aria-label" => text } )
+    content_tag(:span, "", { 
+      :class => "glyphicon glyphicon-#{h(key.to_s)} #{h(options[:class])}",
+      "aria-hidden" => "true", 
+      "aria-label" => h(text) 
+    } )
   end
   
   def alert_class_for(flash_type)
@@ -64,6 +68,10 @@ module ApplicationHelper
     return guess_label_text(arg.last) if arg.is_a?(Array)
     methods = [:to_label, :name, :title]
     label_text = arg.try(methods.find{ |m| arg.respond_to?(m) }) rescue nil
+  end
+  
+  def link_to_submit(*args, &block)
+    link_to (block_given? ? capture(&block) : args[0]), "#", { data: { submit: true } }.merge(args.extract_options!)
   end
   
 end

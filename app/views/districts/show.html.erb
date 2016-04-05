@@ -7,25 +7,31 @@
   <li><strong>Zone ID:</strong> 			<samp><%= @district.zoneID %></samp></li>
 </ul>
 
-<div class="panel panel-default">
-	<div class="panel-heading">
-		<h3 class="panel-title">Service Authorizations</h3>
-	</div>
-	<table class="table">	
-		<thead>
-			<tr>
-				<th>ID</th>
-				<th>Authorized Entity</th>
-				<th>Service</th>
-				<th>Initiation Date</th>
-				<th>Expiration Date</th>
-				<th></th>
-			</tr>
-		</thead>
-		<tbody>
-			<%= render partial: "districts/services/service", collection: @district.services.items %>
-		</tbody>
-	</table>
-</div>
+<%= form_tag [:consent_form, @district], method: :get do %>
 
-<%= link_to glyph(:plus) + " Authorize another service", [:new, @district, :service], class: 'btn btn-default' %>
+	<div class="panel panel-default">
+		<div class="panel-heading">
+			<h3 class="panel-title">Service Authorizations</h3>
+		</div>
+		<table class="table">	
+			<thead>
+				<tr>
+					<th><%= check_box_tag "select_all" %></th>
+					<th>ID</th>
+					<th>Authorized Entity</th>
+					<th>Service</th>
+					<th>Initiation Date</th>
+					<th>Expiration Date</th>
+					<th></th>
+				</tr>
+			</thead>
+			<tbody>
+				<%= render partial: "districts/services/service", collection: @district.services.items %>
+			</tbody>
+		</table>
+	</div>
+
+	<%= link_to glyph(:plus) + " Authorize another service", [:new, @district, :service], class: 'btn btn-default' %>
+	<%= link_to_submit glyph(:edit) + " Generate consent form", class: 'btn btn-info pull-right hidden' %>
+	
+<% end %>

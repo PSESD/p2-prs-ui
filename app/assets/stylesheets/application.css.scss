@@ -93,3 +93,45 @@ iframe#wwwhisper-iframe {
 .inline {
   display: inline;
 }
+
+body.consent_form { 
+    
+    h1 {
+        font-size: 25px;
+    }
+    
+    h2 {
+        font-size: 22px;
+    }
+    input {
+        background: none;
+        border: none;
+        border-radius: 0;
+        border-bottom: 1px solid black;
+        box-shadow: none;
+    }
+    
+    .well {
+        border-color: black;
+    }
+    
+    footer {
+        display: none;
+    }
+    
+    img.district-logo {
+        max-height: 100px;
+    }
+        
+    @media print {
+        font-size: 10px;
+        
+        h1 {
+            font-size: 15px;
+        }
+        
+        h2 {
+            font-size: 12px;
+        }
+    }
+}

@@ -42,4 +42,9 @@ $( function() {
       autoclose: true
   });
   
+  $("a[data-submit]").on('click', function(event) {
+	  event.preventDefault();
+	  $( this ).closest('form').submit();
+  })
+  
 })

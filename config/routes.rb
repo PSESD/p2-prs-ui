@@ -12,6 +12,9 @@ Rails.application.routes.draw do
   
   # Districts
   resources :districts do
+    member do
+      get 'consent_form'
+    end
     resources :services, controller: "districts/services" do
       resources :students, controller: "districts/students" do
         collection do

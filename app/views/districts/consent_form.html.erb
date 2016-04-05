@@ -1,0 +1,114 @@
+<div class="row">
+	<div class="col-xs-2">
+		<img src="http://www.westseattleherald.com/sites/robinsonpapers.com/files/imagecache/3col/images/wwwwestseattleheraldcom/2012/09/seattlepublicschoolslogo.png" alt="Seattle Public Schools" class="district-logo">
+	</div>
+	<div class="col-xs-8 text-center">
+		<h1>Consent to Release of Education Records Under the Family Education Rights and Privacy Act (FERPA)</h1>
+		<h2><code>2015-2016</code> Approval</h2>
+	</div>
+	<div class="col-xs-2">
+		<select class="pull-right"><option>English</option></select>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-xs-12">
+		
+		<p>I consent to the release of my child’s education records from the <%= @district.name %> to the below listed <%= "CBO".pluralize(@services.count) %> and to the Puget Sound Educational Service District.</p>
+
+		<div class="well">
+			<ul>
+				<%- for service in @services -%>
+				<li>
+					<address>
+						<strong><%= service.authorizedEntityName %></strong><br>
+						<code>Contact Person</code><br>
+						<code>Contact Email/Phone</code><br>
+					</address>
+				</li>
+				<% end %>
+								
+				<li>
+					<address>
+						<strong>Puget Sound Educational Service District</strong><br>
+						Operator of the Student Success Link<br>
+						info@studentsuccesslink.org<br>
+					</address>
+				</li>
+			</ul>			
+		</div>
+
+		<p>I understand that education records include, but are not limited to:</p>
+
+		<div class="row">
+			<div class="col-xs-8 col-xs-offset-2">
+				<table class="table table-condensed">
+					<tbody>
+						<%- for dataSet in @dataSets.first -%>
+						<tr>
+							<td><strong><%= dataSet.dataSetName %></strong></td>
+							<td><%= dataSet.description %></td>
+						</tr>
+						<% end %>
+					</tbody>
+				</table>
+			</div>
+		</div>
+
+		<p>This release includes permission for the above-listed <%= "CBO".pluralize(@services.count) %> staff to access my child’s academic records using an automated data feed through <%= @district.name %>. This Release of Information will make the above-listed educational records, which includes historical student data, available to agency staff from the date of consenting signature until <code>December 31, 2016</code>.</p>
+
+		<p>I understand that the purpose of sharing these records is to keep the above-listed <%= "CBO".pluralize(@services.count) %> staff informed of my child’s academic program and progress. CBO staff will work with my child and/or his/her school in an effort to improve my child’s success at school. The Puget Sound Educational Service District will only be granted access to the above educational records for the purpose of hosting a secure database (“Student Success Link”) through which the above-listed <%= "CBO".pluralize(@services.count) %> may access data.  I further understand that the above-listed <%= "CBO".pluralize(@services.count) %> and Puget Sound Educational Service District may use de-identified student information, which cannot be connected to my child, for program planning, improvement and evaluation and grant applications and reporting. </p>
+
+		<p>I acknowledge that I may revoke this consent by sending a written notification to the <code>Seattle School District’s School & Community Partnership Department, MS: 32-159 P.O. Box 34165 Seattle, WA 98124.</code></p>
+
+		<p>I further give my consent for the above-listed <%= "CBO".pluralize(@services.count) %> to share in which of their programs my child participates with (1) <%= @district.name %> and (2) the other Student Success Link partners who also serve my child. A current list of all Student Success Link partners is available at <a href="studentsuccesslink.org/partners">studentsuccesslink.org/partners</a>. I acknowledge that I may revoke my consent to share my child’s program/services participation information by sending a written notification to help@studentsuccesslink.org or by mail to Puget Sound ESD, Personalized Learning Department, 800 Oakesdale Ave SW, Renton, WA 98057.</p>
+
+		<div class="well">
+			<p>I consent to <%= @district.name %> releasing information to the above listed <%= "CBO".pluralize(@services.count) %> and to the Puget Sound Educational Service District, and for the above-listed <%= "CBO".pluralize(@services.count) %> to share my child’s program participation information with the <%= @district.name %> and other Student Success Link partners (please print clearly):</p>
+
+			<form class="form-horizontal">
+				<div class="form-group">
+					<label class="col-sm-4 control-label">Parent/Guardian Signature (if youth is 17 or younger):</label>
+					<div class="col-sm-8"><input class="form-control"></div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-4 control-label">Parent/Guardian Printed Name:</label>
+					<div class="col-sm-8"><input class="form-control"></div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-4 control-label">Student’s Signature (if youth is 18 or older):</label>
+					<div class="col-sm-8"><input class="form-control"></div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-4 control-label">Today's Date:</label>
+					<div class="col-sm-8"><input class="form-control"></div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-4 control-label">PRINT Student's Name (First and Last Name):</label>
+					<div class="col-sm-8"><input class="form-control"></div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-4 control-label">Student Date of Birth:</label>
+					<div class="col-sm-8"><input class="form-control"></div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-4 control-label">Student's School:</label>
+					<div class="col-sm-8"><input class="form-control"></div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-4 control-label">Student School District ID #:</label>
+					<div class="col-sm-8">
+						<input class="form-control">
+						<span class="help-block">
+							Student ID # can be found on Student ASB card, report card, official
+							school mailing, or by contacting your student’s school.
+						</span>
+					</div>
+				</div>
+			</form>
+		</div>
+
+		<p>For more information please refer to <code><u>http://tinyurl.com/SPSPartnerships</u></code>.</p>
+	</div>
+	
+</div>
