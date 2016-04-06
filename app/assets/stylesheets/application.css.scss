@@ -96,6 +96,11 @@ iframe#wwwhisper-iframe {
 
 body.consent_form { 
     
+	section.page-header {
+		min-height: 70px;
+		margin-top: 0;
+	}
+	
     h1 {
         font-size: 25px;
     }
@@ -112,7 +117,8 @@ body.consent_form {
     }
     
     .well {
-        border-color: black;
+        border-color: #333;
+		padding: 10px 19px;
     }
     
     footer {
@@ -120,18 +126,67 @@ body.consent_form {
     }
     
     img.district-logo {
-        max-height: 100px;
+        max-height: 60px;
     }
+	
+	ul.services > li, ul.datasets > li {
+		width: 30%;
+		float: left;
+		padding-right: 20px;
+	}
+	
+	address {
+		margin-bottom: 0;
+	}
+	
+	.form-group {
+		margin-bottom: 0;
+		position: relative;
+		
+		label { 
+			padding: 0;
+			position: absolute;
+			bottom: 0;
+		}
+				
+		.input-container {
+			margin-left: 33%;
+		}
+		
+		.input-container.col-sm-7 {
+			margin-left: 42%;
+		}
+		
+		small {
+			display: block;
+			font-weight: normal;
+		}
+	}
+	
+	.help-block {
+		margin-top: 10px;
+		margin-bottom: 0;
+	}
         
     @media print {
         font-size: 10px;
         
         h1 {
-            font-size: 15px;
+            font-size: 16px;
+			margin-top: 0;
         }
         
         h2 {
             font-size: 12px;
+			margin-top: 5px;
         }
+		
+		select {
+			appearance: none !important;
+			-webkit-appearance: none;
+			font-variant: italic !important;
+			border: none !important;
+		}
+		
     }
 }
