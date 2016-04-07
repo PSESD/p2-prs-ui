@@ -1,0 +1,10 @@
+development:
+  clients:
+    default:
+      database: <%= ENV['MONGODB_DATABASE'] %>
+      hosts:
+        - <%= ENV['MONGODB_HOST'] %>
+      options:
+        user: "<%= ENV['MONGODB_CREDENTIALS'].split(':')[0] %>"
+        password: "<%= ENV['MONGODB_CREDENTIALS'].split(':')[1] %>"
+

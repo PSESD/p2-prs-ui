@@ -24,6 +24,16 @@ Rails.application.routes.draw do
     end
   end
   
+  # Student Success Link
+  namespace :student_success_link do
+    get '/', controller: "organizations", action: 'index'
+    resources :organizations do
+      member do
+        get 'new_user'
+      end
+    end
+  end
+  
   # Root URL
   root "districts#index"
 end

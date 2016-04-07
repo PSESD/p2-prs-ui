@@ -1,0 +1,14 @@
+<%- if o = @service.ssl_organization -%>
+	<%= link_to glyph(:link) + " Student Success Link Configuration", o, 
+			class: 'btn btn-success', "data-toggle" => "tooltip", "data-placement" => "bottom", :title => o.name %>
+<%- else -%>
+	<%= link_to glyph('ban-circle', "No") + " Student Success Link Configuration", 
+			new_student_success_link_organization_path(
+				student_success_link_organization: { 
+					name: @authorized_entity.name,
+					description: @service.description,
+					authorizedEntityId: @authorized_entity.id,
+					externalServiceId: @service.id
+				}), 
+			class: 'btn btn-default', "data-toggle" => "tooltip", "data-placement" => "bottom", :title => "Click to setup" %>
+<% end %>

@@ -1,4 +1,4 @@
-<%= link_to glyph("chevron-left") + ' Back', authorized_entities_path %>
+<%= breadcrumbs(:authorized_entities, @authorized_entity) %>
 
 <h1><%= @authorized_entity.name %></h1>
 
@@ -12,6 +12,7 @@
 				<th>ID</th>
 				<th>Name</th>
 				<th>Description</th>
+				<th>Student Success Link Domain</th>
 				<th colspan="2"></th>
 			</tr>
 		</thead>
@@ -22,3 +23,4 @@
 </div>
 
 <%= link_to glyph(:plus) + " Add Service", [:new, @authorized_entity, :service], class: 'btn btn-default' %>
+<%= raw_attributes @authorized_entity, class: "pull-right", title: "Raw Attributes" %>

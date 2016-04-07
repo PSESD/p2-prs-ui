@@ -2,6 +2,10 @@
 	<td><%= service.id %></td>
 	<td><%= link_to service.name, [@authorized_entity, service] %></td>
 	<td><%= service.description %></td>
+	<td><%- if o = service.ssl_organization -%>
+			<%= link_to glyph(:globe, 'Open URL') + o.url, o.full_url, target: "_blank" %>
+		<% end %>
+		</td>
 	<td><%= link_to glyph(:pencil, "Edit"), [:edit, @authorized_entity, service] %></td>
 	<td><%= link_to glyph(:trash, "Delete"), [@authorized_entity, service], method: :delete, data: { confirm: 'Are you sure?' } %></td>
 </tr>

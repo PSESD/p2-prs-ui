@@ -93,3 +93,7 @@ iframe#wwwhisper-iframe {
 .inline {
   display: inline;
 }
+
+a > .glyphicon, .label > .glyphicon {
+	margin-right: 0.35em;
+}
