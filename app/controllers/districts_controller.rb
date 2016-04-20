@@ -72,9 +72,12 @@ class DistrictsController < ApplicationController
     @dataSets = @services.collect{ |d| d.dataSets }
     return redirect_to(:back, alert: mismatched_datasets_alert) if @dataSets.collect{|d| d.collect(&:id) }.uniq.size > 1
     return redirect_to(:back, alert: mismatched_expiration_alert) if @services.collect(&:expirationDate).uniq.size > 1
-      
+    
+    @approval_range = [Date.today.year, @services.first.expirationDate.try(&:year)].uniq
     @body_class = "consent_form"
     @container_class = "container-fluid"
+    @services_title = (@services.size > 1) ? "Multiple Organizations" : @services.first.name
+    @page_title = "#{@approval_range.join("-")} CBO Parent/Guardian Consent Form - #{@services_title}"
   end
 
   private

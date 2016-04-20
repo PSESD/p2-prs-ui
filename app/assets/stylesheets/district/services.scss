@@ -4,8 +4,12 @@
 
 body.consent_form { 
   
+  .printable-form {
+    font-family: "Times New Roman", "Times", serif;
+  }
+  
   @media screen {
-    > .container-fluid, .container {
+    .printable-form {
       margin: 0 auto;
       max-width: 1100px;
       border: 1px solid #dadada;
@@ -25,6 +29,7 @@ body.consent_form {
   
   h2 {
     font-size: 22px;
+    font-weight: bold;
   }
   
   h3.district-title {
@@ -36,6 +41,7 @@ body.consent_form {
     text-transform: uppercase;
     font-weight: normal;
     margin-top: 3px;
+    font-family: sans-serif;
   }
   
   input {
@@ -111,6 +117,10 @@ body.consent_form {
   @media print {
     font-size: 10px;
     
+    .intro {
+      display: none;
+    }
+    
     h1 {
       font-size: 16px;
       margin-top: 0;
@@ -129,6 +139,10 @@ body.consent_form {
     }
     
     iframe#wwwhisper-iframe {
+      display: none;
+    }
+    
+    #flashes {
       display: none;
     }
     
