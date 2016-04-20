@@ -5,5 +5,5 @@ development:
       hosts:
         - <%= ENV['MONGODB_HOST'] %>
       options:
-        user: "<%= ENV['MONGODB_CREDENTIALS'].split(':')[0] %>"
-        password: "<%= ENV['MONGODB_CREDENTIALS'].split(':')[1] %>"
+        user: "<%= ENV['MONGODB_CREDENTIALS'].try(:split, ':').try(:[], 0) %>"
+        password: "<%= ENV['MONGODB_CREDENTIALS'].try(:split, ':').try(:[], 1) %>"
