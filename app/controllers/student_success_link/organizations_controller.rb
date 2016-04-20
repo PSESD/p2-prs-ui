@@ -1,5 +1,5 @@
 class StudentSuccessLink::OrganizationsController < ApplicationController
-  before_action :set_organization, only: [:show, :edit, :update, :destroy]
+  before_action :set_organization, only: [:show, :edit, :update, :destroy, :add_admin_user]
 
   # GET /student_success_link/organizations
   # GET /student_success_link/organizations.json
@@ -15,8 +15,6 @@ class StudentSuccessLink::OrganizationsController < ApplicationController
   # GET /student_success_link/organizations/new
   def new
     @organization = StudentSuccessLink::Organization.new(organization_params)
-    # @organization.authorizedEntityId = params[:authorizedEntityId] if params[:authorizedEntityId]
-    # @organization.externalServiceId = params[:externalServiceId] if params[:externalServiceId]
   end
 
   # GET /student_success_link/organizations/1/edit
@@ -60,6 +58,21 @@ class StudentSuccessLink::OrganizationsController < ApplicationController
     respond_to do |format|
       format.html { redirect_to student_success_link_organizations_url, notice: 'Organization was successfully destroyed.' }
       format.json { head :no_content }
+    end
+  end
+  
+  def add_admin_user
+    @user = StudentSuccessLink::User.find(params[:user_id])
+    
+    respond_to do |format|
+      if @organization.add_admin_user(@user)
+        format.html { redirect_to @organization, notice: 'User was added successfully.' }
+        format.json { render json: @organization }
+      else
+        flash[:error] = "Could not add admin user: #{@user.errors.full_messages.join(", ")}"
+        format.html { render :show }
+        format.json { render json: @user.errors, status: :unprocessable_entity }
+      end
     end
   end
 

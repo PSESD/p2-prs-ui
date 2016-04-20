@@ -14,16 +14,20 @@
 		<%= render "layouts/nav" %>
 	</header>
 
-	<div id="flashes">
-		<% flash.each do |type, message| %>
-		<div class="alert <%= alert_class_for(type) %> alert-dismissible fade in">
-			<button type="button" class="close" aria-label="Close" data-dismiss="alert"><span aria-hidden="true">&times;</span></button>
-			<%= message %>
-		</div>
-		<% end %>
-	</div>
-
 	<div class="container">
+    <section id="breadcrumbs-container"
+      <%= yield(:breadcrumbs) %>
+    </section>
+    
+    <div id="flashes">
+      <% flash.each do |type, message| %>
+      <div class="alert <%= alert_class_for(type) %> alert-dismissible fade in">
+        <button type="button" class="close" aria-label="Close" data-dismiss="alert"><span aria-hidden="true">&times;</span></button>
+        <%= message %>
+      </div>
+      <% end %>
+    </div>
+
 		<%= yield %>
 
 		<footer>

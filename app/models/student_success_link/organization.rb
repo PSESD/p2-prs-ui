@@ -40,4 +40,14 @@ class StudentSuccessLink::Organization
     StudentSuccessLink::User.where({ "permissions.role" => "admin", "permissions.organization" => id })
   end
   
+  def add_admin_user(user)
+    user.permissions.new(
+      organization: id,
+      activateStatus: "Active",
+      activate: true,
+      role: "admin"
+    )
+    user.save
+  end
+  
 end

@@ -7,4 +7,3 @@ development:
       options:
         user: "<%= ENV['MONGODB_CREDENTIALS'].split(':')[0] %>"
         password: "<%= ENV['MONGODB_CREDENTIALS'].split(':')[1] %>"
-

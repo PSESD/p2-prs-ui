@@ -65,7 +65,7 @@
 				</tbody>
 			</table>
 			<div class="panel-footer">
-				<%= link_to glyph("plus") + "Assign another user", "#", 'data-url' => url_for([:new_user, @organization]), 'data-toggle' => "modal", 'data-target' => "#addUserModal", class: 'btn btn-default' %>
+				<%= link_to glyph("plus") + "Assign another user", "#", 'data-url' => student_success_link_users_path, 'data-toggle' => "modal", 'data-target' => "#addUserModal", class: 'btn btn-default' %>
 			</div>
 		</div>
 	</div>

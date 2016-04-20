@@ -29,9 +29,10 @@ Rails.application.routes.draw do
     get '/', controller: "organizations", action: 'index'
     resources :organizations do
       member do
-        get 'new_user'
+        post 'add_admin_user'
       end
     end
+    resources :users
   end
   
   # Root URL
