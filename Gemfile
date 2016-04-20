@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 ruby '2.1.6'
 
 gem 'rails', '4.2.1'
-# gem 'sqlite3'
+gem 'dotenv-rails', :groups => [:development, :test]
 gem 'sass-rails', '~> 5.0'
 gem 'uglifier', '>= 1.3.0'
 gem 'coffee-rails', '~> 4.1.0'
@@ -21,12 +21,14 @@ gem 'resque'
 gem 'resque-rollbar'
 gem 'resque-status'
 gem 'bundler-audit'
+gem 'mongoid'
 
 group :development, :test do
   gem 'dotenv'
   gem 'byebug'
   gem 'web-console', '~> 2.0'
   gem 'spring'
+  gem 'awesome_print'
 end
 
 group :production do
@@ -34,4 +36,3 @@ group :production do
   gem 'rails_12factor'
   gem 'puma'
 end
-

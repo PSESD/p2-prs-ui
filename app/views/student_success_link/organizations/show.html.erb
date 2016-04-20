@@ -1,0 +1,76 @@
+<%= breadcrumbs("Student Success Link", [:student_success_link, :organizations], @organization) %>
+
+<div class="pull-right">
+	<%= link_to glyph(:pencil, "Edit") + " Edit", [:edit, @organization], class: 'btn btn-primary' %>
+	<%= link_to glyph('share-alt') + " Open in Student Success Link", @organization.full_url, target: "_blank", class: 'btn btn-success' %>
+</div>
+
+<h1><%= @organization.name %></h1>
+<p class="description"><%= @organization.description %></p>
+
+<div class="row">
+	<div class="col-md-6">
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<%= raw_attributes @organization.attributes, class: "pull-right" %>
+				<h3 class="panel-title">Attributes</h3>
+			</div>
+			<dl class="list-group dl-horizontal">
+				<div class="list-group-item">
+					<dt>Authorized Entity</dt>
+					<dd><%= link_to @organization.authorized_entity.try(:name), @organization.authorized_entity %>
+						<small class="text-muted">#<%= @organization.authorizedEntityId %></small>
+					</dd>
+				</div>
+				<div class="list-group-item">
+					<dt>External Service</dt>
+					<dd><%= link_to @organization.authorized_entity_service.try(:name), [@organization.authorized_entity, @organization.authorized_entity_service] %>
+						<small class="text-muted">#<%= @organization.externalServiceId %></small>
+					</dd>
+				</div>
+				<%- if @organization.website_url -%>
+					<div class="list-group-item">
+						<dt>Website</dt>
+						<dd><%= link_to glyph(:globe) + @organization.website, @organization.website_url %></dd>
+					</div>
+				<% end %>
+				<div class="list-group-item">
+					<dt>Student Success Link Domain</dt>
+					<dd><%= link_to glyph('share-alt') + @organization.url, @organization.full_url %></dd>
+				</div>
+			</dl>
+		</div>
+	</div>
+	<div class="col-md-6">
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<%= raw_attributes @organization.admin_users.entries, class: "pull-right" %>
+				
+				<h3 class="panel-title">Admin Users</h3>
+			</div>			
+			<table class="table">
+				<thead>
+					<tr>
+						<th>Name</th>
+						<th>Email</th>
+					</tr>
+				</thead>
+				<tbody>
+					<%- for user in @organization.admin_users -%>
+					<tr>
+						<td><%= user.full_name %></td>
+						<td><%= user.email %></td>
+					</tr>
+					<% end %>
+				</tbody>
+			</table>
+			<div class="panel-footer">
+				<%= link_to glyph("plus") + "Assign another user", "#", 'data-url' => student_success_link_users_path, 'data-toggle' => "modal", 'data-target' => "#addUserModal", class: 'btn btn-default' %>
+			</div>
+		</div>
+	</div>
+</div>
+
+<%= render partial: "new_user_form", layout: "layouts/modal", locals: { 
+		id: "addUserModal", title: "Assign another user", dialog_class: "modal-dialog"
+	} %>

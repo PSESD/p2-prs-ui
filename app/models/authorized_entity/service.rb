@@ -29,5 +29,14 @@ class AuthorizedEntity::Service < PrsModel
     end
     @district_services
   end
+
+  # Returns the associated Organization record that's setup for this Service in 
+  # Student Success Link, matched by +authorizedEntityId+ and +externalServiceId+. 
+  # Returns +nil+ if no matching record is found.
+  def ssl_organization
+    @ssl_organization ||= StudentSuccessLink::Organization.find_by(authorizedEntityId: authorizedEntityId, externalServiceId: id)
+  rescue Mongoid::Errors::DocumentNotFound => e
+    @ssl_organization ||= nil
+  end
   
 end

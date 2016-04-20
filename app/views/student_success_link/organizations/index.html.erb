@@ -1,0 +1,38 @@
+<%= breadcrumbs "Student Success Link" %>
+
+<h1>Organizations</h1>
+
+<table class="table">
+	<thead>
+		<tr>
+			<th>Name</th>
+			<th>Student Success Link Domain</th>
+			<th>Authorized Entity</th>
+			<th>External Service</th>
+			<th colspan="2"></th>
+		</tr>
+	</thead>
+
+	<tbody>
+		<% @organizations.each do |organization| %>
+		<tr>
+			<td><%= link_to organization.name, organization %>
+			<td><%= link_to organization.full_url, organization.full_url %></td>
+			<td>
+				<%= link_to organization.authorized_entity.try(:name), organization.authorized_entity if organization.authorized_entity %>
+				<small class="text-muted">#<%= organization[:authorizedEntityId] %></small>
+			</td>
+			<td>
+				<%= link_to organization.authorized_entity_service.try(:name), [organization.authorized_entity, organization.authorized_entity_service] if organization.authorized_entity && organization.authorized_entity_service %>
+				<small class="text-muted">#<%= organization[:externalServiceId] %></small>
+			</td>
+			<td><%= link_to glyph(:pencil, 'Edit'), [:edit, organization] %></td>
+			<td><%= link_to glyph(:trash, 'Destroy'), organization, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+		</tr>
+		<% end %>
+	</tbody>
+</table>
+
+<br>
+
+<%= link_to glyph(:plus) + ' New Authorized Entity', new_student_success_link_organization_path, class: 'btn btn-default' %>
