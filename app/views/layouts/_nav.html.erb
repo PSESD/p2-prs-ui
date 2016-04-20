@@ -13,7 +13,7 @@
 		<!-- Collect the nav links, forms, and other content for toggling -->
 		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 			<ul class="nav navbar-nav">
-				<%- for section in %w[districts authorized_entities data_sets] -%>
+				<%- for section in %w[districts authorized_entities data_sets student_success_link] -%>
 					<%= content_tag :li, class: ("active" if controller.class.to_s.underscore.include?(section)) do %>
 						<%= link_to section.titleize, instance_eval("#{section}_path") %>
 					<% end %>

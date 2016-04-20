@@ -1,20 +1,20 @@
 /*
- * This is a manifest file that'll be compiled into application.css, which will include all the files
- * listed below.
- *
- * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
- * or any plugin's vendor/assets/stylesheets directory can be referenced here using a relative path.
- *
- * You're free to add application-wide styles to this file and they'll appear at the bottom of the
- * compiled file so the styles you add here take precedence over styles defined in any styles
- * defined in the other CSS/SCSS files in this directory. It is generally better to create a new
- * file per style scope.
- *
- *= require_tree .
- *= require nprogress
- *= require nprogress-bootstrap
- *= require_self
- */
+* This is a manifest file that'll be compiled into application.css, which will include all the files
+* listed below.
+*
+* Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
+* or any plugin's vendor/assets/stylesheets directory can be referenced here using a relative path.
+*
+* You're free to add application-wide styles to this file and they'll appear at the bottom of the
+* compiled file so the styles you add here take precedence over styles defined in any styles
+* defined in the other CSS/SCSS files in this directory. It is generally better to create a new
+* file per style scope.
+*
+*= require_tree .
+*= require nprogress
+*= require nprogress-bootstrap
+*= require_self
+*/
 
 @import "bootstrap-sprockets";
 @import "bootstrap";
@@ -45,7 +45,7 @@ input[type=submit] {
 }
 
 ul.attribute-summary > li {
-
+  
   strong {
     color: #888;
   }
@@ -66,18 +66,18 @@ td.name > a {
 }
 
 .spinning {
-    animation: spin 1s infinite linear;
-    -webkit-animation: spin2 1s infinite linear;
+  animation: spin 1s infinite linear;
+  -webkit-animation: spin2 1s infinite linear;
 }
 
 @keyframes spin {
-    from { transform: scale(1) rotate(0deg); }
-    to { transform: scale(1) rotate(360deg); }
+  from { transform: scale(1) rotate(0deg); }
+  to { transform: scale(1) rotate(360deg); }
 }
 
 @-webkit-keyframes spin2 {
-    from { -webkit-transform: rotate(0deg); }
-    to { -webkit-transform: rotate(360deg); }
+  from { -webkit-transform: rotate(0deg); }
+  to { -webkit-transform: rotate(360deg); }
 }
 
 iframe#wwwhisper-iframe {
@@ -94,99 +94,103 @@ iframe#wwwhisper-iframe {
   display: inline;
 }
 
+a > .glyphicon, .label > .glyphicon {
+  margin-right: 0.35em;
+}
+
 body.consent_form { 
+  
+  section.page-header {
+    min-height: 70px;
+    margin-top: 0;
+  }
+  
+  h1 {
+    font-size: 25px;
+  }
+  
+  h2 {
+    font-size: 22px;
+  }
+  input {
+    background: none;
+    border: none;
+    border-radius: 0;
+    border-bottom: 1px solid black;
+    box-shadow: none;
+  }
+  
+  .well {
+    border-color: #333;
+    padding: 10px 19px;
+  }
+  
+  footer {
+    display: none;
+  }
+  
+  img.district-logo {
+    max-height: 60px;
+  }
+  
+  ul.services > li, ul.datasets > li {
+    width: 30%;
+    float: left;
+    padding-right: 20px;
+  }
+  
+  address {
+    margin-bottom: 0;
+  }
+  
+  .form-group {
+    margin-bottom: 0;
+    position: relative;
     
-	section.page-header {
-		min-height: 70px;
-		margin-top: 0;
-	}
-	
+    label { 
+      padding: 0;
+      position: absolute;
+      bottom: 0;
+    }
+    
+    .input-container {
+      margin-left: 33%;
+    }
+    
+    .input-container.col-sm-7 {
+      margin-left: 42%;
+    }
+    
+    small {
+      display: block;
+      font-weight: normal;
+    }
+  }
+  
+  .help-block {
+    margin-top: 10px;
+    margin-bottom: 0;
+  }
+  
+  @media print {
+    font-size: 10px;
+    
     h1 {
-        font-size: 25px;
+      font-size: 16px;
+      margin-top: 0;
     }
     
     h2 {
-        font-size: 22px;
-    }
-    input {
-        background: none;
-        border: none;
-        border-radius: 0;
-        border-bottom: 1px solid black;
-        box-shadow: none;
+      font-size: 12px;
+      margin-top: 5px;
     }
     
-    .well {
-        border-color: #333;
-		padding: 10px 19px;
+    select {
+      appearance: none !important;
+      -webkit-appearance: none;
+      font-variant: italic !important;
+      border: none !important;
     }
     
-    footer {
-        display: none;
-    }
-    
-    img.district-logo {
-        max-height: 60px;
-    }
-	
-	ul.services > li, ul.datasets > li {
-		width: 30%;
-		float: left;
-		padding-right: 20px;
-	}
-	
-	address {
-		margin-bottom: 0;
-	}
-	
-	.form-group {
-		margin-bottom: 0;
-		position: relative;
-		
-		label { 
-			padding: 0;
-			position: absolute;
-			bottom: 0;
-		}
-				
-		.input-container {
-			margin-left: 33%;
-		}
-		
-		.input-container.col-sm-7 {
-			margin-left: 42%;
-		}
-		
-		small {
-			display: block;
-			font-weight: normal;
-		}
-	}
-	
-	.help-block {
-		margin-top: 10px;
-		margin-bottom: 0;
-	}
-        
-    @media print {
-        font-size: 10px;
-        
-        h1 {
-            font-size: 16px;
-			margin-top: 0;
-        }
-        
-        h2 {
-            font-size: 12px;
-			margin-top: 5px;
-        }
-		
-		select {
-			appearance: none !important;
-			-webkit-appearance: none;
-			font-variant: italic !important;
-			border: none !important;
-		}
-		
-    }
+  }
 }

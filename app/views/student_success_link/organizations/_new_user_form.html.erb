@@ -1,0 +1,9 @@
+<p>Select an existing Student Success Link user to become an admin for <%= @organization.name %>:</p>
+
+<%= form_tag add_admin_user_student_success_link_organization_path(@organization.id) do %>
+  <div class="form-group">
+    <label for="user_id">User</label>
+    <select class="form-control" name="user_id" id="user_id" placeholder="Select User"></select>
+  </div>
+  <button type="submit" class="btn btn-primary">Add User to <%= @organization.name %></button>
+<% end %>

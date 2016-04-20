@@ -1,0 +1,2 @@
+module StudentSuccessLink::OrganizationsHelper
+end
