@@ -1,3 +1,5 @@
+<%= breadcrumbs(:districts, @district, "CBO Parent/Guardian Consent Form") %>
+
 <section class="intro">
 	<h1>Your Parent/Guardian Consent Form</h1>
 	<p>
@@ -22,7 +24,7 @@
 
 	<div class="row">
 		<div class="col-xs-12">
-			<div class="well clearfix <%= "less-than-three" if @services.size < 3 %>">
+			<div class="well clearfix <%= "less-than-three" if @services.size < 2 %>">
 				<ul class="services">
 					<%- for service in @services -%>
 					<li>

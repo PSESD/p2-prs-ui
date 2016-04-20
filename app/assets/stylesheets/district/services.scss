@@ -138,11 +138,7 @@ body.consent_form {
       border: none !important;
     }
     
-    iframe#wwwhisper-iframe {
-      display: none;
-    }
-    
-    #flashes {
+    #breadcrumbs-container, #flashes, iframe#wwwhisper-iframe {
       display: none;
     }
     
