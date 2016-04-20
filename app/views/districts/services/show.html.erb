@@ -49,7 +49,7 @@
 			<div class="panel-body">
 				<p><%= @service.name %> is allowed to access these data sets from <%= @district.name %>:</p>
 				
-				<%= @service.dataSets.collect{ |dataset| link_to(h(dataset.dataSetName), data_set_path(dataset)) }.join(", ").html_safe %>
+				<%= safe_join(@service.dataSets.collect{ |dataset| link_to(h(dataset.dataSetName), data_set_path(dataset)) }, ", ") %>
 			</div>
 		</div>
 	</div>
