@@ -1,9 +1,12 @@
 development:
   clients:
     default:
-      database: <%= ENV['MONGODB_DATABASE'] %>
-      hosts:
-        - <%= ENV['MONGODB_HOST'] %>
-      options:
-        user: "<%= ENV['MONGODB_CREDENTIALS'].try(:split, ':').try(:[], 0) %>"
-        password: "<%= ENV['MONGODB_CREDENTIALS'].try(:split, ':').try(:[], 1) %>"
+      uri: <%= ENV['MONGODB_URL'] %>
+test:
+  clients:
+    default:
+      uri: <%= ENV['MONGODB_URL'] %>
+production:
+  clients:
+    default:
+      uri: <%= ENV['MONGODB_URL'] %>
