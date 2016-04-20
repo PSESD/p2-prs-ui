@@ -1,9 +1,11 @@
 <%= breadcrumbs(:districts, @district, [@district, @service]) %>
 
-<%= link_to glyph(:pencil) + " Edit", [:edit, @district, @service], class: 'btn btn-primary pull-right' %>
+<div class="pull-right">
+	<%= link_to glyph(:pencil) + " Edit", [:edit, @district, @service], class: 'btn btn-primary' %>
+	<%= link_to glyph(:edit) + " Consent form", [:consent_form, @district, services: [@service.id]], class: 'btn btn-info' %>
+</div>
 
 <h1><%= @service.name %> <small>#<%= @service.externalServiceId %></small></h1>
-
 
 <div class="row">
 	<div class="col-md-6">
