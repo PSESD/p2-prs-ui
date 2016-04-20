@@ -25,13 +25,15 @@ gem 'bundler-audit'
 gem 'mongoid'
 gem 'bcrypt'
 
+group :development do
+  gem 'web-console'
+end
+
 group :development, :test do
   gem 'dotenv'
   gem 'byebug'
-  gem 'web-console'
   gem 'spring'
   gem 'awesome_print'
-
   gem 'pronto'
   gem 'pronto-rubocop', require: false
   gem 'pronto-brakeman', require: false
