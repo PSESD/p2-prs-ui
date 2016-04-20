@@ -1,3 +1,146 @@
 // Place all the styles related to the District::Services controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+body.consent_form { 
+  
+  .printable-form {
+    font-family: "Times New Roman", "Times", serif;
+  }
+  
+  @media screen {
+    .printable-form {
+      margin: 0 auto;
+      max-width: 1100px;
+      border: 1px solid #dadada;
+      padding: 3em;
+      box-shadow: 1px 2px 5px rgba(0,0,0,0.25);
+    }
+  }
+  
+  section.page-header {
+    min-height: 70px;
+    margin-top: 0;
+  }
+  
+  h1 {
+    font-size: 25px;
+  }
+  
+  h2 {
+    font-size: 22px;
+    font-weight: bold;
+  }
+  
+  h3.district-title {
+    font-size: 10px;
+    padding: 0.25em 3em;
+    border: 1px solid #555;
+    border-radius: 3px;
+    display: inline-block;
+    text-transform: uppercase;
+    font-weight: normal;
+    margin-top: 3px;
+    font-family: sans-serif;
+  }
+  
+  input {
+    background: none;
+    border: none;
+    border-radius: 0;
+    border-bottom: 1px solid black;
+    box-shadow: none;
+  }
+  
+  .well {
+    border-color: #dadada;
+    padding: 10px 19px;
+  }
+    
+  .well.less-than-three {
+    width: 70%;
+    margin-left: auto;
+    margin-right: auto;
+    
+    ul.services > li {
+      width: 50%;
+    }
+  }
+  
+  footer {
+    display: none;
+  }
+  
+  img.district-logo {
+    max-height: 60px;
+  }
+  
+  ul.services > li, ul.datasets > li {
+    width: 30%;
+    float: left;
+    padding-right: 20px;
+  }
+    
+  address {
+    margin-bottom: 0;
+  }
+  
+  .form-group {
+    margin-bottom: 0;
+    position: relative;
+    
+    label { 
+      padding: 0;
+      position: absolute;
+      bottom: 0;
+    }
+    
+    .input-container {
+      margin-left: 33%;
+    }
+    
+    .input-container.col-sm-7 {
+      margin-left: 42%;
+    }
+    
+    small {
+      display: block;
+      font-weight: normal;
+    }
+  }
+  
+  .help-block {
+    margin-top: 10px;
+    margin-bottom: 0;
+  }
+  
+  @media print {
+    font-size: 10px;
+    
+    .intro {
+      display: none;
+    }
+    
+    h1 {
+      font-size: 16px;
+      margin-top: 0;
+    }
+    
+    h2 {
+      font-size: 12px;
+      margin-top: 5px;
+    }
+    
+    select {
+      appearance: none !important;
+      -webkit-appearance: none;
+      font-variant: italic !important;
+      border: none !important;
+    }
+    
+    #breadcrumbs-container, #flashes, iframe#wwwhisper-iframe {
+      display: none;
+    }
+    
+  }
+}

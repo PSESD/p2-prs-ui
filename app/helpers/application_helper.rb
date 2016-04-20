@@ -2,7 +2,11 @@ module ApplicationHelper
   
   # Simple wrapper for inserting a glyphicon
   def glyph(key, text = "", options = {})
-    content_tag(:span, "", { :class => "glyphicon glyphicon-#{key.to_s} #{options[:class]}", "aria-hidden" => "true", "aria-label" => text } )
+    content_tag(:span, "", { 
+      :class => "glyphicon glyphicon-#{h(key.to_s)} #{h(options[:class])}",
+      "aria-hidden" => "true", 
+      "aria-label" => h(text) 
+    } )
   end
   
   def alert_class_for(flash_type)
@@ -42,7 +46,8 @@ module ApplicationHelper
           elsif arg.is_a?(Symbol)
             concat content_tag(:li, link_to(arg.to_s.titleize, arg))
           elsif arg.is_a?(Array)
-            concat content_tag(:li, link_to(arg.last.to_s.titleize, arg))
+            title = arg.last.is_a?(Symbol) ? arg.last.to_s.titleize : guess_label_text(arg.last)
+            concat content_tag(:li, link_to(title, arg))
           elsif arg.is_a?(ActiveRestClient::ResultIterator)
             concat(content_tag(:li, class: "dropdown") do
               concat(content_tag(:a, :class => "dropdown-toggle", "data-toggle" => "dropdown") do
@@ -79,5 +84,9 @@ module ApplicationHelper
       locals: { id: dom_id, title: "Raw Attributes", dialog_class: 'modal-lg' })
   end
   
+  
+  def link_to_submit(*args, &block)
+    link_to (block_given? ? capture(&block) : args[0]), "#", { data: { submit: true } }.merge(args.extract_options!)
+  end
   
 end
