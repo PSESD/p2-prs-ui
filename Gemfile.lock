@@ -42,6 +42,7 @@ GEM
       thread_safe (~> 0.3, >= 0.3.4)
       tzinfo (~> 1.1)
     addressable (2.4.0)
+    ansi (1.5.0)
     arel (6.0.3)
     ast (2.2.0)
     autoprefixer-rails (6.3.6)
@@ -125,6 +126,11 @@ GEM
     mime-types-data (3.2016.0221)
     mini_portile2 (2.0.0)
     minitest (5.8.4)
+    minitest-reporters (1.1.8)
+      ansi
+      builder
+      minitest (>= 5.0)
+      ruby-progressbar
     mongo (2.2.4)
       bson (~> 4.0)
     mongoid (5.1.2)
@@ -314,6 +320,8 @@ DEPENDENCIES
   jbuilder
   jquery-rails
   jquery-turbolinks
+  minitest
+  minitest-reporters
   mongoid
   nprogress-rails
   pronto

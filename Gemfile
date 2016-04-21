@@ -29,6 +29,11 @@ group :development do
   gem 'web-console'
 end
 
+group :test do
+  gem 'minitest'
+  gem 'minitest-reporters'
+end
+
 group :development, :test do
   gem 'dotenv'
   gem 'byebug'

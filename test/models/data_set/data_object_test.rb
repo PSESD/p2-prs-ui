@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class Districts::StudentTest < ActiveSupport::TestCase
+class DataSet::DataObjectTest < ActiveSupport::TestCase
   # test "the truth" do
   #   assert true
   # end

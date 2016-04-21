@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class DistrictServiceTest < ActiveSupport::TestCase
+class District::StudentTest < ActiveSupport::TestCase
   # test "the truth" do
   #   assert true
   # end
