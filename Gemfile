@@ -32,7 +32,7 @@ end
 group :test do
   gem 'minitest'
   gem 'minitest-reporters'
-  gem 'minitest-ci', :git => 'git@github.com:circleci/minitest-ci.git'
+  gem 'minitest-ci', git: 'git@github.com:circleci/minitest-ci.git'
 end
 
 group :development, :test do
