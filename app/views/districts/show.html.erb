@@ -1,19 +1,26 @@
 <%= breadcrumbs(:districts, @district) %>
 
+<div class="pull-right">
+	<%= link_to glyph(:pencil, "Edit") + " Edit", [:edit, @district], class: 'btn btn-primary' %>
+</div>
+
 <h1><%= @district.name %></h1>
+<%= raw_attributes @district, class: "pull-right", title: "Raw Attributes" %>
+
 <ul class="list-inline attribute-summary">
-  <li><strong>District ID:</strong> 		<%= @district.id %></li>
-  <li><strong>NCES LEA Code:</strong> 		<%= @district.ncesleaCode %></li>
-  <li><strong>Zone ID:</strong> 			<samp><%= @district.zoneID %></samp></li>
+  <li><strong>District ID:</strong>			<%= @district.id %></li>
+  <li><strong>NCES LEA Code:</strong>		<%= @district.ncesleaCode %></li>
+  <li><strong>Zone ID:</strong>					<samp><%= @district.zoneID %></samp></li>
+	<li><strong>Main Contact:</strong>		<%= contact_information(@district.mainContact) %></li>
 </ul>
 
-<%= form_tag [:consent_form, @district], method: :get do %>
 
+<%= form_tag [:consent_form, @district], method: :get do %>
 	<div class="panel panel-default">
 		<div class="panel-heading">
 			<h3 class="panel-title">Service Authorizations</h3>
 		</div>
-		<table class="table">	
+		<table class="table">
 			<thead>
 				<tr>
 					<th><%= check_box_tag "select_all" %></th>
@@ -32,6 +39,5 @@
 	</div>
 
 	<%= link_to glyph(:plus) + " Authorize another service", [:new, @district, :service], class: 'btn btn-default' %>
-	<%= link_to_submit glyph(:edit) + " Generate consent form", class: 'btn btn-info pull-right hidden' %>
-	
+  <%= link_to_submit glyph(:edit) + " Generate consent form", class: 'btn btn-info pull-right disabled' %>
 <% end %>

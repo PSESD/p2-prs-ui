@@ -69,6 +69,6 @@ class AuthorizedEntitiesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def authorized_entity_params
-      params.require(:authorized_entity).permit(:authorizedEntityName)
+      params.require(:authorized_entity).permit(:authorizedEntityName, { mainContact: %w[name title email phone mailingAddress webAddress] })
     end
 end

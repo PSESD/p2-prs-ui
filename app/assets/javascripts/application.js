@@ -22,6 +22,18 @@
 $( function() {
   $('[data-toggle="tooltip"]').tooltip()
   
+  $('[data-toggle="html-popover"]').popover({
+    html: true,
+    content: function() {
+      var content = $(this).attr("data-source")
+      return $(content).children("section").html()
+    },
+    title: function() {
+      var title = $(this).attr("data-source")
+      return $(title).children("summary").html()
+    }
+  })
+  
   $('#filtersModal').on('show.bs.modal', function (event) {
     var button = $(event.relatedTarget)
     var url = button.data('url')

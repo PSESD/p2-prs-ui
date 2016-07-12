@@ -2,7 +2,7 @@ class District < PrsModel
   verbose true if Rails.env.development?
 
   get :all, "/districts"
-  get :find, "/districts/:id", :has_many => { :services => District::Service }
+  get :find, "/districts/:id", :has_many => { :services => District::Service }, :has_one => { :mainContact => Contact }
   put :save, "/districts/:id"
   post :create, "/districts"
   delete :destroy, "/districts/:id"

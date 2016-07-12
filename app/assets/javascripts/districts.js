@@ -9,7 +9,7 @@ $(function() {
 	
 	$('input:checkbox').change(function(event) {
 		var form = $(this).closest('form')
-		form.find("a[data-submit]").toggleClass('hidden', form.find("input:checkbox:checked").length == 0)
+		form.find("a[data-submit]").toggleClass('disabled', form.find("input:checkbox:checked").length == 0)
 	})
 	
 	

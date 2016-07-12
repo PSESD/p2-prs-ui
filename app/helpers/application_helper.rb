@@ -2,10 +2,10 @@ module ApplicationHelper
   
   # Simple wrapper for inserting a glyphicon
   def glyph(key, text = "", options = {})
-    content_tag(:span, "", { 
+    content_tag(:span, "", {
       :class => "glyphicon glyphicon-#{h(key.to_s)} #{h(options[:class])}",
-      "aria-hidden" => "true", 
-      "aria-label" => h(text) 
+      "aria-hidden" => "true",
+      "aria-label" => h(text)
     } )
   end
   
@@ -65,7 +65,7 @@ module ApplicationHelper
             concat content_tag(:li, link_to(guess_label_text(arg), arg))
           end
         end
-      end    
+      end
     end
   end
   
@@ -77,13 +77,24 @@ module ApplicationHelper
 
   # Provides a link to display the raw attributes provided in a modal.
   def raw_attributes(object, options = {})
+    return "" unless Rails.env.development?
     dom_id = "rawAttributesModal_#{object.hash}"
     options.merge!({ "data-toggle" => "modal", "data-target" =>  "##{dom_id}" })
     link_to(glyph('list-alt') + options[:title], "#", options) + render(
-      partial: "layouts/raw_attributes", layout: "layouts/modal", object: object, 
+      partial: "layouts/raw_attributes", layout: "layouts/modal", object: object,
       locals: { id: dom_id, title: "Raw Attributes", dialog_class: 'modal-lg' })
   end
-  
+
+  # Displays the contact information in a popover.
+  def contact_information(contact, options = {})
+    dom_id = "contactInformationPopover_#{contact.hash}"
+    options.merge!({ role: "button", tabindex: 0, data: { toggle: "html-popover", trigger: "focus", source: "##{dom_id}" }})
+    name_element = contact.try(:name).blank? ? "None" : contact.name
+    link_to(name_element, "#", options) + render(
+      partial: "layouts/contact_details", layout: "layouts/popover", object: contact,
+      locals: { id: dom_id, title: (options[:title] || "Contact Information") }
+    )
+  end
   
   def link_to_submit(*args, &block)
     link_to (block_given? ? capture(&block) : args[0]), "#", { data: { submit: true } }.merge(args.extract_options!)

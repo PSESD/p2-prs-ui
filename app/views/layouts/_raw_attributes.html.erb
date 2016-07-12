@@ -1,1 +1,1 @@
-<pre><%= CodeRay.scan(h(raw_attributes.to_yaml), :yaml).html(wrap: nil, css: :style).html_safe %></pre>
+<pre><%= CodeRay.scan(JSON.pretty_generate(JSON.parse(raw_attributes.to_json)), :json).html(wrap: nil, css: :style).html_safe %></pre>

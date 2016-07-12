@@ -97,3 +97,24 @@ iframe#wwwhisper-iframe {
 a > .glyphicon, .label > .glyphicon {
   margin-right: 0.35em;
 }
+
+.popover dl.contact-details {
+  margin-top: 0.5em;
+  padding-top: 0.5em;
+  margin-bottom: 0;
+  border-top: 1px solid #ddd;
+  
+  > dt {
+    width: inherit;
+    @extend .text-muted;
+  }
+  
+  > dd {
+    margin-left: 30px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-bottom: 0.25em;
+  }
+  
+  
+}

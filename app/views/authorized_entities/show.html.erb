@@ -1,12 +1,23 @@
 <%= breadcrumbs(:authorized_entities, @authorized_entity) %>
 
+<div class="pull-right">
+	<%= link_to glyph(:pencil, "Edit") + " Edit", [:edit, @authorized_entity], class: 'btn btn-primary' %>
+</div>
+
 <h1><%= @authorized_entity.name %></h1>
+
+<%= raw_attributes @authorized_entity, class: "pull-right", title: "Raw Attributes" %>
+
+<ul class="list-inline attribute-summary">
+  <li><strong>Entity ID:</strong>			<%= @authorized_entity.id %></li>
+	<li><strong>Main Contact:</strong>	<%= contact_information(@authorized_entity.mainContact) %></li>
+</ul>
 
 <div class="panel panel-default">
 	<div class="panel-heading">
 		<h3 class="panel-title">Services</h3>
 	</div>
-	<table class="table">	
+	<table class="table">
 		<thead>
 			<tr>
 				<th>ID</th>
@@ -23,4 +34,3 @@
 </div>
 
 <%= link_to glyph(:plus) + " Add Service", [:new, @authorized_entity, :service], class: 'btn btn-default' %>
-<%= raw_attributes @authorized_entity, class: "pull-right", title: "Raw Attributes" %>
