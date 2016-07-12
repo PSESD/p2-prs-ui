@@ -4,7 +4,7 @@
 	<div class="form-inputs">
 		<%= f.input :authorizedEntityName, label: "Name" %>
 		
-		<%= f.simple_fields_for :mainContact do |contact| %>
+		<%= f.simple_fields_for :mainContact, f.object.mainContact do |contact| %>
 			<h3>Main Contact Information</h3>
 			<p>
 				Specify contact information for the main contact related the data-sharing process.

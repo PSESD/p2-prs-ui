@@ -1,0 +1,17 @@
+<% unless contact_details.try(:name).blank? %>
+  <%= content_tag(:b, contact_details.try(:name)) + "<br />".html_safe %>
+  <%= contact_details.try(:title) %>
+  <br />
+  
+  <dl class="dl-horizontal contact-details">
+    <%= content_tag(:dt, glyph(:send)) + content_tag(:dd, link_to(contact_details.email, "mailto:#{contact_details.email}")) unless contact_details.email.blank? %>
+    <%= content_tag(:dt, glyph(:earphone)) + content_tag(:dd, contact_details.phone) unless contact_details.phone.blank? %>
+    <%= content_tag(:dt, glyph(:envelope)) + content_tag(:dd, contact_details.mailingAddress) unless contact_details.mailingAddress.blank? %>
+    <%= content_tag(:dt, glyph(:globe)) + content_tag(:dd, link_to(contact_details.webAddress, contact_details.fullWebAddress), popup: true) unless contact_details.webAddress.blank? %>
+  </dl>
+  
+<% else %>
+  <p class="text-muted">
+    No contact information yet.
+  </p>
+<% end %>

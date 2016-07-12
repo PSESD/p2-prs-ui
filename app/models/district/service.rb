@@ -9,7 +9,7 @@ class District::Service < PrsModel
   delete :destroy, "/districts/:district_id/services/:id"
   
   alias_attribute :name, :externalServiceExternalServiceName
-
+  delegate :mainContact, to: :authorized_entity
   before_request :replace_body
   
   def students

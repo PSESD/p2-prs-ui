@@ -1,9 +1,11 @@
 class AuthorizedEntity < PrsModel
 
   get :all, "/authorizedEntities"
-  get :find, "/authorizedEntities/:id", :has_many => { 
-    :personnels => AuthorizedEntity::Personnel, 
-    :services => AuthorizedEntity::Service 
+  get :find, "/authorizedEntities/:id", :has_many => {
+    :personnels => AuthorizedEntity::Personnel,
+    :services => AuthorizedEntity::Service
+  }, :has_one => {
+    :mainContact => Contact
   }
   put :save, "/authorizedEntities/:id"
   post :create, "/authorizedEntities"

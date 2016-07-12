@@ -88,6 +88,6 @@ class DistrictsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def district_params
-      params[:district]
+      params.require(:district).permit(:districtName, :ncesleaCode, :zoneID, { mainContact: %w[name title email phone mailingAddress webAddress] })
     end
 end

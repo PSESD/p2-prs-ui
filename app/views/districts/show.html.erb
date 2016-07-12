@@ -6,12 +6,8 @@
 
 <h1><%= @district.name %></h1>
 <ul class="list-inline attribute-summary">
-  <li><strong>District ID:</strong> 		<%= @district.id %></li>
-  <li><strong>NCES LEA Code:</strong> 		<%= @district.ncesleaCode %></li>
-  <li><strong>Zone ID:</strong> 			<samp><%= @district.zoneID %></samp></li>
 </ul>
 
-<%= form_tag [:consent_form, @district], method: :get do %>
 
 	<div class="panel panel-default">
 		<div class="panel-heading">
@@ -39,6 +35,3 @@
   <%= link_to_submit glyph(:edit) + " Generate consent form", class: 'btn btn-info pull-right disabled' %>
 <% end %>
 
-<p>
-  <%= raw_attributes @district, class: "pull-right", title: "Raw Attributes" if Rails.env.development? %>
-</p>
