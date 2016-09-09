@@ -26,18 +26,18 @@ class Districts::StudentsController < DistrictsController
   # POST /districts/students
   # POST /districts/students.json
   def create
-    return bulk_create if districts_student_params[:districtStudentId].include?(",")
-    @student = District::Student.new(districts_student_params)
-
-    respond_to do |format|
-      if @student.create
-        format.html { redirect_to [@district, @service], notice: 'Student was successfully created.' }
-        format.json { render :show, status: :created, location: [@district, @service, @student] }
-      else
-        format.html { render :new }
-        format.json { render json: @student.errors, status: :unprocessable_entity }
-      end
-    end
+    return bulk_create # if districts_student_params[:districtStudentId].include?(",")
+    # @student = District::Student.new(districts_student_params)
+    # 
+    # respond_to do |format|
+    #   if @student.create
+    #     format.html { redirect_to [@district, @service], notice: 'Student was successfully created.' }
+    #     format.json { render :show, status: :created, location: [@district, @service, @student] }
+    #   else
+    #     format.html { render :new }
+    #     format.json { render json: @student.errors, status: :unprocessable_entity }
+    #   end
+    # end
   end
   
   # Create a bunch of students at once.
