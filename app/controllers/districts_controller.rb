@@ -61,18 +61,18 @@ class DistrictsController < ApplicationController
       format.json { head :no_content }
     end
   end
-  
+
   def consent_form
     empty_list_alert = "Please select at least one organization to include on the form and try again."
     mismatched_datasets_alert = "All organizations must have the same datasets in order to be included on the same form."
     mismatched_expiration_alert = "All organizations must have the same expiration date in order to be included on the same form."
     return redirect_to(:back, alert: empty_list_alert) unless params[:services]
-    
+
     @services = params[:services].collect{ |id| District::Service.find(district_id: @district.id, id: id) }
     @dataSets = @services.collect{ |d| d.dataSets }
     return redirect_to(:back, alert: mismatched_datasets_alert) if @dataSets.collect{|d| d.collect(&:id) }.uniq.size > 1
     return redirect_to(:back, alert: mismatched_expiration_alert) if @services.collect(&:expirationDate).uniq.size > 1
-    
+
     @approval_range = [Date.today.year, @services.first.expirationDate.try(&:year)].uniq
     @body_class = "consent_form"
     @container_class = "container-fluid"

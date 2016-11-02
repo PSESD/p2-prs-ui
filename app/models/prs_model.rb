@@ -1,6 +1,6 @@
 class PrsModel < ActiveRestClient::Base
   extend ActiveModel::Naming
-  
+
   base_url Rails.application.secrets.prs_url
 
   before_request :add_authentication_details
@@ -14,7 +14,7 @@ class PrsModel < ActiveRestClient::Base
   def to_param
     id.to_s
   end
-  
+
   def to_model
     self
   end
@@ -53,12 +53,14 @@ class PrsModel < ActiveRestClient::Base
 
   def add_authentication_details(name, request)
     raise Exception.new("Missing authentication credentials") if SessionToken.nil? || SharedSecret.nil?
-    timestamp = Time.now.utc.iso8601
+    timestamp = Time.now.utc.iso8601(3)
     token_and_time = "#{SessionToken}:#{timestamp}"
     auth_hash = Base64.strict_encode64 OpenSSL::HMAC.digest('sha256', SharedSecret, token_and_time)
-    auth_token = Base64.strict_encode64 "#{SessionToken}:#{auth_hash}"    
+    auth_token = Base64.strict_encode64 "#{SessionToken}:#{auth_hash}"
     request.headers["Authorization"] = "SIF_HMACSHA256 #{auth_token}"
     request.headers["Timestamp"] = timestamp
+    request.headers["GeneratorId"] = "prs-ui"
+    request.headers["Content-Type"] = "xml"
   end
-  
+
 end

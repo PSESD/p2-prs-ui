@@ -1,8 +1,8 @@
 GIT
-  remote: git@github.com:circleci/minitest-ci.git
-  revision: 9ab0f71b0c3d683c3dcb94ba053358e04f134d8d
+  remote: https://github.com/circleci/minitest-ci.git
+  revision: dd7d0fdb8451e21251d5f620a1b2e7f76ded6da9
   specs:
-    minitest-ci (3.0.4.pre)
+    minitest-ci (3.1.0)
       minitest (~> 5.0, >= 5.0.6)
 
 GEM
@@ -355,5 +355,8 @@ DEPENDENCIES
   uglifier
   web-console
 
+RUBY VERSION
+   ruby 2.2.4p230
+
 BUNDLED WITH
-   1.11.2
+   1.13.6
