@@ -71,7 +71,6 @@ module ApplicationHelper
   end
 
   def guess_label_text(arg)
-    # byebug
     return guess_label_text(arg.last) if arg.is_a?(Array)
     methods = [:to_label, :name, :title]
     label_text = arg.try(methods.find{ |m| arg.respond_to?(m) }) rescue "hello"
