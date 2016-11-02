@@ -1,7 +1,7 @@
 class District < PrsModel
   verbose true if Rails.env.development?
 
-  get :all, "/districts;zoneId=test;contextId=test"
+  get :all, "/districts;zoneId=#{ENV["PRS_ZONE_ID"]};contextId=#{ENV["PRS_CONTEXT_ID"]}"
   get :find, "/districts/:id", :has_many => { :services => District::Service }, :has_one => { :mainContact => Contact }
   put :save, "/districts/:id"
   post :create, "/districts"
