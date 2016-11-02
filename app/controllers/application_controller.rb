@@ -4,7 +4,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
   rescue_from ActiveRestClient::HTTPServerException, with: :api_error
-  #rescue_from ActiveRestClient::ConnectionFailedException, with: :connection_failure
+  rescue_from ActiveRestClient::ConnectionFailedException, with: :connection_failure
   rescue_from ActionController::RedirectBackError, with: :error_message
 
   protected
