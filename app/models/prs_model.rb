@@ -2,6 +2,13 @@ class PrsModel < ActiveRestClient::Base
   extend ActiveModel::Naming
 
   base_url Rails.application.secrets.prs_url
+  # get :all, "/districts;zoneId=#{ENV["PRS_ZONE_ID"]};contextId=#{ENV["PRS_CONTEXT_ID"]}"
+  # get :all, "/districts/:district_id/services/:service_id/students"
+  # get :find, "/districts/:district_id/services/:service_id/students/:id" #, :has_one => { :consent => District::StudentConsent }
+  # put :save, "/districts/:district_id/services/:service_id/students/:id"
+  # post :create, "/districts/:district_id/services/:service_id/students/"
+  # delete :destroy, "/districts/:district_id/services/:service_id/students/:id"
+  # get :filters, "/filters;zoneId=:zoneid;contextId=DEFAULT"
 
   before_request :add_authentication_details
   request_body_type :json
