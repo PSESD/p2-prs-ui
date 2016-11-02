@@ -10,6 +10,7 @@ class AuthorizedEntitiesController < ApplicationController
   # GET /authorized_entities/1
   # GET /authorized_entities/1.json
   def show
+    @services = AuthorizedEntity::Service.all(authorized_entity_id: @authorized_entity.id)
   end
 
   # GET /authorized_entities/new
@@ -64,7 +65,7 @@ class AuthorizedEntitiesController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_authorized_entity
-      @authorized_entity = AuthorizedEntity.find(params[:authorized_entity_id] || params[:id])
+      @authorized_entity = AuthorizedEntity.find(params[:authorized_entity_id] || params[:id]).first
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

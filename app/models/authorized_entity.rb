@@ -1,14 +1,14 @@
 class AuthorizedEntity < PrsModel
 
-  get :all, "/authorizedEntities"
-  get :find, "/authorizedEntities/:id", :has_many => {
+  get :all, "/authorizedEntities" + url_params
+  get :find, "/authorizedEntities/:id" + url_params, :has_many => {
     :personnels => AuthorizedEntity::Personnel,
     :services => AuthorizedEntity::Service
   }, :has_one => {
     :mainContact => Contact
   }
-  put :save, "/authorizedEntities/:id"
-  post :create, "/authorizedEntities"
+  put :save, "/authorizedEntities/:id" + url_params
+  post :create, "/authorizedEntities" + url_params
 
   alias_attribute :name, :authorizedEntityName
 
@@ -23,5 +23,5 @@ class AuthorizedEntity < PrsModel
     return services.size if services
     find(id).services.size
   end
-  
+
 end

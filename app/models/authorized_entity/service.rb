@@ -1,13 +1,13 @@
 class AuthorizedEntity::Service < PrsModel
-  get :all, "/authorizedEntities/:authorized_entity_id/services"
-  get :find, "/authorizedEntities/:authorized_entity_id/services/:id"
-  put :save, "/authorizedEntities/:authorized_entity_id/services/:id"
-  post :create, "/authorizedEntities/:authorized_entity_id/services/"
-  
+  get :all, "/authorizedEntities/:authorized_entity_id/services" + url_params
+  get :find, "/authorizedEntities/:authorized_entity_id/services/:id" + url_params
+  put :save, "/authorizedEntities/:authorized_entity_id/services/:id" + url_params
+  post :create, "/authorizedEntities/:authorized_entity_id/services/" + url_params
+
   alias_attribute :name, :externalServiceName
   alias_attribute :description, :externalServiceDescription
-  
-  # Returns every AuthorizedEntity::Service from every AuthorizedEntity by looping 
+
+  # Returns every AuthorizedEntity::Service from every AuthorizedEntity by looping
   # through them and returning a single result.
   def self.all_from_all
     all_authorized_entities = AuthorizedEntity.all
@@ -17,7 +17,7 @@ class AuthorizedEntity::Service < PrsModel
     end
     all_services.flatten
   end
-  
+
   # Returns all of the District::Service records for this external service in a
   # hash where the district name is the key and an array of services are the values.
   def district_services
@@ -30,13 +30,13 @@ class AuthorizedEntity::Service < PrsModel
     @district_services
   end
 
-  # Returns the associated Organization record that's setup for this Service in 
-  # Student Success Link, matched by +authorizedEntityId+ and +externalServiceId+. 
+  # Returns the associated Organization record that's setup for this Service in
+  # Student Success Link, matched by +authorizedEntityId+ and +externalServiceId+.
   # Returns +nil+ if no matching record is found.
   def ssl_organization
     @ssl_organization ||= StudentSuccessLink::Organization.find_by(authorizedEntityId: authorizedEntityId, externalServiceId: id)
   rescue Mongoid::Errors::DocumentNotFound => e
     @ssl_organization ||= nil
   end
-  
+
 end

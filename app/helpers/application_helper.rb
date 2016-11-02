@@ -1,5 +1,5 @@
 module ApplicationHelper
-  
+
   # Simple wrapper for inserting a glyphicon
   def glyph(key, text = "", options = {})
     content_tag(:span, "", {
@@ -8,7 +8,7 @@ module ApplicationHelper
       "aria-label" => h(text)
     } )
   end
-  
+
   def alert_class_for(flash_type)
     case flash_type.to_s
       when "success"
@@ -47,6 +47,7 @@ module ApplicationHelper
             concat content_tag(:li, link_to(arg.to_s.titleize, arg))
           elsif arg.is_a?(Array)
             title = arg.last.is_a?(Symbol) ? arg.last.to_s.titleize : guess_label_text(arg.last)
+            byebug
             concat content_tag(:li, link_to(title, arg))
           elsif arg.is_a?(ActiveRestClient::ResultIterator)
             concat(content_tag(:li, class: "dropdown") do
@@ -68,11 +69,12 @@ module ApplicationHelper
       end
     end
   end
-  
+
   def guess_label_text(arg)
+    # byebug
     return guess_label_text(arg.last) if arg.is_a?(Array)
     methods = [:to_label, :name, :title]
-    label_text = arg.try(methods.find{ |m| arg.respond_to?(m) }) rescue nil
+    label_text = arg.try(methods.find{ |m| arg.respond_to?(m) }) rescue "hello"
   end
 
   # Provides a link to display the raw attributes provided in a modal.
@@ -95,9 +97,9 @@ module ApplicationHelper
       locals: { id: dom_id, title: (options[:title] || "Contact Information") }
     )
   end
-  
+
   def link_to_submit(*args, &block)
     link_to (block_given? ? capture(&block) : args[0]), "#", { data: { submit: true } }.merge(args.extract_options!)
   end
-  
+
 end
