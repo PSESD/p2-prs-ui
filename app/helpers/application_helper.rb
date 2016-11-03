@@ -47,7 +47,6 @@ module ApplicationHelper
             concat content_tag(:li, link_to(arg.to_s.titleize, arg))
           elsif arg.is_a?(Array)
             title = arg.last.is_a?(Symbol) ? arg.last.to_s.titleize : guess_label_text(arg.last)
-            byebug
             concat content_tag(:li, link_to(title, arg))
           elsif arg.is_a?(ActiveRestClient::ResultIterator)
             concat(content_tag(:li, class: "dropdown") do

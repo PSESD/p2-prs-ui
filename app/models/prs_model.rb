@@ -1,10 +1,6 @@
 class PrsModel < ActiveRestClient::Base
   extend ActiveModel::Naming
 
-  def self.url_params
-    ";zoneId=#{Rails.application.secrets.prs_zone_id};contextId=#{Rails.application.secrets.prs_context_id}"
-  end
-
   base_url Rails.application.secrets.prs_url
 
   before_request :add_authentication_details
@@ -14,6 +10,10 @@ class PrsModel < ActiveRestClient::Base
   SharedSecret = Rails.application.secrets.prs_shared_secret
 
   attr_accessor :new_record
+
+  def self.url_params
+    ";zoneId=#{Rails.application.secrets.prs_zone_id};contextId=#{Rails.application.secrets.prs_context_id}"
+  end
 
   def to_param
     id.to_s
