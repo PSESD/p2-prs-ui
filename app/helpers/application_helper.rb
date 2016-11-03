@@ -72,7 +72,7 @@ module ApplicationHelper
   def guess_label_text(arg)
     return guess_label_text(arg.last) if arg.is_a?(Array)
     methods = [:to_label, :name, :title]
-    label_text = arg.try(methods.find{ |m| arg.respond_to?(m) }) rescue "hello"
+    label_text = arg.try(methods.find{ |m| arg.respond_to?(m) }) rescue nil
   end
 
   # Provides a link to display the raw attributes provided in a modal.

@@ -48,7 +48,7 @@
 			</div>
 			<div class="panel-body">
 				<p><%= @service.name %> is allowed to access these data sets from <%= @district.name %>:</p>
-				
+
 				<%= safe_join(@service.dataSets.collect{ |dataset| link_to(h(dataset.dataSetName), data_set_path(dataset)) }, ", ") %>
 			</div>
 		</div>
@@ -60,7 +60,7 @@
 		<div class="panel panel-default">
 			<div class="panel-heading">
 				<h3 class="panel-title">
-					Students 
+					Students
 					<span class="badge badge-default"><%= @service.students.items.count %></span>
 				</h3>
 			</div>
@@ -81,10 +81,10 @@
 				</tbody>
 			</table>
 		</div>
-	<%= link_to glyph(:plus) + " Add Students", new_district_service_student_path(@district, @service), class: 'btn btn-default' %>		
+	<%= link_to glyph(:plus) + " Add Students", new_district_service_student_path(@district, @service), class: 'btn btn-default' %>
 	</div>
 </div>
 
-<%= render partial: "districts/students/filters", layout: "layouts/modal", locals: { 
+<%= render partial: "districts/students/filters", layout: "layouts/modal", locals: {
 		id: "filtersModal", title: "Compiled Filter Rules", dialog_class: "modal-lg"
 	} %>
