@@ -1,4 +1,4 @@
-<%= breadcrumbs(:authorizedEntities, @authorized_entity) %>
+<%= breadcrumbs(:authorized_entities, @authorized_entity) %>
 
 <div class="pull-right">
 	<%= link_to glyph(:pencil, "Edit") + " Edit", [:edit, @authorized_entity], class: 'btn btn-primary' %>
@@ -28,7 +28,7 @@
 			</tr>
 		</thead>
 		<tbody>
-			<%= render partial: "authorizedEntities/:authorized_entity_id/services/:id", collection: @services.items %>
+			<%= render partial: "authorized_entities/:authorized_entity_id/services/:id", collection: @services.items %>
 		</tbody>
 	</table>
 </div>

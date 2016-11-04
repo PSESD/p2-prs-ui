@@ -2,13 +2,13 @@ require 'test_helper'
 
 class AuthorizedEntitiesControllerTest < ActionController::TestCase
   # setup do
-  #   @authorized_entity = authorizedEntities(:one)
+  #   @authorized_entity = authorized_entities(:one)
   # end
   #
   # test "should get index" do
   #   get :index
   #   assert_response :success
-  #   assert_not_nil assigns(:authorizedEntities)
+  #   assert_not_nil assigns(:authorized_entities)
   # end
   #
   # test "should get new" do
@@ -44,6 +44,6 @@ class AuthorizedEntitiesControllerTest < ActionController::TestCase
   #     delete :destroy, id: @authorized_entity
   #   end
   #
-  #   assert_redirected_to authorizedEntities_path
+  #   assert_redirected_to authorized_entities_path
   # end
 end
