@@ -18,7 +18,7 @@ class Districts::StudentsController < DistrictsController
   def new
     @student = District::Student.new
   end
-  
+
   # GET /districts/students/1/edit
   def edit
   end
@@ -28,7 +28,7 @@ class Districts::StudentsController < DistrictsController
   def create
     return bulk_create # if districts_student_params[:districtStudentId].include?(",")
     # @student = District::Student.new(districts_student_params)
-    # 
+    #
     # respond_to do |format|
     #   if @student.create
     #     format.html { redirect_to [@district, @service], notice: 'Student was successfully created.' }
@@ -39,14 +39,14 @@ class Districts::StudentsController < DistrictsController
     #   end
     # end
   end
-  
+
   # Create a bunch of students at once.
   def bulk_create
     unless params[:id]
       @job_id = CreateStudentsWorker.create(districts_student_params)
       return redirect_to(bulk_create_status_district_service_students_path(@district, @service, @job_id))
     end
-    
+
     @status = Resque::Plugins::Status::Hash.get(params[:id])
     respond_to do |format|
       if @status
@@ -82,7 +82,7 @@ class Districts::StudentsController < DistrictsController
       format.json { head :no_content }
     end
   end
-  
+
   def filters
     @student.filters(
       zoneid: @district.zoneID,
@@ -102,11 +102,11 @@ class Districts::StudentsController < DistrictsController
   private
 
   def set_districts_service
-    @service = District::Service.find(district_id: @district.id, id: params[:service_id])    
+    @service = District::Service.find(district_id: @district.id, id: params[:service_id]).items.first
   end
 
   def set_districts_student
-    @student = District::Student.find(district_id: @district.id, service_id: params[:service_id], id: params[:id])
+    @student = District::Student.find(district_id: @district.id, service_id: params[:service_id], id: params[:id]).items.first
   end
 
   # Never trust parameters from the scary internet, only allow the white list through.

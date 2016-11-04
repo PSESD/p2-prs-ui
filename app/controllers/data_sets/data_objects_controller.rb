@@ -1,5 +1,4 @@
 class DataSets::DataObjectsController < DataSetsController
-  before_action :set_data_set
   before_action :set_data_sets_data_object, only: [:show, :edit, :update, :destroy]
 
   # GET /data_sets/data_objects
