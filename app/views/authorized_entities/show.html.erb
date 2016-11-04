@@ -28,6 +28,7 @@
 			</tr>
 		</thead>
 		<tbody>
+			<% #byebug %>
 			<%= render partial: "authorized_entities/:authorized_entity_id/services/:id", collection: @services.items %>
 		</tbody>
 	</table>

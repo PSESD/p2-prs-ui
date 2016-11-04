@@ -65,6 +65,7 @@ class DataSets::DataObjectsController < DataSetsController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_data_sets_data_object
+      # byebug
       @data_object = DataSet::DataObject.find(data_set_id: @data_set.id, id: params[:id])
     end
 
