@@ -1,29 +1,29 @@
 class AuthorizedEntitiesController < ApplicationController
   before_action :set_authorized_entity, only: [:show, :edit, :update, :destroy]
 
-  # GET /authorized_entities
-  # GET /authorized_entities.json
+  # GET /authorizedEntities
+  # GET /authorizedEntities.json
   def index
     @authorized_entities = AuthorizedEntity.all
   end
 
-  # GET /authorized_entities/1
-  # GET /authorized_entities/1.json
+  # GET /authorizedEntities/1
+  # GET /authorizedEntities/1.json
   def show
     @services = AuthorizedEntity::Service.all(authorized_entity_id: @authorized_entity.id)
   end
 
-  # GET /authorized_entities/new
+  # GET /authorizedEntities/new
   def new
     @authorized_entity = AuthorizedEntity.new
   end
 
-  # GET /authorized_entities/1/edit
+  # GET /authorizedEntities/1/edit
   def edit
   end
 
-  # POST /authorized_entities
-  # POST /authorized_entities.json
+  # POST /authorizedEntities
+  # POST /authorizedEntities.json
   def create
     @authorized_entity = AuthorizedEntity.new(authorized_entity_params)
 
@@ -38,8 +38,8 @@ class AuthorizedEntitiesController < ApplicationController
     end
   end
 
-  # PATCH/PUT /authorized_entities/1
-  # PATCH/PUT /authorized_entities/1.json
+  # PATCH/PUT /authorizedEntities/1
+  # PATCH/PUT /authorizedEntities/1.json
   def update
     respond_to do |format|
       if @authorized_entity.update(authorized_entity_params)
@@ -52,12 +52,12 @@ class AuthorizedEntitiesController < ApplicationController
     end
   end
 
-  # DELETE /authorized_entities/1
-  # DELETE /authorized_entities/1.json
+  # DELETE /authorizedEntities/1
+  # DELETE /authorizedEntities/1.json
   def destroy
     @authorized_entity.destroy
     respond_to do |format|
-      format.html { redirect_to authorized_entities_url, notice: 'Authorized entity was successfully destroyed.' }
+      format.html { redirect_to authorizedEntities_url, notice: 'Authorized entity was successfully destroyed.' }
       format.json { head :no_content }
     end
   end

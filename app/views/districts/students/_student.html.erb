@@ -2,9 +2,9 @@
 	<td><%= student.id %></td>
 	<td><%= student.districtStudentId %></td>
 	<td><%= student.consent.try(:consentType) %></td>
-	<td><%=l Date.parse(student.consent.try(:consentStartDate)), format: :short_date %></td>
+	<td><%=l Date.parse(student.consent.try(:startDate)), format: :short_date %></td>
 	<td>
-		<%=l Date.parse(student.consent.try(:consentEndDate)), format: :short_date %>
+		<%=l Date.parse(student.consent.try(:startDate)), format: :short_date %>
 		<%= content_tag :span, "Expired", class: "label label-danger" if student.expired? %>
 	</td>
 	<td><%= link_to glyph("list-alt", 'Filter Rules'), "#", 'data-url' => url_for([:filters, @district, @service, student]), 'data-toggle' => "modal", 'data-target' => "#filtersModal" %></td>

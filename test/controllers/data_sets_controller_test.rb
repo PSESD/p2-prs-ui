@@ -18,7 +18,7 @@ class DataSetsControllerTest < ActionController::TestCase
   #
   # test "should create data_set" do
   #   assert_difference('DataSet.count') do
-  #     post :create, data_set: { dataSetDescription: @data_set.dataSetDescription, dataSetName: @data_set.dataSetName }
+  #     post :create, data_set: { description: @data_set.description, name: @data_set.name }
   #   end
   #
   #   assert_redirected_to data_set_path(assigns(:data_set))
@@ -35,7 +35,7 @@ class DataSetsControllerTest < ActionController::TestCase
   # end
   #
   # test "should update data_set" do
-  #   patch :update, id: @data_set, data_set: { dataSetDescription: @data_set.dataSetDescription, dataSetName: @data_set.dataSetName }
+  #   patch :update, id: @data_set, data_set: { description: @data_set.description, name: @data_set.name }
   #   assert_redirected_to data_set_path(assigns(:data_set))
   # end
   #

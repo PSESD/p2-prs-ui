@@ -1,1 +1,1 @@
-json.extract! @data_set, :id, :dataSetName, :dataSetDescription, :created_at, :updated_at
+json.extract! @data_set, :id, :name, :description, :created_at, :updated_at

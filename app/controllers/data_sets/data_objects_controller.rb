@@ -5,7 +5,7 @@ class DataSets::DataObjectsController < DataSetsController
   # GET /data_sets/data_objects
   # GET /data_sets/data_objects.json
   def index
-    @data_objects = @data_set.sifDataObjects.group_by(&:sifObjectName)
+    @data_objects = @data_set.dataObjects.group_by(&:sifObjectName)
   end
 
   # GET /data_sets/data_objects/1
@@ -26,7 +26,7 @@ class DataSets::DataObjectsController < DataSetsController
   # POST /data_sets/data_objects.json
   def create
     @data_object = DataSet::DataObject.new(data_sets_data_object_params)
-    
+
     respond_to do |format|
       if @data_object.create
         format.html { redirect_to @data_set, notice: 'Data object was successfully created.' }

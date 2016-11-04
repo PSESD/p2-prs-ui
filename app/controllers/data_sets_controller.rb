@@ -10,7 +10,7 @@ class DataSetsController < ApplicationController
   # GET /data_sets/1
   # GET /data_sets/1.json
   def show
-    @data_objects = @data_set.sifDataObjects.group_by(&:sifObjectName)
+    @data_objects = @data_set.dataObjects.group_by(&:sifObjectName)
   end
 
   # GET /data_sets/new
@@ -71,6 +71,6 @@ class DataSetsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def data_set_params
-      params.require(:data_set).permit(:dataSetName, :dataSetDescription)
+      params.require(:data_set).permit(:name, :description)
     end
 end

@@ -46,8 +46,12 @@ module ApplicationHelper
           elsif arg.is_a?(Symbol)
             concat content_tag(:li, link_to(arg.to_s.titleize, arg))
           elsif arg.is_a?(Array)
-            title = arg.last.is_a?(Symbol) ? arg.last.to_s.titleize : guess_label_text(arg.last)
-            concat content_tag(:li, link_to(title, arg))
+
+            arg.each do |a|
+              title = arg.last.is_a?(Symbol) ? arg.last.to_s.titleize : guess_label_text(arg.last)
+              concat content_tag(:li, link_to(title, district_services_path(a)))
+            end
+
           elsif arg.is_a?(ActiveRestClient::ResultIterator)
             concat(content_tag(:li, class: "dropdown") do
               concat(content_tag(:a, :class => "dropdown-toggle", "data-toggle" => "dropdown") do

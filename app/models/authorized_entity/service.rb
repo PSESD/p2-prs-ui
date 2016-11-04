@@ -10,8 +10,8 @@ class AuthorizedEntity::Service < PrsModel
   # Returns every AuthorizedEntity::Service from every AuthorizedEntity by looping
   # through them and returning a single result.
   def self.all_from_all
-    all_authorized_entities = AuthorizedEntity.all
-    all_services = all_authorized_entities.parallelise do |item|
+    all_authorizedEntities = AuthorizedEntity.all
+    all_services = all_authorizedEntities.parallelise do |item|
       ae = AuthorizedEntity.find(item.id)
       ae.services.items
     end

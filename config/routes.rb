@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  
+
   # Authorized Entities
   resources :authorized_entities do
     resources :services, controller: "authorized_entities/services"
@@ -9,7 +9,7 @@ Rails.application.routes.draw do
   resources :data_sets do
     resources :data_objects, controller: "data_sets/data_objects"
   end
-  
+
   # Districts
   resources :districts do
     member do
@@ -26,7 +26,7 @@ Rails.application.routes.draw do
       end
     end
   end
-  
+
   # Student Success Link
   namespace :student_success_link do
     get '/', controller: "organizations", action: 'index'
@@ -37,7 +37,7 @@ Rails.application.routes.draw do
     end
     resources :users
   end
-  
+
   # Root URL
   root "districts#index"
 end
