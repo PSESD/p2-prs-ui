@@ -5,7 +5,7 @@ class Districts::ServicesController < DistrictsController
   # GET /district/services
   # GET /district/services.json
   def index
-    @services = District::Service.all
+    @services = District::Service.all(district_id: @district.id)
   end
 
   # GET /district/services/1

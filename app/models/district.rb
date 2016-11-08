@@ -20,5 +20,4 @@ class District < PrsModel
       District::Service.find(district_id: id, id: item.id)
     end
   end
-
 end

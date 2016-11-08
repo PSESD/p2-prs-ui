@@ -10,11 +10,11 @@
   </thead>
 
   <tbody>
-    <% @district_services.each do |district_service| %>
+    <% @services.each do |service| %>
       <tr>
-        <td><%= link_to 'Show', district_service %></td>
-        <td><%= link_to 'Edit', edit_district_service_path(district_service) %></td>
-        <td><%= link_to 'Destroy', district_service, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Show', district_services_path(service) %></td>
+        <td><%= link_to 'Edit', edit_district_service_path(district_id: service.districtId, id: service.id) %></td>
+        <td><%= link_to 'Destroy', district_service_path(district_id: service.districtId, id: service.id), method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>

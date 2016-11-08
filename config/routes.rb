@@ -15,6 +15,14 @@ Rails.application.routes.draw do
     member do
       get 'consent_form'
     end
+
+    # post '/api/machines' do
+      # header "Content-Type", "application/json"
+
+      # let(:raw_post) { params.to_json }
+    # end
+
+
     resources :services, controller: "districts/services" do
       resources :students, controller: "districts/students" do
         collection do

@@ -25,10 +25,11 @@ class DistrictsController < ApplicationController
   # POST /districts
   # POST /districts.json
   def create
-    @district = District.new(district_params)
+    @district = District.post(:create, nil, district_params_xml)
 
     respond_to do |format|
-      if @district.create
+      if District.post(:create, nil, district_params_xml)
+        # need id num of last district created to render view
         format.html { redirect_to @district, notice: 'District was successfully created.' }
         format.json { render :show, status: :created, location: @district }
       else
@@ -88,6 +89,10 @@ class DistrictsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def district_params
-      params.require(:district).permit(:districtName, :ncesleaCode, :zoneID, { mainContact: %w[name title email phone mailingAddress webAddress] })
+      params.require(:district).permit(:districtName, :ncesleaCode, :zoneID, mainContact: %w[name title email phone mailingAddress webAddress] )
+    end
+
+    def district_params_xml
+      JSON.parse(district_params.to_json).to_xml(root: :districts)
     end
 end
