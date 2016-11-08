@@ -6,11 +6,28 @@ $(function() {
 	$('input#select_all').change(function(event) {
 		$('input:checkbox:not(#select_all)').prop('checked', $(this).is(':checked'));
 	})
-	
+
 	$('input:checkbox').change(function(event) {
 		var form = $(this).closest('form')
 		form.find("a[data-submit]").toggleClass('disabled', form.find("input:checkbox:checked").length == 0)
 	})
-	
-	
+
+
 })
+
+function submitDistrict() {
+		$("#button").click(function() {
+			alert("submitDistrict");
+			postDistrict();
+		});
+}
+
+function postDistrict() {
+
+	$('#mycontainer').data('source')
+	alert($('#mycontainer').data('source'))
+}
+
+$(document).ready(function() {
+  submitDistrict();
+});
