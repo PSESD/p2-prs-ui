@@ -5,7 +5,6 @@ class AuthorizedEntity::Service < PrsModel
   post :create, "/authorizedEntities/:authorized_entity_id/services/" + url_params
 
   alias_attribute :name, :externalServiceName
-  alias_attribute :description, :externalServiceDescription
 
   # Returns every AuthorizedEntity::Service from every AuthorizedEntity by looping
   # through them and returning a single result.

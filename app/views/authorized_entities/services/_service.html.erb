@@ -1,5 +1,6 @@
 <tr>
 	<td><%= service.id %></td>
+	<% #byebug %>
 	<td><%= link_to service.name, [@authorized_entity, service] %></td>
 	<td><%= service.description %></td>
 	<td><%- if o = service.ssl_organization -%>
