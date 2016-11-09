@@ -10,8 +10,6 @@ class AuthorizedEntity < PrsModel
   put :save, "/authorizedEntities/:id" + url_params
   post :create, "/authorizedEntities" + url_params
 
-  alias_attribute :name, :authorizedEntityName
-
   # Returns the full record for all AuthorizedEntity objects by looping through all.
   def self.all_full
     AuthorizedEntity.all.parallelise do |item|

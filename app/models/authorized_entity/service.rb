@@ -24,8 +24,8 @@ class AuthorizedEntity::Service < PrsModel
     return @district_services if @district_services
     @district_services = {}
     District.all_full.each do |district|
-      @district_services[district.name] ||= []
-      @district_services[district.name] << district.services.select{ |s| s.externalServiceId == id }
+      @district_services[district.items.first.name] ||= []
+      @district_services[district.items.first.name] << district.items.first.services.select{ |s| s.externalServiceId == id }
     end
     @district_services
   end

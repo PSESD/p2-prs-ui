@@ -10,6 +10,7 @@ class DistrictsController < ApplicationController
   # GET /districts/1
   # GET /districts/1.json
   def show
+    # byebug
     @services = District::Service.all(district_id: @district.id)
   end
 
