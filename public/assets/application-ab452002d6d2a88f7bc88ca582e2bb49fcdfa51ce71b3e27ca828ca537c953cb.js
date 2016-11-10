@@ -15300,18 +15300,40 @@ function submitDistrict() {
 }
 
 function postDistrict() {
-  $.ajax({
-    url: 'https://srx-services-prs-dev.herokuapp.com;zoneId=<%= Rails.application.secrets.prs_zone_id %>;contextId=<%= Rails.application.secrets.prs_context_id %>',
-    type: 'POST',
-    dataType: 'xml',
-		data: "<%= district_params_xml %>",
-    success: function(response) {
-			console.log(response);
-		},
-    error: function (message){
-      console.error(message);
-    }
-  });
+	var url = 'https://srx-services-prs-dev.herokuapp.com/districts;zoneId=test;contextId=test';
+	alert(url);
+
+	var xml_data =
+		'<district>' +
+			'<districtName>' + $("#district_districtName").val() + '</districtName>' +
+			'<ncesleaCode>' + $("#district_ncesleaCode").val() '</ncesleaCode>' +
+			'<zoneID>' + $("#district_zoneID").val() + '</zoneID>' +
+			'<mainContact>' +
+				'<name>' + $("#district_mainContact_name").val() + '</name>' +
+				'<title>' + $("#district_mainContact_title").val() + '</title>' +
+				'<email>' + $("#district_mainContact_email").val() + '</email>' +
+				'<phone>' + $("#district_mainContact_phone").val() + '</phone>' +
+				'<mailingAddress>' + $("#district_mainContact_mailingAddress").val() + '</mailingAddress>' +
+				'<webAddress>' + $("#district_mainContact_webAddress").val() + '</webAddress>' +
+			'</mainContact>' +
+		'</district>';
+	alert(xml_data);
+
+  // $.ajax({
+	//   url: url,
+	//   type: 'POST',
+	//   data: xml_data,
+	// 	contentType: "text/xml",
+	// 	dataType: "text",
+	//  	success: function() {
+	//   	alert("success!");
+	//  	},
+	//   error: function(message) {
+	//     console.error(message);
+	//   }
+	// });
+	// $('#mycontainer').data('source')
+	// alert($('#mycontainer').data('source'))
 }
 
 $(document).ready(function() {

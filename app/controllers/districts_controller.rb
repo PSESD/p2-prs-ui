@@ -10,7 +10,6 @@ class DistrictsController < ApplicationController
   # GET /districts/1
   # GET /districts/1.json
   def show
-    # byebug
     @services = District::Service.all(district_id: @district.id)
   end
 
@@ -32,14 +31,14 @@ class DistrictsController < ApplicationController
 #     # @district = District.post(:create, nil, district_params_xml)
 # # byebug
     respond_to do |format|
-      if @district
-        format.html { redirect_to @district, notice: 'District was successfully created.' }
+    #   if @district
+    #     format.html { redirect_to @district, notice: 'District was successfully created.' }
         format.json { render :show, status: :created, location: @district }
-        format.xml { render :show, status: :created, location: @district }
-      else
-        format.html { render :new }
-        format.json { render json: @district.errors, status: :unprocessable_entity }
-      end
+        # format.xml { render :show, status: :created, location: @district }
+    #   else
+    #     format.html { render :new }
+    #     format.json { render json: @district.errors, status: :unprocessable_entity }
+    #   end
     end
   end
 

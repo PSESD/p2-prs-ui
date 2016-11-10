@@ -64,8 +64,9 @@ class PrsModel < ActiveRestClient::Base
     request.headers["Authorization"] = "SIF_HMACSHA256 #{auth_token}"
     request.headers["Timestamp"] = timestamp
     request.headers["GeneratorId"] = "prs-ui"
-    request.headers["Content-Type"] = "application/xml"
+    request.headers["Content-Type"] = "application/json"
     request.headers["Accept"] = "application/json"
+    request.headers['Origin'] = "http://localhost:3000"
   end
 
 end
