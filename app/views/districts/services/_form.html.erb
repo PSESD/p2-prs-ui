@@ -2,8 +2,9 @@
 	<%= f.error_notification %>
 
 	<div class="form-inputs">
+		<% #byebug %>
 		<%= f.input :externalServiceId, label: "External Service", as: :grouped_select, collection: AuthorizedEntity.all_full, group_method: :services, value_method: :id, prompt: "-- Please select --" %>
-		
+
 		<%= f.input :valid_date_range do %>
 			<div class="input-daterange input-group">
 				<%= f.input_field :initiationDate, class: "form-control" %>
@@ -11,7 +12,7 @@
 				<%= f.input_field :expirationDate, class: "form-control" %>
 			</div>
 		<% end %>
-		
+
 		<%= f.input :data_sets, as: :checkbox do %>
 			<ul class="list-group input-group">
 			<%- DataSet.all.each_with_index do |data_set, index| -%>
@@ -35,4 +36,3 @@
 		<%= f.button :submit, "Authorize Service" %>
 	</div>
 <% end %>
-
