@@ -66,7 +66,6 @@ class PrsModel < ActiveRestClient::Base
     request.headers["GeneratorId"] = "prs-ui"
     request.headers["Content-Type"] = "application/json"
     request.headers["Accept"] = "application/json"
-    request.headers['Origin'] = "http://localhost:3000"
   end
 
 end
