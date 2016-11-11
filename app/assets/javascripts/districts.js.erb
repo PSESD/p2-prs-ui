@@ -64,9 +64,10 @@ function postDistrict() {
   $.ajax({
 	  url: url,
 	  type: 'POST',
-	  data: JSON.stringify(jsonData),
+	  data: JSON.stringify(jsonData), // JSON.stringify(jsonData),
 		processData: false,
-		contentType: "json",
+		contentType: "text/plain",
+		dataType: "json",
 		headers: {
 								"Timestamp" : "2016-11-01T23:00:44.450Z",
 								"Authorization" : "SIF_HMACSHA256 NzIyMDg5MjYtMWNmYi00NDJkLTg3YmItOWE4YmMwZTI2YjEzOmhSUGtTc3VZMXhqSTR3VkZ5WEloTG9iZFBkV05tK1NKYlhTZWpoWGt1ZVk9",
@@ -77,7 +78,7 @@ function postDistrict() {
 	 	},
 	  error: function(message) {
 			console.error(message);
-	    alert(message);
+	    alert(message.fail());
 	  }
 	});
 	// $('#mycontainer').data('source')

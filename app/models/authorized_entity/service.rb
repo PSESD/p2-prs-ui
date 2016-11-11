@@ -13,7 +13,7 @@ class AuthorizedEntity::Service < PrsModel
     all_authorized_entities = AuthorizedEntity.all
     all_services = all_authorized_entities.parallelise do |item|
       ae = AuthorizedEntity.find(item.id)
-      ae.services.items
+      ae.items.first.services
     end
     all_services.flatten
   end
