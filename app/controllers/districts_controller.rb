@@ -25,20 +25,17 @@ class DistrictsController < ApplicationController
   # POST /districts
   # POST /districts.json
   def create
-    @district = District.new(district_params)
-    district_params_xml
-#     @district = District.post(:create, nil, district_params_xml)
-#     @district = District.post(:create, nil, district_params_xml)
-# # byebug
+    @district = post("districts", district_params_json)
+
     respond_to do |format|
-    #   if @district
-    #     format.html { redirect_to @district, notice: 'District was successfully created.' }
+      if @district = JSON.parse(@district)
+        format.html { redirect_to @district, notice: 'District was successfully created.' }
         format.json { render :show, status: :created, location: @district }
-        # format.xml { render :show, status: :created, location: @district }
-    #   else
-    #     format.html { render :new }
-    #     format.json { render json: @district.errors, status: :unprocessable_entity }
-    #   end
+        format.xml { render :show, status: :created, location: @district }
+      else
+        format.html { render :new }
+        format.json { render json: @district.errors, status: :unprocessable_entity }
+      end
     end
   end
 
@@ -84,10 +81,6 @@ class DistrictsController < ApplicationController
     @page_title = "#{@approval_range.join("-")} CBO Parent/Guardian Consent Form - #{@services_title}"
   end
 
-  def district_params_xml
-    @xml = JSON.parse(district_params.to_json).to_xml(root: :district)
-  end
-
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_district
@@ -96,6 +89,14 @@ class DistrictsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def district_params
-      params.require(:district).permit(:districtName, :ncesleaCode, :zoneID, mainContact: %w[name title email phone mailingAddress webAddress] )
+      params.require(:district).permit(:name, :ncesleaCode, :zoneID, mainContact: %w[name title email phone mailingAddress webAddress] )
+    end
+
+    def district_params_json
+      district_params.to_json
+    end
+
+    def district_params_xml
+      JSON.parse(district_params_json).to_xml(root: :district)
     end
 end

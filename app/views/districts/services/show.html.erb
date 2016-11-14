@@ -16,7 +16,7 @@
 			<dl class="list-group dl-horizontal">
 				<div class="list-group-item">
 					<dt>Authorized Entity</dt>
-					<dd><%= link_to @service.authorizedEntityName, authorized_entity_path(@service.authorizedEntityId) %>
+					<dd><%= link_to @service.name, authorized_entity_path(@service.authorizedEntityId) %>
 						<small class="text-muted">#<%= @service.authorizedEntityId %></small>
 					</dd>
 				</div>

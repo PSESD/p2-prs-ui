@@ -14,7 +14,7 @@ class StudentSuccessLink::OrganizationsController < ApplicationController
 
   # GET /student_success_link/organizations/new
   def new
-    @organization = StudentSuccessLink::Organization.new(organization_params)
+    @organization = StudentSuccessLink::Organization.new()
   end
 
   # GET /student_success_link/organizations/1/edit
@@ -60,10 +60,10 @@ class StudentSuccessLink::OrganizationsController < ApplicationController
       format.json { head :no_content }
     end
   end
-  
+
   def add_admin_user
     @user = StudentSuccessLink::User.find(params[:user_id])
-    
+
     respond_to do |format|
       if @organization.add_admin_user(@user)
         format.html { redirect_to @organization, notice: 'User was added successfully.' }
