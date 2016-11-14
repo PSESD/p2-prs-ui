@@ -4,7 +4,7 @@ class AuthorizedEntitiesController < ApplicationController
   # GET /authorized_entities
   # GET /authorized_entities.json
   def index
-    @authorized_entities = AuthorizedEntity.all
+    @authorized_entities = AuthorizedEntity.all.items
   end
 
   # GET /authorized_entities/1
@@ -25,11 +25,13 @@ class AuthorizedEntitiesController < ApplicationController
   # POST /authorized_entities
   # POST /authorized_entities.json
   def create
-    @authorized_entity = AuthorizedEntity.new(authorized_entity_param_json)
+    # @authorized_entity = AuthorizedEntity.new(authorized_entity_param_json)
     # @authorized_entity = AuthorizedEntity.new(authorized_entity_params)
+    # byebug
+    @authorized_entity = post("authorizedEntities", authorized_entity_params_json)
 
     respond_to do |format|
-      if @authorized_entity.create
+      if @authorized_entity = JSON.parse(@authorized_entity)
         format.html { redirect_to @authorized_entity, notice: 'Authorized entity was successfully created.' }
         format.json { render :show, status: :created, location: @authorized_entity }
       else
@@ -75,6 +77,14 @@ class AuthorizedEntitiesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def authorized_entity_params
-      params.require(:authorized_entity).permit(:authorizedEntityName, { mainContact: %w[name title email phone mailingAddress webAddress] })
+      params.require(:authorized_entity).permit(:name, { mainContact: %w[name title email phone mailingAddress webAddress] })
+    end
+
+    def authorized_entity_params_json
+      authorized_entity_params.to_json
+    end
+
+    def authorized_entity_params_xml
+      JSON.parse(authorized_entity_params_json).to_xml(root: :authorizedEntity)
     end
 end
