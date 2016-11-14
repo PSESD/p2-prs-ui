@@ -25,7 +25,8 @@
 		<tbody>
 			<%- for district_name, services in @service.district_services -%>
 				<%- unless services.first.empty? -%>
-					<%- for service in services.first -%>
+					<%- for service in services.first.first.items -%>
+					<% #byebug %>
 						<tr><td><%= service.id %></td>
 							<td><%= link_to district_name, district_service_path(service.districtId, service) %></td>
 							<td><%= service.initiationDate %></td>

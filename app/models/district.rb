@@ -7,8 +7,6 @@ class District < PrsModel
   post :create, "/districts" + url_params
   delete :destroy, "/districts/:id" + url_params
 
-  alias_attribute :name, :districtName
-
   def self.all_full
     District.all.parallelise do |item|
       District.find item.id

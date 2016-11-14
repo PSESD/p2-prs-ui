@@ -5,7 +5,7 @@ class AuthorizedEntities::ServicesController < AuthorizedEntitiesController
   # GET /authorized_entity/services
   # GET /authorized_entity/services.json
   def index
-    @services = AuthorizedEntity::Service.all
+    @authorized_entity_services = AuthorizedEntity::Service.all_from_all
   end
 
   # GET /authorized_entity/services/1

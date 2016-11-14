@@ -10,6 +10,7 @@ class District::Service < PrsModel
 
   # alias_attribute :name, :externalServiceName
   delegate :mainContact, to: :authorized_entity
+
   before_request :replace_body
 
   def students

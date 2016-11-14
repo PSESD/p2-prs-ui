@@ -12,7 +12,7 @@ class AuthorizedEntity::Service < PrsModel
     all_authorized_entities = AuthorizedEntity.all
     all_services = all_authorized_entities.parallelise do |item|
       ae = AuthorizedEntity.find(item.id)
-      ae.services.items
+      ae.items.first.services
     end
     all_services.flatten
   end
@@ -24,7 +24,7 @@ class AuthorizedEntity::Service < PrsModel
     @district_services = {}
     District.all_full.each do |district|
       @district_services[district.items.first.name] ||= []
-      @district_services[district.items.first.name] << district.items.first.services.select{ |s| s.externalServiceId == id }
+      @district_services[district.items.first.name] << district.items.first.services_full.select{ |s| s.items.first.externalServiceId == id }
     end
     @district_services
   end

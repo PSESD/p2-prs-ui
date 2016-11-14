@@ -17,7 +17,7 @@
 		<% @districts.each do |district| %>
 		<tr>
 			<td><%= district.id %></td>
-			<td><%= link_to district.districtName, district %></td>
+			<td><%= link_to district.name, district %></td>
 			<td><%= district.ncesleaCode %></td>
 			<td><%= district.zoneID %></td>
 			<td><%= link_to glyph(:pencil, "Edit"), edit_district_path(district) %></td>

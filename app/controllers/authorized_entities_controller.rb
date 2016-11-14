@@ -25,7 +25,8 @@ class AuthorizedEntitiesController < ApplicationController
   # POST /authorized_entities
   # POST /authorized_entities.json
   def create
-    @authorized_entity = AuthorizedEntity.new(authorized_entity_params)
+    @authorized_entity = AuthorizedEntity.new(authorized_entity_param_json)
+    # @authorized_entity = AuthorizedEntity.new(authorized_entity_params)
 
     respond_to do |format|
       if @authorized_entity.create
@@ -60,6 +61,10 @@ class AuthorizedEntitiesController < ApplicationController
       format.html { redirect_to authorized_entities_url, notice: 'Authorized entity was successfully destroyed.' }
       format.json { head :no_content }
     end
+  end
+
+  def authorized_entity_param_json
+    JSON.parse(authorized_entity_params.to_json)
   end
 
   private

@@ -18,13 +18,15 @@
 			<dl class="list-group dl-horizontal">
 				<div class="list-group-item">
 					<dt>Authorized Entity</dt>
+					<% #byebug %>
+					<!-- authorized_entity_path(id: @organization.authorizedEntityId) -->
 					<dd><%= link_to @organization.authorized_entity.try(:name), @organization.authorized_entity %>
 						<small class="text-muted">#<%= @organization.authorizedEntityId %></small>
 					</dd>
 				</div>
 				<div class="list-group-item">
 					<dt>External Service</dt>
-					<dd><%= link_to @organization.authorized_entity_service.try(:name), [@organization.authorized_entity, @organization.authorized_entity_service] %>
+					<dd><%= link_to @organization.authorized_entity_service.items.first.try(:name), authorized_entity_service_path(@organization.authorizedEntityId, @organization.externalServiceId) %>
 						<small class="text-muted">#<%= @organization.externalServiceId %></small>
 					</dd>
 				</div>
@@ -45,9 +47,9 @@
 		<div class="panel panel-default">
 			<div class="panel-heading">
 				<%= raw_attributes @organization.admin_users.entries, class: "pull-right" %>
-				
+
 				<h3 class="panel-title">Admin Users</h3>
-			</div>			
+			</div>
 			<table class="table">
 				<thead>
 					<tr>
@@ -71,6 +73,6 @@
 	</div>
 </div>
 
-<%= render partial: "new_user_form", layout: "layouts/modal", locals: { 
+<%= render partial: "new_user_form", layout: "layouts/modal", locals: {
 		id: "addUserModal", title: "Assign another user", dialog_class: "modal-dialog"
 	} %>

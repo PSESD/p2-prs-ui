@@ -1,4 +1,4 @@
 <p id="notice"><%= notice %></p>
 
-<%= link_to 'Edit', edit_data_sets_data_object_path(@data_sets_data_object) %> |
-<%= link_to 'Back', data_sets_data_objects_path %>
+<%= link_to 'Edit', edit_data_set_data_object_path(data_set_id: @data_set.id, id: @data_object.id) %> |
+<%= link_to 'Back', data_set_data_objects_path %>

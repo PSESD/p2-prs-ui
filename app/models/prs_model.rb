@@ -55,17 +55,31 @@ class PrsModel < ActiveRestClient::Base
 
   protected
 
-  def add_authentication_details(name, request)
-    raise Exception.new("Missing authentication credentials") if SessionToken.nil? || SharedSecret.nil?
-    timestamp = Time.now.utc.iso8601(3)
-    token_and_time = "#{SessionToken}:#{timestamp}"
-    auth_hash = Base64.strict_encode64 OpenSSL::HMAC.digest('sha256', SharedSecret, token_and_time)
-    auth_token = Base64.strict_encode64 "#{SessionToken}:#{auth_hash}"
-    request.headers["Authorization"] = "SIF_HMACSHA256 #{auth_token}"
-    request.headers["Timestamp"] = timestamp
-    request.headers["GeneratorId"] = "prs-ui"
-    request.headers["Content-Type"] = "application/xml"
-    request.headers["Accept"] = "application/json"
-  end
+    def add_authentication_details(name, request)
+      raise Exception.new("Missing authentication credentials") if SessionToken.nil? || SharedSecret.nil?
 
+      set_request_headers(request)
+    end
+
+    def set_request_headers(request)
+      request.headers["Authorization"] = "SIF_HMACSHA256 #{PrsModel.credentials[:auth_token]}"
+      request.headers["Timestamp"] = PrsModel.credentials[:timestamp]
+      request.headers["GeneratorId"] = "prs-ui"
+      request.headers["Content-Type"] = "application/xml"
+      request.headers["Accept"] = "application/json"
+      request.headers["ResponseFormat"] = "object"
+    end
+
+    def self.credentials
+      timestamp = Time.now.utc.iso8601(3)
+
+      { timestamp: timestamp,
+        auth_token: PrsModel.generate_auth_token(timestamp) }
+    end
+
+    def self.generate_auth_token(timestamp)
+      token_and_time = "#{SessionToken}:#{timestamp}"
+      auth_hash = Base64.strict_encode64 OpenSSL::HMAC.digest('sha256', SharedSecret, token_and_time)
+      auth_token = Base64.strict_encode64 "#{SessionToken}:#{auth_hash}"
+    end
 end
