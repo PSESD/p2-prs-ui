@@ -16,7 +16,7 @@ class StudentSuccessLink::Organization
   # Returns the full URL of the organization record, which tracks the proper subdomain for login.
   # Suitable for printing directly.
   def full_url
-    URI::HTTPS.build(host: url).to_s
+    URI::HTTPS.build(url: url).to_s
   end
 
   def website_url

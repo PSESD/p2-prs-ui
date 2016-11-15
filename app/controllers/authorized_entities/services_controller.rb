@@ -5,18 +5,14 @@ class AuthorizedEntities::ServicesController < AuthorizedEntitiesController
   # GET /authorized_entity/services
   # GET /authorized_entity/services.json
   def index
-    # begin
-    # byebug
-      @authorized_entity_services = AuthorizedEntity::Service.all(authorized_entity_id: @authorized_entity.id).items
-    # rescue ActiveRestClient::HTTPClientException, ActiveRestClient::HTTPServerException => e
-      # Rails.logger.error("API returned #{e.status} : #{e.result.message}")
-    # end
+    @authorized_entity_services = AuthorizedEntity::Service.all(authorized_entity_id: @authorized_entity.id).items
   end
 
   # GET /authorized_entity/services/1
   # GET /authorized_entity/services/1.json
   def show
-    # @districts = District.all
+    byebug
+    @service = AuthorizedEntity::Service.find(authorized_entity_id: @authorized_entity.id, id: @service.id)
   end
 
   # GET /authorized_entity/services/new
