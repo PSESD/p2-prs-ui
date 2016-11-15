@@ -11,6 +11,7 @@ class DistrictsController < ApplicationController
   # GET /districts/1.json
   def show
     @services = District::Service.all(district_id: @district.id)
+    # @services.class == ActiveRestClient::ResultIterator ? @services.items : @services
   end
 
   # GET /districts/new

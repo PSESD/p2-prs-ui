@@ -11,7 +11,6 @@ class AuthorizedEntities::ServicesController < AuthorizedEntitiesController
   # GET /authorized_entity/services/1
   # GET /authorized_entity/services/1.json
   def show
-    byebug
     @service = AuthorizedEntity::Service.find(authorized_entity_id: @authorized_entity.id, id: @service.id)
   end
 
