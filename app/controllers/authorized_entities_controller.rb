@@ -10,7 +10,8 @@ class AuthorizedEntitiesController < ApplicationController
   # GET /authorized_entities/1
   # GET /authorized_entities/1.json
   def show
-    @services = AuthorizedEntity::Service.all(authorized_entity_id: @authorized_entity.id).items
+    # byebug
+    # @services = AuthorizedEntity::Service.all(authorized_entity_id: @authorized_entity.id).items
   end
 
   # GET /authorized_entities/new

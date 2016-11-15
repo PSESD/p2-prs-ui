@@ -6,13 +6,15 @@ class PrsModel < ActiveRestClient::Base
   before_request :add_authentication_details
   request_body_type :json
 
+  ZoneId = Rails.application.secrets.prs_zone_id
+  ContextId = Rails.application.secrets.prs_context_id
   SessionToken = Rails.application.secrets.prs_session_token
   SharedSecret = Rails.application.secrets.prs_shared_secret
 
   attr_accessor :new_record
 
   def self.url_params
-    ";zoneId=#{Rails.application.secrets.prs_zone_id};contextId=#{Rails.application.secrets.prs_context_id}"
+    ";zoneId=#{ZoneId};contextId=#{ContextId}"
   end
 
   def to_param

@@ -10,20 +10,16 @@
   </thead>
 
   <tbody>
-    <% #byebug %>
-
-    <% @authorized_entitiy_services.each do |authorized_entity_service| %>
-      <% authorized_entity_service.items.each do |service| %>
+    <% @authorized_entity_services.each do |authorized_entity_service| %>
         <tr>
-          <td><%= link_to 'Show', service %></td>
-          <td><%= link_to 'Edit', edit_authorized_entity_service_path(service) %></td>
-          <td><%= link_to 'Destroy', authorized_entity_service, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+          <td><%= link_to 'Show', authorized_entity_service_path(authorized_entity_id: @authorized_entity.id, id: authorized_entity_service.id) %></td>
+          <td><%= link_to 'Edit', edit_authorized_entity_service_path(authorized_entity_id: @authorized_entity.id, id: authorized_entity_service.id) %></td>
+          <td><%= link_to 'Destroy', authorized_entity_service_path(authorized_entity_id: @authorized_entity.id, id: authorized_entity_service.id), method: :delete, data: { confirm: 'Are you sure?' } %></td>
         </tr>
-      <% end %>
     <% end %>
   </tbody>
 </table>
 
 <br>
 
-<%= link_to 'New Service', new_district_service_path %>
+<%= link_to 'New Service', new_authorized_entity_service_path(authorized_entity_id: @authorized_entity.id) %>

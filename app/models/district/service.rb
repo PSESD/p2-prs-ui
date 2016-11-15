@@ -8,7 +8,7 @@ class District::Service < PrsModel
   post :create, "/districts/:district_id/services/" + url_params
   delete :destroy, "/districts/:district_id/services/:id" + url_params
 
-  # alias_attribute :name, :externalServiceName
+  alias_attribute :name, :externalServiceName
   delegate :mainContact, to: :authorized_entity
 
   before_request :replace_body
