@@ -38,6 +38,19 @@ class ApplicationController < ActionController::Base
       http.request(request).body
     end
 
+    def put(path, json_params)
+      url = "https://srx-services-prs-dev.herokuapp.com/#{path};zoneId=test;contextId=test"
+      uri = URI.parse(url)
+      http = Net::HTTP.new(uri.host, uri.port)
+      http.use_ssl = true
+      http.verify_mode = OpenSSL::SSL::VERIFY_NONE
+
+      request = Net::HTTP::Put.new(uri.request_uri, header)
+      request.body = json_params
+
+      http.request(request).body
+    end
+
     def header
       { "Authorization" => "SIF_HMACSHA256 #{PrsModel.credentials[:auth_token]}",
         "Timestamp" => PrsModel.credentials[:timestamp],

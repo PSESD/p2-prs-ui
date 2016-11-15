@@ -9,6 +9,7 @@ class AuthorizedEntity < PrsModel
   }
   put :save, "/authorizedEntities/:id" + url_params
   post :create, "/authorizedEntities" + url_params
+  delete :destroy, "/authorizedEntities/:id" + url_params
 
   # Returns the full record for all AuthorizedEntity objects by looping through all.
   def self.all_full

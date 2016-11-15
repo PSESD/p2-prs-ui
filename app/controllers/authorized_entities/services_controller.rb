@@ -5,7 +5,11 @@ class AuthorizedEntities::ServicesController < AuthorizedEntitiesController
   # GET /authorized_entity/services
   # GET /authorized_entity/services.json
   def index
-    @authorized_entity_services = AuthorizedEntity::Service.all_from_all
+    begin
+      @authorized_entity_services = AuthorizedEntity::Service.all_from_all
+    rescue ActiveRestClient::HTTPClientException, ActiveRestClient::HTTPServerException => e
+      Rails.logger.error("API returned #{e.status} : #{e.result.message}")
+    end
   end
 
   # GET /authorized_entity/services/1
@@ -26,10 +30,10 @@ class AuthorizedEntities::ServicesController < AuthorizedEntitiesController
   # POST /authorized_entity/services
   # POST /authorized_entity/services.json
   def create
-    @service = AuthorizedEntity::Service.new(service_params)
+    @service = post("authorizedEntities/#{@authorized_entity.id}/services", service_params_json)
 
     respond_to do |format|
-      if @service.create
+      if @service = JSON.parse(@service)
         format.html { redirect_to [@authorized_entity, @service], notice: 'Service was successfully created.' }
         format.json { render :show, status: :created, location: [@authorized_entity, @service] }
       else
@@ -73,5 +77,13 @@ class AuthorizedEntities::ServicesController < AuthorizedEntitiesController
     def service_params
       params[:service][:authorized_entity_id] = @authorized_entity.id
       params[:service]
+    end
+
+    def service_params_json
+      service_params.to_json
+    end
+
+    def service_params_xml
+      JSON.parse(service_params_json).to_xml(root: :authorizedEntity)
     end
 end

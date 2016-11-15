@@ -25,7 +25,7 @@ class DistrictsController < ApplicationController
   # POST /districts
   # POST /districts.json
   def create
-    @district = post("districts", district_params_json)
+    @district = post("districts/#{@district.id}", district_params_json)
 
     respond_to do |format|
       if @district = JSON.parse(@district)
@@ -42,8 +42,10 @@ class DistrictsController < ApplicationController
   # PATCH/PUT /districts/1
   # PATCH/PUT /districts/1.json
   def update
+    @district = put("districts/#{@district.id}", district_params_json)
+
     respond_to do |format|
-      if @district.update(district_params)
+      if @district = JSON.parse(@district)
         format.html { redirect_to @district, notice: 'District was successfully updated.' }
         format.json { render :show, status: :ok, location: @district }
       else

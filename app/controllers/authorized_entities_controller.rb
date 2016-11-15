@@ -10,7 +10,7 @@ class AuthorizedEntitiesController < ApplicationController
   # GET /authorized_entities/1
   # GET /authorized_entities/1.json
   def show
-    @services = AuthorizedEntity::Service.all(authorized_entity_id: @authorized_entity.id)
+    @services = AuthorizedEntity::Service.all(authorized_entity_id: @authorized_entity.id).items
   end
 
   # GET /authorized_entities/new
@@ -25,9 +25,6 @@ class AuthorizedEntitiesController < ApplicationController
   # POST /authorized_entities
   # POST /authorized_entities.json
   def create
-    # @authorized_entity = AuthorizedEntity.new(authorized_entity_param_json)
-    # @authorized_entity = AuthorizedEntity.new(authorized_entity_params)
-    # byebug
     @authorized_entity = post("authorizedEntities", authorized_entity_params_json)
 
     respond_to do |format|

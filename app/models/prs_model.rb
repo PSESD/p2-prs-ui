@@ -65,7 +65,7 @@ class PrsModel < ActiveRestClient::Base
       request.headers["Authorization"] = "SIF_HMACSHA256 #{PrsModel.credentials[:auth_token]}"
       request.headers["Timestamp"] = PrsModel.credentials[:timestamp]
       request.headers["GeneratorId"] = "prs-ui"
-      request.headers["Content-Type"] = "application/xml"
+      request.headers["Content-Type"] = "application/json"
       request.headers["Accept"] = "application/json"
       request.headers["ResponseFormat"] = "object"
     end
