@@ -26,7 +26,7 @@ class ApplicationController < ActionController::Base
     end
 
     def post(path, json_params)
-      url = "https://srx-services-prs-dev.herokuapp.com/#{path};zoneId=test;contextId=test"
+      url = "https://srx-services-prs-dev.herokuapp.com#{path};zoneId=test;contextId=test"
       uri = URI.parse(url)
       http = Net::HTTP.new(uri.host, uri.port)
       http.use_ssl = true
@@ -39,7 +39,7 @@ class ApplicationController < ActionController::Base
     end
 
     def put(path, json_params)
-      url = "https://srx-services-prs-dev.herokuapp.com/#{path};zoneId=test;contextId=test"
+      url = "https://srx-services-prs-dev.herokuapp.com#{path};zoneId=test;contextId=test"
       uri = URI.parse(url)
       http = Net::HTTP.new(uri.host, uri.port)
       http.use_ssl = true

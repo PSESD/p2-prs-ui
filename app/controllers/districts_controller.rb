@@ -26,7 +26,8 @@ class DistrictsController < ApplicationController
   # POST /districts
   # POST /districts.json
   def create
-    @district = post("districts/#{@district.id}", district_params_json)
+    # byebug
+    @district = post("/districts", district_params_json)
 
     respond_to do |format|
       if @district = JSON.parse(@district)
