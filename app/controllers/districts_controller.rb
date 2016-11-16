@@ -26,7 +26,6 @@ class DistrictsController < ApplicationController
   # POST /districts
   # POST /districts.json
   def create
-    # byebug
     @district = post("/districts", district_params_json)
 
     respond_to do |format|
@@ -44,7 +43,7 @@ class DistrictsController < ApplicationController
   # PATCH/PUT /districts/1
   # PATCH/PUT /districts/1.json
   def update
-    @district = put("districts/#{@district.id}", district_params_json)
+    @district = put("/districts/#{@district.id}", district_params_json)
 
     respond_to do |format|
       if @district = JSON.parse(@district)
