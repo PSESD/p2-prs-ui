@@ -27,10 +27,11 @@ class Districts::ServicesController < DistrictsController
   # POST /district/services
   # POST /district/services.json
   def create
-    @service = post("districts/#{@district.id}/services", service_params_json)
+    service = post("/districts/#{@district.id}/services", service_params_json)
+    @service = JSON.parse(service)
 
     respond_to do |format|
-      if @service = JSON.parse(@service)
+      if !@service.keys.include?("error")
         format.html { redirect_to [@district, @service], notice: 'Service was successfully created.' }
         format.json { render :show, status: :created, location: [@district, @service] }
       else

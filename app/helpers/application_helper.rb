@@ -55,13 +55,24 @@ module ApplicationHelper
           elsif arg.is_a?(ActiveRestClient::ResultIterator)
             concat(content_tag(:li, class: "dropdown") do
               concat(content_tag(:a, :class => "dropdown-toggle", "data-toggle" => "dropdown") do
-                concat(guess_label_text( arg.select{|a| current_page?(a) }))
+
+                # if arg.is_a?(AuthorizedEntity::Service)
+                #   concat(guess_label_text( arg.select { |a| authorized_entity_services_path(a) }))
+                # else
+                  concat(guess_label_text( arg.select { |a| current_page?(a) }))
+                # end
+
                 concat(" ")
                 concat(content_tag(:span, "", class: "caret"))
               end)
               concat(content_tag(:ul, class: "dropdown-menu") do
                 for object in arg
-                  concat(content_tag(:li, link_to(guess_label_text(object), object), class: ("active" if current_page?(object))))
+
+                  # if object.is_a?(AuthorizedEntity::Service)
+                  #   concat(content_tag(:li, link_to(guess_label_text(object), authorized_entity_services_path(object)), class: ("active" if authorized_entity_services_path(object))))
+                  # else
+                    concat(content_tag(:li, link_to(guess_label_text(object), object), class: ("active" if current_page?(object))))
+                  # end
                 end
               end)
             end)
@@ -77,6 +88,10 @@ module ApplicationHelper
     return guess_label_text(arg.last) if arg.is_a?(Array)
     methods = [:to_label, :name, :title]
     label_text = arg.try(methods.find{ |m| arg.respond_to?(m) }) rescue nil
+  end
+
+  def auth_entity_services_path?(service)
+    current_page?(authorized_entity_services_path(service))
   end
 
   # Provides a link to display the raw attributes provided in a modal.

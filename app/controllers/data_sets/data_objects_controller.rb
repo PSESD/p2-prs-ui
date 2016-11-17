@@ -25,10 +25,11 @@ class DataSets::DataObjectsController < DataSetsController
   # POST /data_sets/data_objects
   # POST /data_sets/data_objects.json
   def create
-    @data_object = post("dataSets/#{@data_set.id}/sifDataObjects", data_object_params_json)
+    data_object = post("dataSets/#{@data_set.id}/sifDataObjects", data_object_params_json)
+    @data_object = JSON.parse(data_object)
 
     respond_to do |format|
-      if @data_object = JSON.parse(@data_object)
+      if !@data_object.keys.include?("error")
         format.html { redirect_to @data_set, notice: 'Data object was successfully created.' }
         format.json { render :show, status: :created, location: @data_set }
       else
@@ -41,8 +42,11 @@ class DataSets::DataObjectsController < DataSetsController
   # PATCH/PUT /data_sets/data_objects/1
   # PATCH/PUT /data_sets/data_objects/1.json
   def update
+    data_object = put("/dataSets/#{@data_set.id}/sifDataObjects/#{@data_object.id}", data_object_params_json)
+    @data_object = JSON.parse(data_object)
+
     respond_to do |format|
-      if @data_object.update(data_sets_data_object_params)
+      if !@data_object.keys.include?("error")
         format.html { redirect_to @data_set, notice: 'Data object was successfully updated.' }
         format.json { render :show, status: :ok, location: @data_set }
       else
@@ -65,20 +69,20 @@ class DataSets::DataObjectsController < DataSetsController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_data_object
-      @data_object = DataSet::DataObject.find(data_set_id: @data_set.id, id: params[:id]).items.first
+      @data_object = DataSet::DataObject.find(data_set_id: params[:data_set_id], id: params[:id]).items.first
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def data_object_params
-      params[:data_object][:data_set_id] = @data_set.id
+      params[:data_object][:dataSetId] = @data_set.id
       params[:data_object]
     end
 
     def data_object_params_json
-      data_set_params.to_json
+      data_object_params.to_json
     end
 
     def data_object_params_xml
-      JSON.parse(data_set_params_json).to_xml(root: :dataSet)
+      JSON.parse(data_object_params_json).to_xml(root: :dataSet)
     end
 end

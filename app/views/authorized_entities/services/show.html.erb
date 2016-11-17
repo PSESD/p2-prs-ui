@@ -1,7 +1,8 @@
-<%= breadcrumbs(:authorized_entities, @authorized_entity, @service.name) %>
+<%= breadcrumbs(:authorized_entities, @authorized_entity, @service) %>
 
 <div class="pull-right">
-	<%= link_to glyph(:pencil) + " Edit", [:edit, @authorized_entity, @service], class: 'btn btn-primary' %>
+	<!-- [:edit, @authorized_entity, @service] -->
+	<%= link_to glyph(:pencil) + " Edit", edit_authorized_entity_service(authorized_entity_id: @authorized_entity.id, id: @service.id), class: 'btn btn-primary' %>
 	<%= render "ssl_organization_link" %>
 </div>
 

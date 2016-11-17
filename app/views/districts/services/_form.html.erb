@@ -2,7 +2,6 @@
 	<%= f.error_notification %>
 
 	<div class="form-inputs">
-		<% #byebug %>
 		<%= f.input :externalServiceId, label: "External Service", as: :grouped_select, collection: AuthorizedEntity.all_full, group_method: :services, value_method: :id, prompt: "-- Please select --" %>
 
 		<%= f.input :valid_date_range do %>

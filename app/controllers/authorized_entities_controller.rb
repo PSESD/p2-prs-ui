@@ -21,15 +21,17 @@ class AuthorizedEntitiesController < ApplicationController
 
   # GET /authorized_entities/1/edit
   def edit
+    # byebug
   end
 
   # POST /authorized_entities
   # POST /authorized_entities.json
   def create
-    @authorized_entity = post("authorizedEntities", authorized_entity_params_json)
+    @authorized_entity = post("/authorizedEntities", authorized_entity_params_json)
+    @authorized_entity = JSON.parse(@authorized_entity)
 
     respond_to do |format|
-      if @authorized_entity = JSON.parse(@authorized_entity)
+      if !@authorized_entity.keys.include?("error")
         format.html { redirect_to @authorized_entity, notice: 'Authorized entity was successfully created.' }
         format.json { render :show, status: :created, location: @authorized_entity }
       else
@@ -42,8 +44,12 @@ class AuthorizedEntitiesController < ApplicationController
   # PATCH/PUT /authorized_entities/1
   # PATCH/PUT /authorized_entities/1.json
   def update
+    # byebug
+    authorized_entity = put("/authorizedEntities/#{@authorized_entity.id}", authorized_entity_params_json)
+    @authorized_entity = JSON.parse(authorized_entity)
+
     respond_to do |format|
-      if @authorized_entity.update(authorized_entity_params)
+      if !@authorized_entity.keys.include?("error")
         format.html { redirect_to @authorized_entity, notice: 'Authorized entity was successfully updated.' }
         format.json { render :show, status: :ok, location: @authorized_entity }
       else
@@ -70,7 +76,7 @@ class AuthorizedEntitiesController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_authorized_entity
-      @authorized_entity = AuthorizedEntity.find(params[:authorizedEntityId] || params[:id]).first
+      @authorized_entity = AuthorizedEntity.find(params[:authorized_entity_id] || params[:id]).first
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

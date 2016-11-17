@@ -8,6 +8,8 @@ class DataSet::DataObject < DataSet
   post :create, "/dataSets/:data_set_id/sifDataObjects" + url_params
   delete :destroy, "/dataSets/:data_set_id/sifDataObjects/:id" + url_params
 
+  alias_attribute :dataSetId, :data_set_id
+
   def filterTypeLabel
     filterType.is_a?(String) ? filterType : %w[Include Exclude][filterType]
   end

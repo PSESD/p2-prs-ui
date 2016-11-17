@@ -11,7 +11,6 @@ class AuthorizedEntities::ServicesController < AuthorizedEntitiesController
   # GET /authorized_entity/services/1
   # GET /authorized_entity/services/1.json
   def show
-    @service = AuthorizedEntity::Service.find(authorized_entity_id: @authorized_entity.id, id: @service.id)
   end
 
   # GET /authorized_entity/services/new
@@ -26,10 +25,11 @@ class AuthorizedEntities::ServicesController < AuthorizedEntitiesController
   # POST /authorized_entity/services
   # POST /authorized_entity/services.json
   def create
-    @service = post("authorizedEntities/#{@authorized_entity.id}/services", service_params_json)
+    service = post("/authorizedEntities/#{@authorized_entity.id}/services", service_params_json)
+    @service = JSON.parse(service)
 
     respond_to do |format|
-      if @service = JSON.parse(@service)
+      if !@service.keys.include?("error")
         format.html { redirect_to [@authorized_entity, @service], notice: 'Service was successfully created.' }
         format.json { render :show, status: :created, location: [@authorized_entity, @service] }
       else
@@ -42,8 +42,11 @@ class AuthorizedEntities::ServicesController < AuthorizedEntitiesController
   # PATCH/PUT /authorized_entity/services/1
   # PATCH/PUT /authorized_entity/services/1.json
   def update
+    service = put("/authorizedEntities/#{@authorized_entity.id}/services/#{@service.id}", service_params_json)
+    @service = JSON.parse(service)
+
     respond_to do |format|
-      if @service.update(service_params)
+      if !@service.keys.include?("error")
         format.html { redirect_to [@authorized_entity, @service], notice: 'Service was successfully updated.' }
         format.json { render :show, status: :ok, location: [@authorized_entity, @service] }
       else
@@ -56,7 +59,7 @@ class AuthorizedEntities::ServicesController < AuthorizedEntitiesController
   # DELETE /authorized_entity/services/1
   # DELETE /authorized_entity/services/1.json
   def destroy
-    @service.destroy
+    @service.destroy(authorized_entity_id: @authorized_entity.id, id: @service.id)
     respond_to do |format|
       format.html { redirect_to @authorized_entity, notice: 'Service was successfully destroyed.' }
       format.json { head :no_content }
@@ -66,7 +69,7 @@ class AuthorizedEntities::ServicesController < AuthorizedEntitiesController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_service
-      @service = AuthorizedEntity::Service.find(authorized_entity_id: params[:authorized_entity_id], id: params[:id]).items.first
+      @service = AuthorizedEntity::Service.find(authorized_entity_id: params[:authorized_entity_id], id: params[:id]).first
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

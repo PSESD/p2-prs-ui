@@ -25,10 +25,11 @@ class DataSetsController < ApplicationController
   # POST /data_sets
   # POST /data_sets.json
   def create
-    @data_set = post("dataSets", data_set_params_json)
+    data_set = post("/dataSets", data_set_params_json)
+    @data_set = JSON.parse(data_set)
 
     respond_to do |format|
-      if @data_set = JSON.parse(@data_set)
+      if !@data_set.keys.include?("error")
         format.html { redirect_to @data_set, notice: 'Data set was successfully created.' }
         format.json { render :show, status: :created, location: @data_set }
       else
@@ -41,8 +42,11 @@ class DataSetsController < ApplicationController
   # PATCH/PUT /data_sets/1
   # PATCH/PUT /data_sets/1.json
   def update
+    data_set = put("/dataSets/#{@data_set.id}", data_set_params_json)
+    @data_set = JSON.parse(data_set)
+
     respond_to do |format|
-      if @data_set.update(data_set_params)
+      if !@data_set.keys.include?("error")
         format.html { redirect_to @data_set, notice: 'Data set was successfully updated.' }
         format.json { render :show, status: :ok, location: @data_set }
       else
@@ -65,8 +69,7 @@ class DataSetsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_data_set
-      # byebug
-      @data_set = DataSet.find(params[:data_set_id] || params[:id]).items.first
+      @data_set = DataSet.find(params[:data_set_id] || params[:id]).first
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
