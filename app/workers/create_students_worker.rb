@@ -5,7 +5,7 @@ class CreateStudentsWorker
   def perform
     params = options.dup
     ids = params['districtStudentId'].try(:split, ",").try(:collect, &:strip)
-    
+
     @students = {}
     ids.each_with_index do |id, index|
       params['districtStudentId'] = id
@@ -13,7 +13,7 @@ class CreateStudentsWorker
       @students[id] = District::Student.create(params)
       set_status(students: @students)
     end
-    
+
     completed(students: @students)
   end
 end

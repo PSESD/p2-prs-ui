@@ -25,27 +25,19 @@ class ApplicationController < ActionController::Base
       render action: 'error_message'
     end
 
-    def post(path, json_params)
+    def http_request(action, path, json_params)
       url = "https://srx-services-prs-dev.herokuapp.com#{path};zoneId=test;contextId=test"
       uri = URI.parse(url)
       http = Net::HTTP.new(uri.host, uri.port)
       http.use_ssl = true
       http.verify_mode = OpenSSL::SSL::VERIFY_NONE
 
-      request = Net::HTTP::Post.new(uri.request_uri, header)
-      request.body = json_params
+      if action == "post"
+        request = Net::HTTP::Post.new(uri.request_uri, header)
+      elsif action == "put"
+        request = Net::HTTP::Put.new(uri.request_uri, header)
+      end
 
-      http.request(request).body
-    end
-
-    def put(path, json_params)
-      url = "https://srx-services-prs-dev.herokuapp.com#{path};zoneId=test;contextId=test"
-      uri = URI.parse(url)
-      http = Net::HTTP.new(uri.host, uri.port)
-      http.use_ssl = true
-      http.verify_mode = OpenSSL::SSL::VERIFY_NONE
-
-      request = Net::HTTP::Put.new(uri.request_uri, header)
       request.body = json_params
 
       http.request(request).body

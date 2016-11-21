@@ -8,14 +8,17 @@ class District < PrsModel
   delete :destroy, "/districts/:id" + url_params
 
   def self.all_full
+    # parallelise
     District.all.parallelise do |item|
       District.find item.id
     end
   end
 
   def services_full
+    # .parallelise
     District::Service.all(district_id: id).parallelise do |item|
       District::Service.find(district_id: id, id: item.id)
     end
+    # District::Service.all(district_id: id).items
   end
 end

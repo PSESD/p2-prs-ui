@@ -27,7 +27,7 @@ class Districts::ServicesController < DistrictsController
   # POST /district/services
   # POST /district/services.json
   def create
-    service = post("/districts/#{@district.id}/services", service_params_json)
+    service = http_request("post", "/districts/#{@district.id}/services", service_params_json)
     @service = JSON.parse(service)
 
     respond_to do |format|
@@ -44,8 +44,11 @@ class Districts::ServicesController < DistrictsController
   # PATCH/PUT /district/services/1
   # PATCH/PUT /district/services/1.json
   def update
+    service = http_request("put", "/districts/#{@district.id}/services/#{@service.id}", service_params_json)
+    @service = JSON.parse(service)
+
     respond_to do |format|
-      if @service.update(service_params)
+      if !@service.keys.include?("error")
         format.html { redirect_to [@district, @service], notice: 'Service was successfully updated.' }
         format.json { render :show, status: :ok, location: [@district, @service] }
       else

@@ -42,11 +42,20 @@ class Districts::StudentsController < DistrictsController
 
   # Create a bunch of students at once.
   def bulk_create
+    # byebug
     unless params[:id]
-      @job_id = CreateStudentsWorker.create(districts_student_params)
-      return redirect_to(bulk_create_status_district_service_students_path(@district, @service, @job_id))
+      begin
+        @job_id = CreateStudentsWorker.create(districts_student_params)
+      rescue ActiveRestClient::HTTPClientException, ActiveRestClient::HTTPServerException => e
+        Rails.logger.error("API returned #{e.status} : #{e.result.message}")
+      end
+      # byebug
+      # @job = post("/districts/#{@district.id}/services/#{@service.id}/students", districts_student_params_json)
+      # @job_id = JSON.parse(@job)["id"]
+      # byebug
+      return redirect_to(bulk_create_status_district_service_students_path(district_id: @district, service_id: @service, id: @job_id))
     end
-
+# byebug
     @status = Resque::Plugins::Status::Hash.get(params[:id])
     respond_to do |format|
       if @status
@@ -102,11 +111,11 @@ class Districts::StudentsController < DistrictsController
   private
 
   def set_districts_service
-    @service = District::Service.find(district_id: @district.id, id: params[:service_id]).items.first
+    @service = District::Service.find(district_id: @district.id, id: params[:service_id]).first
   end
 
   def set_districts_student
-    @student = District::Student.find(district_id: @district.id, service_id: params[:service_id], id: params[:id]).items.first
+    @student = District::Student.find(district_id: @district.id, service_id: params[:service_id], id: params[:id]).first
   end
 
   # Never trust parameters from the scary internet, only allow the white list through.
@@ -114,5 +123,9 @@ class Districts::StudentsController < DistrictsController
     params[:student][:district_id] = @district.id
     params[:student][:service_id] = @service.id
     params[:student]
+  end
+
+  def districts_student_params_json
+    districts_student_params.to_json
   end
 end

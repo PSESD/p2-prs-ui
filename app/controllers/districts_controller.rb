@@ -26,7 +26,7 @@ class DistrictsController < ApplicationController
   # POST /districts
   # POST /districts.json
   def create
-    district = post("/districts", district_params_json)
+    district = http_request("post", "/districts", district_params_json)
     @district = JSON.parse(district)
 
     respond_to do |format|
@@ -44,7 +44,7 @@ class DistrictsController < ApplicationController
   # PATCH/PUT /districts/1
   # PATCH/PUT /districts/1.json
   def update
-    district = put("/districts/#{@district.id}", district_params_json)
+    district = http_request("put", "/districts/#{@district.id}", district_params_json)
     @district = JSON.parse(district)
 
     respond_to do |format|

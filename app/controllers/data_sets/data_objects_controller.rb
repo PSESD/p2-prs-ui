@@ -25,7 +25,7 @@ class DataSets::DataObjectsController < DataSetsController
   # POST /data_sets/data_objects
   # POST /data_sets/data_objects.json
   def create
-    data_object = post("dataSets/#{@data_set.id}/sifDataObjects", data_object_params_json)
+    data_object = http_request("post", "/dataSets/#{@data_set.id}/sifDataObjects", data_object_params_json)
     @data_object = JSON.parse(data_object)
 
     respond_to do |format|
@@ -42,7 +42,7 @@ class DataSets::DataObjectsController < DataSetsController
   # PATCH/PUT /data_sets/data_objects/1
   # PATCH/PUT /data_sets/data_objects/1.json
   def update
-    data_object = put("/dataSets/#{@data_set.id}/sifDataObjects/#{@data_object.id}", data_object_params_json)
+    data_object = http_request("put", "/dataSets/#{@data_set.id}/sifDataObjects/#{@data_object.id}", data_object_params_json)
     @data_object = JSON.parse(data_object)
 
     respond_to do |format|

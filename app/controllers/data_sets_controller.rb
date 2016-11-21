@@ -25,7 +25,7 @@ class DataSetsController < ApplicationController
   # POST /data_sets
   # POST /data_sets.json
   def create
-    data_set = post("/dataSets", data_set_params_json)
+    data_set = http_request("post", "/dataSets", data_set_params_json)
     @data_set = JSON.parse(data_set)
 
     respond_to do |format|
@@ -42,7 +42,7 @@ class DataSetsController < ApplicationController
   # PATCH/PUT /data_sets/1
   # PATCH/PUT /data_sets/1.json
   def update
-    data_set = put("/dataSets/#{@data_set.id}", data_set_params_json)
+    data_set = http_request("put", "/dataSets/#{@data_set.id}", data_set_params_json)
     @data_set = JSON.parse(data_set)
 
     respond_to do |format|

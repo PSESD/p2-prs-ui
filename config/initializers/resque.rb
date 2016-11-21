@@ -3,7 +3,7 @@ require 'resque/failure/multiple'
 require 'resque/failure/redis'
 require 'resque/rollbar'
 
-Resque.redis = ENV['REDIS_URL']
+Resque.redis = Rails.application.secrets.redis_url
 
 # Resque.logger.formatter = Resque::VeryVerboseFormatter.new
 Resque.logger.level = Logger::DEBUG

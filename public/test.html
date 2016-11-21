@@ -6,7 +6,7 @@
 	<script src="http://crypto-js.googlecode.com/svn/tags/3.1.2/build/rollups/hmac-sha256.js"></script>
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 	<script type="text/javascript">
-	
+
 	function generateAuthHeader(sessionToken, secret, timestamp) {
 		var tokenTime = sessionToken + ':' + timestamp;
 		console.log(tokenTime)
@@ -31,7 +31,8 @@
 		};
 		$.ajax(url, requestSettings).done(callback);
 	}
-	callApi('https://p2cbo-prod-prs.azurewebsites.net/api/v1/districts', 'GET', function(data) {
+	// 'https://p2cbo-prod-prs.azurewebsites.net/api/v1/districts'
+	callApi('https://srx-services-prs-dev.herokuapp.com/districts', 'GET', function(data) {
 		console.log(data);
 	});
 	</script>

@@ -2,7 +2,7 @@
 
 <div class="pull-right">
 	<!-- [:edit, @authorized_entity, @service] -->
-	<%= link_to glyph(:pencil) + " Edit", edit_authorized_entity_service(authorized_entity_id: @authorized_entity.id, id: @service.id), class: 'btn btn-primary' %>
+	<%= link_to glyph(:pencil) + " Edit", edit_authorized_entity_service_path(authorized_entity_id: @authorized_entity.id, id: @service.id), class: 'btn btn-primary' %>
 	<%= render "ssl_organization_link" %>
 </div>
 
@@ -24,10 +24,9 @@
 			</tr>
 		</thead>
 		<tbody>
-			<%- for district_name, services in @service.district_services -%>
+			<%- for district_name, services in @district_services -%>
 				<%- unless services.first.empty? -%>
-					<%- for service in services.first.first.items -%>
-					<% #byebug %>
+					<%- for service in services.first -%>
 						<tr><td><%= service.id %></td>
 							<td><%= link_to district_name, district_service_path(service.districtId, service) %></td>
 							<td><%= service.initiationDate %></td>

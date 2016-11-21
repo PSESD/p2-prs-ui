@@ -1,25 +1,26 @@
+<%# byebug %>
 <%= simple_form_for [@district, @service, @student], wrapper: :horizontal_form do |f| %>
 	<%= f.error_notification %>
 
 	<div class="form-inputs">
 		<%= f.input :districtStudentId, label: "District Student ID(s)", hint: "Add multiple student ID's separated by commas." %>
-		
+
 		<%= f.simple_fields_for :consent do |consent| -%>
 			<%= consent.input :consentType, label: "Consent Type", input_html: { value: @student.consent.try(:consentType) }, collection: District::Student::ConsentTypes %>
-			
+
 			<%= consent.input :valid_date_range do %>
 				<div class="input-daterange input-group">
-					<%= consent.input_field :consentStartDate, class: "form-control", placeholder: "Start Date", input_html: { value: @student.consent.try(:consentStartDate) } %>
+					<%= consent.input_field :startDate, class: "form-control", placeholder: "Start Date", input_html: { value: @student.consent.try(:startDate) } %>
 				    <span class="input-group-addon">to</span>
-					<%= consent.input_field :consentEndDate, class: "form-control", placeholder: "End Date", input_html: { value: @student.consent.try(:consentEndDate) } %>
+					<%= consent.input_field :endDate, class: "form-control", placeholder: "End Date", input_html: { value: @student.consent.try(:endDate) } %>
 				</div>
 			<% end %>
-			
+
 		<% end %>
 	</div>
 
 	<div class="form-actions">
 		<%= f.button :submit %>
 	</div>
-	
+
 <% end %>

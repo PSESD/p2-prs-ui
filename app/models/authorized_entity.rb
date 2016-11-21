@@ -13,7 +13,8 @@ class AuthorizedEntity < PrsModel
 
   # Returns the full record for all AuthorizedEntity objects by looping through all.
   def self.all_full
-    AuthorizedEntity.all.parallelise do |item|
+    # parallelise
+    AuthorizedEntity.all do |item|
       AuthorizedEntity.find(item.id).items.first
     end
   end

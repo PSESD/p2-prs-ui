@@ -27,8 +27,8 @@ class AuthorizedEntitiesController < ApplicationController
   # POST /authorized_entities
   # POST /authorized_entities.json
   def create
-    @authorized_entity = post("/authorizedEntities", authorized_entity_params_json)
-    @authorized_entity = JSON.parse(@authorized_entity)
+    authorized_entity = http_request("post", "/authorizedEntities", authorized_entity_params_json)
+    @authorized_entity = JSON.parse(authorized_entity)
 
     respond_to do |format|
       if !@authorized_entity.keys.include?("error")
@@ -44,8 +44,7 @@ class AuthorizedEntitiesController < ApplicationController
   # PATCH/PUT /authorized_entities/1
   # PATCH/PUT /authorized_entities/1.json
   def update
-    # byebug
-    authorized_entity = put("/authorizedEntities/#{@authorized_entity.id}", authorized_entity_params_json)
+    authorized_entity = http_request("put", "/authorizedEntities/#{@authorized_entity.id}", authorized_entity_params_json)
     @authorized_entity = JSON.parse(authorized_entity)
 
     respond_to do |format|

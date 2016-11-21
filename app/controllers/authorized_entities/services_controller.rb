@@ -11,6 +11,8 @@ class AuthorizedEntities::ServicesController < AuthorizedEntitiesController
   # GET /authorized_entity/services/1
   # GET /authorized_entity/services/1.json
   def show
+    @districts = District.all
+    @district_services = @service.district_services(@districts)
   end
 
   # GET /authorized_entity/services/new
@@ -25,7 +27,7 @@ class AuthorizedEntities::ServicesController < AuthorizedEntitiesController
   # POST /authorized_entity/services
   # POST /authorized_entity/services.json
   def create
-    service = post("/authorizedEntities/#{@authorized_entity.id}/services", service_params_json)
+    service = http_request("post", "/authorizedEntities/#{@authorized_entity.id}/services", service_params_json)
     @service = JSON.parse(service)
 
     respond_to do |format|
@@ -42,7 +44,7 @@ class AuthorizedEntities::ServicesController < AuthorizedEntitiesController
   # PATCH/PUT /authorized_entity/services/1
   # PATCH/PUT /authorized_entity/services/1.json
   def update
-    service = put("/authorizedEntities/#{@authorized_entity.id}/services/#{@service.id}", service_params_json)
+    service = http_request("put", "/authorizedEntities/#{@authorized_entity.id}/services/#{@service.id}", service_params_json)
     @service = JSON.parse(service)
 
     respond_to do |format|

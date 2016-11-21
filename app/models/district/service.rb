@@ -5,13 +5,13 @@ class District::Service < PrsModel
   get :all, "/districts/:district_id/services" + url_params
   get :find, "/districts/:district_id/services/:id" + url_params, :has_many => { :students => District::Student, :dataSets => DataSet }
   put :save, "/districts/:district_id/services/:id" + url_params
-  post :create, "/districts/:district_id/services/" + url_params
+  post :create, "/districts/:district_id/services" + url_params
   delete :destroy, "/districts/:district_id/services/:id" + url_params
 
   alias_attribute :name, :externalServiceName
   delegate :mainContact, to: :authorized_entity
 
-  before_request :replace_body
+  # before_request :replace_body
 
   def students
     District::Student.all(district_id: districtId, service_id: id)
@@ -42,7 +42,7 @@ class District::Service < PrsModel
   end
 
   def authorized_entity
-    AuthorizedEntity.find(self[:authorizedEntityId])
+    AuthorizedEntity.find(self[:authorizedEntityId]).first
   end
 
   private
