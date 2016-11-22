@@ -22,13 +22,21 @@ class AuthorizedEntity::Service < PrsModel
   # Returns all of the District::Service records for this external service in a
   # hash where the district name is the key and an array of services are the values.
   def district_services(districts)
-    return @district_services if @district_services
-    @district_services = {}
+    @district_services ||= {}
+
     districts.each do |district|
-      @district_services[district.name] ||= []
-      @district_services[district.name] << district.services.select{ |s| s.externalServiceId == id }
+      @district_services[district.name] = district.services.find { |s| s.externalServiceId == id }
     end
+
     @district_services
+
+    # return @district_services if @district_services
+    # @district_services = {}
+    # districts.each do |district|
+    #   @district_services[district.name] ||= []
+    #   @district_services[district.name] << district.services.select{ |s| s.externalServiceId == id }
+    # end
+    # @district_services
   end
 
   # Returns the associated Organization record that's setup for this Service in

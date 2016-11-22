@@ -1,3 +1,9 @@
+require 'resque/server'
+
+P2PrsUi::Application.routes.draw do
+  mount Resque::Server.new, at: "/resque"
+end
+
 Rails.application.routes.draw do
 
   # Authorized Entities

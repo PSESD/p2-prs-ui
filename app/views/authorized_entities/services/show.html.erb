@@ -24,16 +24,14 @@
 			</tr>
 		</thead>
 		<tbody>
-			<%- for district_name, services in @district_services -%>
-				<%- unless services.first.empty? -%>
-					<%- for service in services.first -%>
-						<tr><td><%= service.id %></td>
-							<td><%= link_to district_name, district_service_path(service.districtId, service) %></td>
-							<td><%= service.initiationDate %></td>
-							<td><%= service.expirationDate %></td>
-							<td><%= link_to glyph('option-horizontal', 'Details'), district_service_path(service.districtId, service) %></td>
+			<%- for district_name, matching_service in @district_services -%>
+				<%- unless matching_service.nil? -%>
+						<tr><td><%= matching_service.id %></td>
+							<td><%= link_to district_name, district_service_path(matching_service.districtId, matching_service) %></td>
+							<td><%= matching_service.initiationDate %></td>
+							<td><%= matching_service.expirationDate %></td>
+							<td><%= link_to glyph('option-horizontal', 'Details'), district_service_path(matching_service.districtId, matching_service) %></td>
 						</tr>
-					<% end %>
 				<% end %>
 			<% end %>
 		</tbody>
