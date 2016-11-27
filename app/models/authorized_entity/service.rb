@@ -21,6 +21,8 @@ class AuthorizedEntity::Service < PrsModel
 
   # Returns all of the District::Service records for this external service in a
   # hash where the district name is the key and an array of services are the values.
+
+  # Are there any situations in which there are multiple services for a external service?
   def district_services(districts)
     @district_services ||= {}
 
@@ -29,14 +31,6 @@ class AuthorizedEntity::Service < PrsModel
     end
 
     @district_services
-
-    # return @district_services if @district_services
-    # @district_services = {}
-    # districts.each do |district|
-    #   @district_services[district.name] ||= []
-    #   @district_services[district.name] << district.services.select{ |s| s.externalServiceId == id }
-    # end
-    # @district_services
   end
 
   # Returns the associated Organization record that's setup for this Service in

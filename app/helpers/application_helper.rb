@@ -78,7 +78,7 @@ module ApplicationHelper
             end)
           else
 
-            if args.index(arg) == 1
+            if args.index(arg) == 1 || arg.class == StudentSuccessLink::Organization
               concat content_tag(:li, link_to(guess_label_text(arg), arg))
             elsif args.index(arg) == 2
               concat content_tag(:li, link_to(guess_label_text(arg), [args.second, args.last]))

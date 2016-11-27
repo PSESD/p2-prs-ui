@@ -11,9 +11,6 @@ class District::Student < PrsModel
 
   before_request do |name, request|
     if name == :filters
-      request.headers["Accept"] = "application/xml"
-      request.headers["Content-Type"] = "application/xml"
-
       # Convert get params to headers because that's the way PRS likes them.
       for param in %w[districtId authorizedEntityId externalServiceId districtStudentId objectType personnelId]
         request.headers[param] = request.get_params.delete(param.to_sym).to_s if request.get_params[param.to_sym]

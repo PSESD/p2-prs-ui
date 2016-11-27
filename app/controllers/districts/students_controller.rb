@@ -42,20 +42,17 @@ class Districts::StudentsController < DistrictsController
 
   # Create a bunch of students at once.
   def bulk_create
-    # byebug
+
     unless params[:id]
       begin
         @job_id = CreateStudentsWorker.create(districts_student_params)
       rescue ActiveRestClient::HTTPClientException, ActiveRestClient::HTTPServerException => e
         Rails.logger.error("API returned #{e.status} : #{e.result.message}")
       end
-      # byebug
-      # @job = post("/districts/#{@district.id}/services/#{@service.id}/students", districts_student_params_json)
-      # @job_id = JSON.parse(@job)["id"]
-      # byebug
+
       return redirect_to(bulk_create_status_district_service_students_path(district_id: @district, service_id: @service, id: @job_id))
     end
-# byebug
+
     @status = Resque::Plugins::Status::Hash.get(params[:id])
     respond_to do |format|
       if @status

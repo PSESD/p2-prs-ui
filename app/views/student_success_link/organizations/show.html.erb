@@ -18,7 +18,6 @@
 			<dl class="list-group dl-horizontal">
 				<div class="list-group-item">
 					<dt>Authorized Entity</dt>
-					<% #byebug %>
 					<!-- authorized_entity_path(id: @organization.authorizedEntityId) -->
 					<dd><%= link_to @organization.authorized_entity.try(:name), @organization.authorized_entity %>
 						<small class="text-muted">#<%= @organization.authorizedEntityId %></small>
@@ -26,6 +25,7 @@
 				</div>
 				<div class="list-group-item">
 					<dt>External Service</dt>
+					<%# byebug %>
 					<dd><%= link_to @organization.authorized_entity_service.items.first.try(:name), authorized_entity_service_path(@organization.authorizedEntityId, @organization.externalServiceId) %>
 						<small class="text-muted">#<%= @organization.externalServiceId %></small>
 					</dd>
