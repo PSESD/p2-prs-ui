@@ -42,7 +42,7 @@ class StudentSuccessLink::Organization
 
   def add_admin_user(user)
     user.permissions.new(
-      organization: id,
+      organization: name,
       activateStatus: "Active",
       activate: true,
       role: "admin"
