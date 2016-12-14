@@ -42,27 +42,41 @@ class Districts::StudentsController < DistrictsController
 
   # Create a bunch of students at once.
   def bulk_create
+# byebug
 
-    unless params[:id]
-      begin
-        @job_id = CreateStudentsWorker.create(districts_student_params)
-      rescue ActiveRestClient::HTTPClientException, ActiveRestClient::HTTPServerException => e
-        Rails.logger.error("API returned #{e.status} : #{e.result.message}")
+    # unless params[:id]
+      # begin
+        # Resque.enqueue(CreateStudentsWorker, districts_student_params)
+        # @job_id = CreateStudentsWorker.create(districts_student_params)
+      # rescue ActiveRestClient::HTTPClientException, ActiveRestClient::HTTPServerException => e
+        # Rails.logger.error("API returned #{e.status} : #{e.result.message}")
+      # end
+
+      student_ids = districts_student_params[:districtStudentId].split(",").map(&:strip)
+      districts_student_params[:districtServiceId] = districts_student_params[:service_id]
+
+      total = student_ids.count
+      student_ids.each_with_index do |student_id, i|
+        puts "Creating #{i + 1} of #{total}"
+        districts_student_params[:districtStudentId] = student_id
+        path = "/districts/" + districts_student_params[:district_id] + "/services/" + districts_student_params[:service_id] + "/students"
+        http_request("post", path, districts_student_params.to_json)
       end
 
-      return redirect_to(bulk_create_status_district_service_students_path(district_id: @district, service_id: @service, id: @job_id))
-    end
+      redirect_to district_service_path(district_id: @district.id, id: @service.id)
+      # redirect_to(bulk_create_status_district_service_students_path(district_id: @district, service_id: @service, id: @job_id))
+    # end
 
-    @status = Resque::Plugins::Status::Hash.get(params[:id])
-    respond_to do |format|
-      if @status
-        format.html { render :bulk_create }
-        format.json { render :show, status: :created, location: [@district, @service, :students, :bulk_create] }
-      else
-        format.html { render :new }
-        format.json { render json: @status.errors, status: :unprocessable_entity }
-      end
-    end
+    # @status = Resque::Plugins::Status::Hash.get(params[:id])
+    # respond_to do |format|
+    #   if @status
+    #     format.html { render :bulk_create }
+    #     format.json { render :show, status: :created, location: [@district, @service, :students, :bulk_create] }
+    #   else
+    #     format.html { render :new }
+    #     format.json { render json: @status.errors, status: :unprocessable_entity }
+    #   end
+    # end
   end
 
   # PATCH/PUT /districts/students/1
