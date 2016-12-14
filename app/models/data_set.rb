@@ -7,5 +7,5 @@ class DataSet < PrsModel
   put :save, "/dataSets/:id" + url_params
   post :create, "/dataSets/" + url_params
   delete :destroy, "/dataSets/:id" + url_params
-  
+
 end

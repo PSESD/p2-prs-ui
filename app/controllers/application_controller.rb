@@ -7,6 +7,9 @@ class ApplicationController < ActionController::Base
   rescue_from ActiveRestClient::ConnectionFailedException, with: :connection_failure
   rescue_from ActionController::RedirectBackError, with: :error_message
 
+  ZoneId = Rails.application.secrets.prs_zone_id
+  ContextId = Rails.application.secrets.prs_context_id
+
   protected
 
     def api_error(exception)
@@ -26,7 +29,7 @@ class ApplicationController < ActionController::Base
     end
 
     def http_request(action, path, json_params)
-      url = "https://srx-services-prs-dev.herokuapp.com#{path};zoneId=test;contextId=test"
+      url = "https://srx-services-prs-dev.herokuapp.com#{path};zoneId=#{ZoneId};contextId=#{ContextId}"
       uri = URI.parse(url)
       http = Net::HTTP.new(uri.host, uri.port)
       http.use_ssl = true
