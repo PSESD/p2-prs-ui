@@ -78,7 +78,6 @@ GEM
       execjs
     coffee-script-source (1.11.1)
     concurrent-ruby (1.0.2)
-    connection_pool (2.2.1)
     crack (0.4.3)
       safe_yaml (~> 1.0.0)
     debug_inspector (0.0.2)
@@ -140,8 +139,7 @@ GEM
     multi_json (1.12.1)
     multi_xml (0.6.0)
     multipart-post (2.0.0)
-    net-http-persistent (3.0.0)
-      connection_pool (~> 2.2)
+    net-http-persistent (2.9.4)
     nokogiri (1.6.8.1)
       mini_portile2 (~> 2.1.0)
     nprogress-rails (0.2.0.2)
@@ -322,6 +320,7 @@ DEPENDENCIES
   minitest-ci!
   minitest-reporters
   mongoid
+  net-http-persistent (= 2.9.4)
   nprogress-rails
   pronto
   pronto-brakeman

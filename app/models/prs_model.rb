@@ -60,16 +60,16 @@ class PrsModel < ActiveRestClient::Base
     def add_authentication_details(name, request)
       raise Exception.new("Missing authentication credentials") if SessionToken.nil? || SharedSecret.nil?
 
-      set_request_headers(request)
+      set_response_headers(request)
     end
 
-    def set_request_headers(request)
-      request.headers["Authorization"] = "SIF_HMACSHA256 #{PrsModel.credentials[:auth_token]}"
-      request.headers["Timestamp"] = PrsModel.credentials[:timestamp]
-      request.headers["GeneratorId"] = "prs-ui"
-      request.headers["Content-Type"] = "application/json"
-      request.headers["Accept"] = "application/json"
-      request.headers["ResponseFormat"] = "object"
+    def set_response_headers(response)
+      response.headers["Authorization"] = "SIF_HMACSHA256 #{PrsModel.credentials[:auth_token]}"
+      response.headers["Timestamp"] = PrsModel.credentials[:timestamp]
+      response.headers["GeneratorId"] = "prs-ui"
+      response.headers["Content-Type"] = "application/json"
+      response.headers["Accept"] = "application/json"
+      response.headers["ResponseFormat"] = "object"
     end
 
     def self.credentials

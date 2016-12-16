@@ -45,10 +45,13 @@ group :development, :test do
   gem 'pronto-brakeman', require: false
   gem 'pronto-flay', require: false
   gem 'pronto-rails_best_practices', require: false
+  gem 'rack-wwwhisper'
+  gem 'net-http-persistent', '2.9.4'
 end
 
 group :production do
-  gem 'rack-wwwhisper'
   gem 'rails_12factor'
   gem 'puma'
+  gem 'rack-wwwhisper'
+  gem 'net-http-persistent', '2.9.4'
 end
