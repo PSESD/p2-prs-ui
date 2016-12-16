@@ -2,7 +2,7 @@ class District < PrsModel
   verbose true if Rails.env.development?
 
   # get :all, "/districts" + url_params
-  get :find, "/districts/:id" + url_params, :has_many => { :services => District::Service }, :has_one => { :mainContact => Contact }
+  # get :find, "/districts/:id" + url_params, :has_many => { :services => District::Service }, :has_one => { :mainContact => Contact }
   put :save, "/districts/:id" + url_params
   post :create, "/districts" + url_params
   delete :destroy, "/districts/:id" + url_params
@@ -17,6 +17,12 @@ class District < PrsModel
     districts_hash.map do |district_hash|
       District.new(district_hash)
     end
+  end
+
+  def self.find(id)
+    response = HTTParty.get(BaseUrl + "/districts/" + id + url_params, headers: headers)
+    district_hash = response.parsed_response
+    create_objects(district_hash)
   end
 
   def self.all_full
