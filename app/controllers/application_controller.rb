@@ -28,6 +28,15 @@ class ApplicationController < ActionController::Base
       render action: 'error_message'
     end
 
+    def headers
+      { "Authorization" => "SIF_HMACSHA256 #{PrsModel.credentials[:auth_token]}",
+        "Timestamp" => PrsModel.credentials[:timestamp],
+        "GeneratorId" => "prs-ui",
+        "Content-Type" => "application/json",
+        "Accept" => "application/json",
+        "ResponseFormat" => "object" }
+    end
+
     def http_request(action, path, json_params)
       url = "https://srx-services-prs-dev.herokuapp.com#{path};zoneId=#{ZoneId};contextId=#{ContextId}"
       uri = URI.parse(url)
@@ -36,9 +45,9 @@ class ApplicationController < ActionController::Base
       http.verify_mode = OpenSSL::SSL::VERIFY_NONE
 
       if action == "post"
-        request = Net::HTTP::Post.new(uri.request_uri, header)
+        request = Net::HTTP::Post.new(uri.request_uri, headers)
       elsif action == "put"
-        request = Net::HTTP::Put.new(uri.request_uri, header)
+        request = Net::HTTP::Put.new(uri.request_uri, headers)
       end
 
       request.body = json_params
@@ -46,12 +55,4 @@ class ApplicationController < ActionController::Base
       http.request(request).body
     end
 
-    def header
-      { "Authorization" => "SIF_HMACSHA256 #{PrsModel.credentials[:auth_token]}",
-        "Timestamp" => PrsModel.credentials[:timestamp],
-        "GeneratorId" => "prs-ui",
-        "Content-Type" => "json",
-        "Accept" => "application/json",
-        "ResponseFormat" => "object" }
-    end
 end

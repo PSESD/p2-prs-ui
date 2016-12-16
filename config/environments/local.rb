@@ -38,4 +38,21 @@ Rails.application.configure do
 
   # Raises error for missing translations
   # config.action_view.raise_on_missing_translations = true
+
+  # SessionToken = Rails.application.secrets.prs_session_token
+  # SharedSecret = Rails.application.secrets.prs_shared_secret
+  #
+  # timestamp = Time.now.utc.iso8601(3)
+  # token_and_time = "#{SessionToken}:#{timestamp}"
+  # auth_hash = Base64.strict_encode64 OpenSSL::HMAC.digest('sha256', SharedSecret, token_and_time)
+  # auth_token = Base64.strict_encode64 "#{SessionToken}:#{auth_hash}"
+  #
+  # headers = { "Authorization" => "SIF_HMACSHA256 #{auth_token}",
+  #             "Timestamp" => timestamp,
+  #             "GeneratorId" => "prs-ui",
+  #             "Content-Type" => "application/json",
+  #             "Accept" => "application/json",
+  #             "ResponseFormat" => "object" }
+  #
+  # config.action_dispatch.default_headers.merge!(headers)
 end
