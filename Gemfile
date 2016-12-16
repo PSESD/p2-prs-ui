@@ -24,6 +24,8 @@ gem 'resque-status'
 gem 'bundler-audit'
 gem 'mongoid'
 gem 'bcrypt'
+gem 'byebug'
+gem 'httparty'
 
 group :development do
   gem 'web-console'
@@ -37,7 +39,7 @@ end
 
 group :development, :test do
   gem 'dotenv'
-  gem 'byebug'
+  # gem 'byebug'
   gem 'spring'
   gem 'awesome_print'
   gem 'pronto'

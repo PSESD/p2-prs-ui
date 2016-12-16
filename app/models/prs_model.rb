@@ -1,15 +1,16 @@
 class PrsModel < ActiveRestClient::Base
   extend ActiveModel::Naming
 
-  base_url Rails.application.secrets.prs_url
+  # base_url Rails.application.secrets.prs_url
 
-  before_request :add_authentication_details
-  request_body_type :json
+  # before_request :add_authentication_details
+  # request_body_type :json
 
-  ZoneId = Rails.application.secrets.prs_zone_id
+  BaseUrl = Rails.application.secrets.prs_url
   ContextId = Rails.application.secrets.prs_context_id
   SessionToken = Rails.application.secrets.prs_session_token
   SharedSecret = Rails.application.secrets.prs_shared_secret
+  ZoneId = Rails.application.secrets.prs_zone_id
 
   attr_accessor :new_record
 
@@ -55,21 +56,21 @@ class PrsModel < ActiveRestClient::Base
     save
   end
 
+  def self.headers
+    { "Authorization" => "SIF_HMACSHA256 #{PrsModel.credentials[:auth_token]}",
+      "Timestamp" => PrsModel.credentials[:timestamp],
+      "GeneratorId" => "prs-ui",
+      "Content-Type" => "application/json",
+      "Accept" => "application/json",
+      "ResponseFormat" => "object" }
+  end
+
   protected
 
     def add_authentication_details(name, request)
       raise Exception.new("Missing authentication credentials") if SessionToken.nil? || SharedSecret.nil?
 
       set_request_headers(request)
-    end
-
-    def headers
-      { "Authorization" => "SIF_HMACSHA256 #{PrsModel.credentials[:auth_token]}",
-        "Timestamp" => PrsModel.credentials[:timestamp],
-        "GeneratorId" => "prs-ui",
-        "Content-Type" => "application/json",
-        "Accept" => "application/json",
-        "ResponseFormat" => "object" }
     end
 
     def self.credentials

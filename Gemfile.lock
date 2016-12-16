@@ -313,6 +313,7 @@ DEPENDENCIES
   coffee-rails
   dotenv
   dotenv-rails
+  httparty
   jbuilder
   jquery-rails
   jquery-turbolinks
