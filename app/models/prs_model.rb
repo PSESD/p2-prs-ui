@@ -56,6 +56,12 @@ class PrsModel < ActiveRestClient::Base
     save
   end
 
+  def self.create_objects(attr_hash)
+    attr_hash.map do |attributes|
+      self.new(attributes)
+    end
+  end
+
   def self.headers
     { "Authorization" => "SIF_HMACSHA256 #{PrsModel.credentials[:auth_token]}",
       "Timestamp" => PrsModel.credentials[:timestamp],

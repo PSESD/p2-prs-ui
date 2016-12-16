@@ -60,7 +60,7 @@ class DistrictsController < ApplicationController
   # DELETE /districts/1
   # DELETE /districts/1.json
   def destroy
-    @district.destroy
+    District.destroy(@district.id)
     respond_to do |format|
       format.html { redirect_to districts_url, notice: 'District was successfully destroyed.' }
       format.json { head :no_content }
