@@ -56,10 +56,27 @@ class PrsModel < ActiveRestClient::Base
     save
   end
 
-  def self.create_objects(attr_hash)
-    attr_hash.map do |attributes|
+  def self.all(route)
+    response = HTTParty.get(BaseUrl + route + url_params, headers: headers)
+    attr_hashes = response.parsed_response
+    create_objects(attr_hashes)
+  end
+
+  def self.create_objects(attr_hashes)
+    attr_hashes.map do |attributes|
       self.new(attributes)
     end
+  end
+
+  def self.destroy(route)
+    response = HTTParty.delete(BaseUrl + route + url_params, headers: headers)
+    response.parsed_response
+  end
+
+  def self.find(route)
+    response = HTTParty.get(BaseUrl + route + url_params, headers: headers)
+    object_hash = response.parsed_response
+    create_objects(object_hash)
   end
 
   def self.headers

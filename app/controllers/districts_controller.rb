@@ -4,7 +4,7 @@ class DistrictsController < ApplicationController
   # GET /districts
   # GET /districts.json
   def index
-    @districts = District.all
+    @districts = District.all("/districts")
   end
 
   # GET /districts/1
@@ -60,7 +60,7 @@ class DistrictsController < ApplicationController
   # DELETE /districts/1
   # DELETE /districts/1.json
   def destroy
-    District.destroy(@district.id)
+    District.destroy("/districts/" + @district.id)
     respond_to do |format|
       format.html { redirect_to districts_url, notice: 'District was successfully destroyed.' }
       format.json { head :no_content }
@@ -88,7 +88,8 @@ class DistrictsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_district
-      @district = District.find(params[:district_id] || params[:id]).first
+      route = "/districts/" + (params[:district_id] || params[:id])
+      @district = District.find(route).first
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
