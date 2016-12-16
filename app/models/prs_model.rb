@@ -9,48 +9,6 @@ class PrsModel < ActiveRestClient::Base
 
   attr_accessor :new_record
 
-  def self.url_params
-    ";zoneId=#{ZoneId};contextId=#{ContextId}"
-  end
-
-  def to_param
-    id.to_s
-  end
-
-  def to_model
-    self
-  end
-
-  def new_record?
-     !@attributes.any? || new_record
-  end
-  def destroyed?()  false end
-  def persisted?
-    !new_record?
-  end
-
-  # Override the model name to remove the inherited namespace. This helps in appropriate form_for generation.
-  def self.model_name
-    ActiveModel::Name.new(self, nil, self.to_s.split("::").last)
-  end
-
-  def errors
-    # obj = Object.new
-    # def obj.[](key)         [] end
-    # def obj.full_messages() [] end
-    # obj
-    @errors ||= ActiveModel::Errors.new(self)
-  end
-
-  # Override the #update method to manually set each attribute and call #save.
-  # TODO: Figure out how to do this a better way with ActiveRestClient.
-  def update(updated_attributes = {})
-    for key, value in updated_attributes
-      self[key] = value
-    end
-    save
-  end
-
   def self.all(route)
     response = HTTParty.get(BaseUrl + route + url_params, headers: headers)
     attr_hashes = response.parsed_response
@@ -83,7 +41,49 @@ class PrsModel < ActiveRestClient::Base
       "ResponseFormat" => "object" }
   end
 
-  protected
+  # Override the model name to remove the inherited namespace. This helps in appropriate form_for generation.
+  def self.model_name
+    ActiveModel::Name.new(self, nil, self.to_s.split("::").last)
+  end
+
+  def self.url_params
+    ";zoneId=#{ZoneId};contextId=#{ContextId}"
+  end
+
+  def to_param
+    id.to_s
+  end
+
+  def to_model
+    self
+  end
+
+  def new_record?
+     !@attributes.any? || new_record
+  end
+  def destroyed?()  false end
+  def persisted?
+    !new_record?
+  end
+
+  def errors
+    # obj = Object.new
+    # def obj.[](key)         [] end
+    # def obj.full_messages() [] end
+    # obj
+    @errors ||= ActiveModel::Errors.new(self)
+  end
+
+  # Override the #update method to manually set each attribute and call #save.
+  # TODO: Figure out how to do this a better way with ActiveRestClient.
+  def update(updated_attributes = {})
+    for key, value in updated_attributes
+      self[key] = value
+    end
+    save
+  end
+
+  private
 
     def self.credentials
       timestamp = Time.now.utc.iso8601(3)
