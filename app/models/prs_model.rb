@@ -17,7 +17,6 @@ class PrsModel < ActiveRestClient::Base
 
   def self.create_objects(attr_hashes)
     attr_hashes.map.with_index do |attributes, index|
-      # byebug if index == 6
       self.new(attributes)
     end
   end
