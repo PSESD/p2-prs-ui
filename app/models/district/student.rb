@@ -1,11 +1,7 @@
 class District::Student < PrsModel
 
   verbose true if Rails.env.development?
-
-  get :find, "/districts/:district_id/services/:service_id/students/:id" + url_params #, :has_one => { :consent => District::StudentConsent }
-  put :save, "/districts/:district_id/services/:service_id/students/:id" + url_params
-  post :create, "/districts/:district_id/services/:service_id/students/" + url_params
-  delete :destroy, "/districts/:district_id/services/:service_id/students/:id" + url_params
+  
   get :filters, "/filters" + url_params
 
   before_request do |name, request|
