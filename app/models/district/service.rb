@@ -2,11 +2,6 @@ class District::Service < PrsModel
 
   verbose true if Rails.env.development?
 
-  # get :find, "/districts/:district_id/services/:id" + url_params, :has_many => { :students => District::Student, :dataSets => DataSet }
-  put :save, "/districts/:district_id/services/:id" + url_params
-  post :create, "/districts/:district_id/services" + url_params
-  # delete :destroy, "/districts/:district_id/services/:id" + url_params
-
   alias_attribute :name, :externalServiceName
   delegate :mainContact, to: :authorized_entity
 
@@ -17,7 +12,8 @@ class District::Service < PrsModel
   end
 
   def students
-    District::Student.all("/districts/#{districtId}/services/#{id}/students")
+    route = "/districts/#{districtId}/services/#{id}/students"
+    District::Student.all(route)
   end
 
   def students_full

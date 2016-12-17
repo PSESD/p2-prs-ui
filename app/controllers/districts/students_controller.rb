@@ -6,7 +6,8 @@ class Districts::StudentsController < DistrictsController
   # GET /districts/students
   # GET /districts/students.json
   def index
-    @students = District::Student.all(district_id: params[:district_id], service_id: params[:service_id])
+    route = "/districts/#{@district.id}/services/#{@service.id}/students"
+    @students = District::Student.all(route)
   end
 
   # GET /districts/students/1
@@ -122,7 +123,8 @@ class Districts::StudentsController < DistrictsController
   private
 
   def set_districts_service
-    @service = District::Service.find(district_id: @district.id, id: params[:service_id]).first
+    route = "/districts/#{@district.id}/services/" + params[:service_id]
+    @service = District::Service.find(route).first
   end
 
   def set_districts_student

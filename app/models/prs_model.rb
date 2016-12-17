@@ -27,7 +27,8 @@ class PrsModel < ActiveRestClient::Base
   end
 
   def self.find(route)
-    response = HTTParty.get(BaseUrl + route + url_params, headers: headers)
+    current_headers = headers
+    response = HTTParty.get(BaseUrl + route + url_params, headers: current_headers)
     object_hash = response.parsed_response
     create_objects(object_hash)
   end
