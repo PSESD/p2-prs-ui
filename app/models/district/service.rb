@@ -2,7 +2,6 @@ class District::Service < PrsModel
 
   verbose true if Rails.env.development?
 
-  # get :all, "/districts/:district_id/services" + url_params
   get :find, "/districts/:district_id/services/:id" + url_params, :has_many => { :students => District::Student, :dataSets => DataSet }
   put :save, "/districts/:district_id/services/:id" + url_params
   post :create, "/districts/:district_id/services" + url_params
@@ -10,20 +9,6 @@ class District::Service < PrsModel
 
   alias_attribute :name, :externalServiceName
   delegate :mainContact, to: :authorized_entity
-
-  # before_request :replace_body
-
-  def self.all(district_id)
-    response = HTTParty.get(BaseUrl + "/districts/#{district_id}/services" + url_params, headers: headers)
-    services_hash = response.parsed_response
-    create_objects(services_hash)
-  end
-
-  def self.create_objects(services_hash)
-    services_hash.map do |service_hash|
-      District::Service.new(service_hash)
-    end
-  end
 
 
   def students

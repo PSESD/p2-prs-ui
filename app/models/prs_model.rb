@@ -16,7 +16,8 @@ class PrsModel < ActiveRestClient::Base
   end
 
   def self.create_objects(attr_hashes)
-    attr_hashes.map do |attributes|
+    attr_hashes.map.with_index do |attributes, index|
+      # byebug if index == 6
       self.new(attributes)
     end
   end
@@ -48,6 +49,23 @@ class PrsModel < ActiveRestClient::Base
 
   def self.url_params
     ";zoneId=#{ZoneId};contextId=#{ContextId}"
+  end
+
+  def initialize(attrs={})
+    @attributes = {}
+    @dirty_attributes = Set.new
+
+    raise Exception.new("Cannot instantiate Base class") if self.class.name == "ActiveRestClient::Base"
+
+    attrs.each do |attribute_name, attribute_value|
+      attribute_name = attribute_name.to_sym
+      if attribute_name.to_s.include?("Date")
+        @attributes[attribute_name] = Date.parse(attribute_value)
+      else
+        @attributes[attribute_name] = attribute_value
+      end
+        @dirty_attributes << attribute_name
+    end
   end
 
   def to_param

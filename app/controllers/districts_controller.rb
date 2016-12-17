@@ -10,7 +10,7 @@ class DistrictsController < ApplicationController
   # GET /districts/1
   # GET /districts/1.json
   def show
-    @services = District::Service.all(@district.id)
+    @services = District::Service.all("/districts/#{@district.id}/services")
   end
 
   # GET /districts/new

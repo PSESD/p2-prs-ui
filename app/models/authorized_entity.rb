@@ -1,15 +1,15 @@
 class AuthorizedEntity < PrsModel
 
-  get :all, "/authorizedEntities" + url_params
-  get :find, "/authorizedEntities/:id" + url_params, :has_many => {
-    :personnels => AuthorizedEntity::Personnel,
-    :services => AuthorizedEntity::Service
-  }, :has_one => {
-    :mainContact => Contact
-  }
-  put :save, "/authorizedEntities/:id" + url_params
-  post :create, "/authorizedEntities" + url_params
-  delete :destroy, "/authorizedEntities/:id" + url_params
+  # get :all, "/authorizedEntities" + url_params
+  # get :find, "/authorizedEntities/:id" + url_params, :has_many => {
+  #   :personnels => AuthorizedEntity::Personnel,
+  #   :services => AuthorizedEntity::Service
+  # }, :has_one => {
+  #   :mainContact => Contact
+  # }
+  # put :save, "/authorizedEntities/:id" + url_params
+  # post :create, "/authorizedEntities" + url_params
+  # delete :destroy, "/authorizedEntities/:id" + url_params
 
   # Returns the full record for all AuthorizedEntity objects by looping through all.
   def self.all_full

@@ -1,5 +1,5 @@
 class AuthorizedEntity::Service < PrsModel
-  get :all, "/authorizedEntities/:authorized_entity_id/services" + url_params
+  # get :all, "/authorizedEntities/:authorized_entity_id/services" + url_params
   get :find, "/authorizedEntities/:authorized_entity_id/services/:id" + url_params
   put :save, "/authorizedEntities/:authorized_entity_id/services/:id" + url_params
   post :create, "/authorizedEntities/:authorized_entity_id/services/" + url_params
