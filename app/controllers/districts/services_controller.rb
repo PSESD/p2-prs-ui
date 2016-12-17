@@ -61,7 +61,7 @@ class Districts::ServicesController < DistrictsController
   # DELETE /district/services/1
   # DELETE /district/services/1.json
   def destroy
-    @service.destroy
+    District::Service.destroy("/districts/#{@district.id}/services/#{@service.id}")
     respond_to do |format|
       format.html { redirect_to @district, notice: 'Service was successfully destroyed.' }
       format.json { head :no_content }

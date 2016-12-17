@@ -5,7 +5,7 @@ class District::Service < PrsModel
   # get :find, "/districts/:district_id/services/:id" + url_params, :has_many => { :students => District::Student, :dataSets => DataSet }
   put :save, "/districts/:district_id/services/:id" + url_params
   post :create, "/districts/:district_id/services" + url_params
-  delete :destroy, "/districts/:district_id/services/:id" + url_params
+  # delete :destroy, "/districts/:district_id/services/:id" + url_params
 
   alias_attribute :name, :externalServiceName
   delegate :mainContact, to: :authorized_entity
