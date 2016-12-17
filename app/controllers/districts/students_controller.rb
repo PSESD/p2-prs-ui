@@ -97,7 +97,7 @@ class Districts::StudentsController < DistrictsController
   # DELETE /districts/students/1
   # DELETE /districts/students/1.json
   def destroy
-    @student.destroy(district_id: @district.id, service_id: @service.id, id: params[:id])
+    District::Student.destroy("/districts/#{@district.id}/services/#{@service.id}/students/" + params[:id])
     respond_to do |format|
       format.html { redirect_to [@district, @service], notice: 'Student was successfully destroyed.' }
       format.json { head :no_content }
@@ -128,7 +128,8 @@ class Districts::StudentsController < DistrictsController
   end
 
   def set_districts_student
-    @student = District::Student.find(district_id: @district.id, service_id: params[:service_id], id: params[:id]).first
+    route = "/districts/#{@district.id}/services/#{@service.id}/students/" + params[:id]
+    @student = District::Student.find(route).first
   end
 
   # Never trust parameters from the scary internet, only allow the white list through.

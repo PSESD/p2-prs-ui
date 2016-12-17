@@ -56,7 +56,6 @@ class PrsModel < ActiveRestClient::Base
     @dirty_attributes = Set.new
 
     raise Exception.new("Cannot instantiate Base class") if self.class.name == "ActiveRestClient::Base"
-
     attrs.each do |attribute_name, attribute_value|
       attribute_name = attribute_name.to_sym
       if attribute_name.to_s.include?("Date")
