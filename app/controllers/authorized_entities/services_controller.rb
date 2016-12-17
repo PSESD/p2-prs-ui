@@ -5,7 +5,8 @@ class AuthorizedEntities::ServicesController < AuthorizedEntitiesController
   # GET /authorized_entity/services
   # GET /authorized_entity/services.json
   def index
-    @authorized_entity_services = AuthorizedEntity::Service.all(authorized_entity_id: @authorized_entity.id).items
+    route = "/authorizedEntities/#{@authorized_entity.id}/services"
+    @authorized_entity_services = AuthorizedEntity::Service.all(route)
   end
 
   # GET /authorized_entity/services/1
