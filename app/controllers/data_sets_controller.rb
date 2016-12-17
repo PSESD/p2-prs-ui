@@ -10,7 +10,7 @@ class DataSetsController < ApplicationController
   # GET /data_sets/1
   # GET /data_sets/1.json
   def show
-    @data_objects = @data_set.dataObjects.group_by(&:sifObjectName)
+    @data_objects = @data_set.data_objects_instantiated.group_by(&:sifObjectName)
   end
 
   # GET /data_sets/new
@@ -59,7 +59,7 @@ class DataSetsController < ApplicationController
   # DELETE /data_sets/1
   # DELETE /data_sets/1.json
   def destroy
-    @data_set.destroy(id: params[:id])
+    DataSet.destroy("/dataSets/" + @data_set.id)
     respond_to do |format|
       format.html { redirect_to data_sets_url, notice: 'Data set was successfully destroyed.' }
       format.json { head :no_content }

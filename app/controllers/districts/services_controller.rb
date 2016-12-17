@@ -71,7 +71,8 @@ class Districts::ServicesController < DistrictsController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_service
-      @service = District::Service.find(district_id: params[:district_id], id: params[:id]).items.first
+      route = "/districts/#{@district.id}/services/" + (params[:id])
+      @service = District::Service.find(route).first
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
