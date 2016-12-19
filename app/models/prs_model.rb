@@ -12,6 +12,7 @@ class PrsModel < ActiveRestClient::Base
   def self.all(route)
     response = HTTParty.get(BaseUrl + route + url_params, headers: headers)
     attr_hashes = response.parsed_response
+
     create_objects(attr_hashes)
   end
 
@@ -28,8 +29,10 @@ class PrsModel < ActiveRestClient::Base
 
   def self.find(route)
     current_headers = headers
+
     response = HTTParty.get(BaseUrl + route + url_params, headers: current_headers)
     object_hash = response.parsed_response
+
     create_objects(object_hash)
   end
 
@@ -58,12 +61,14 @@ class PrsModel < ActiveRestClient::Base
     raise Exception.new("Cannot instantiate Base class") if self.class.name == "ActiveRestClient::Base"
     attrs.each do |attribute_name, attribute_value|
       attribute_name = attribute_name.to_sym
+
       if attribute_name.to_s.include?("Date")
         @attributes[attribute_name] = Date.parse(attribute_value)
       else
         @attributes[attribute_name] = attribute_value
       end
-        @dirty_attributes << attribute_name
+
+      @dirty_attributes << attribute_name
     end
   end
 

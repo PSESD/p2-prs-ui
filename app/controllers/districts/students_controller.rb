@@ -105,19 +105,14 @@ class Districts::StudentsController < DistrictsController
   end
 
   def filters
-    @student.filters(
-      zoneid: @district.zoneID,
-      districtId: @district.id,
-      authorizedEntityId: @service.authorizedEntityId,
-      externalServiceId: @service.externalServiceId,
-      districtStudentId: @student.districtStudentId,
-      objectType: (params[:object_type] || "xSre")
-    )
-  rescue ActiveRestClient::ResponseParseException => e
-    render inline: CodeRay.scan(e.body, :xml).html(
-      :wrap => nil,
-      :css => :style
-    )
+    header_params = { "authorizedEntityId" => @service.authorizedEntityId,
+                      "externalServiceId" => @service.externalServiceId,
+                      "districtStudentId" => @student.districtStudentId,
+                      "objectType" => (params[:object_type] || "xSre") }
+
+    student_filtered = District::Student.filters("/filters", header_params)
+
+    render xml: student_filtered
   end
 
   private
@@ -142,4 +137,5 @@ class Districts::StudentsController < DistrictsController
   def districts_student_params_json
     districts_student_params.to_json
   end
+
 end
