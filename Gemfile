@@ -26,7 +26,6 @@ gem 'mongoid'
 gem 'bcrypt'
 gem 'byebug'
 gem 'httparty'
-# gem 'pg'
 
 group :development do
   gem 'web-console'
@@ -40,7 +39,6 @@ end
 
 group :development, :test do
   gem 'dotenv'
-  # gem 'byebug'
   gem 'spring'
   gem 'awesome_print'
   gem 'pronto'
