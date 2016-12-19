@@ -24,14 +24,17 @@ class StudentSuccessLink::Organization
   end
 
   def authorized_entity
-    @authorized_entity ||= AuthorizedEntity.find(self[:authorizedEntityId])
+    route = "/authorizedEntities/#{authorizedEntityId}"
+    @authorized_entity ||= AuthorizedEntity.find(route)
+
     @authorized_entity.is_a?(AuthorizedEntity) ? @authorized_entity : nil
-  rescue ActiveRestClient::HTTPNotFoundClientException
-    @authorized_entity = nil
+    rescue ActiveRestClient::HTTPNotFoundClientException
+      @authorized_entity = nil
   end
 
   def authorized_entity_service
-    @authorized_entity_service ||= AuthorizedEntity::Service.find(authorized_entity_id: self[:authorizedEntityId], id: self[:externalServiceId]) rescue nil
+    route = "/authorizedEntities/#{authorizedEntityId}/services/#{externalServiceId}"
+    @authorized_entity_service = AuthorizedEntity::Service.find(route).first rescue nil
   rescue ActiveRestClient::HTTPNotFoundClientException
     @authorized_entity_service = nil
   end
