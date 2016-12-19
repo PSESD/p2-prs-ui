@@ -12,7 +12,7 @@ class AuthorizedEntities::ServicesController < AuthorizedEntitiesController
   # GET /authorized_entity/services/1
   # GET /authorized_entity/services/1.json
   def show
-    @districts = District.all
+    @districts = District.all("/districts")
     @district_services = @service.district_services(@districts)
   end
 
@@ -62,7 +62,7 @@ class AuthorizedEntities::ServicesController < AuthorizedEntitiesController
   # DELETE /authorized_entity/services/1
   # DELETE /authorized_entity/services/1.json
   def destroy
-    @service.destroy(authorized_entity_id: @authorized_entity.id, id: @service.id)
+    AuthorizedEntity::Service.destroy("/authorizedEntities/#{@authorized_entity.id}/services/" + @service.id)
     respond_to do |format|
       format.html { redirect_to @authorized_entity, notice: 'Service was successfully destroyed.' }
       format.json { head :no_content }
@@ -72,7 +72,8 @@ class AuthorizedEntities::ServicesController < AuthorizedEntitiesController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_service
-      @service = AuthorizedEntity::Service.find(authorized_entity_id: params[:authorized_entity_id], id: params[:id]).first
+      route = "/authorizedEntities/#{@authorized_entity.id}/services/#{params[:id]}"
+      @service = AuthorizedEntity::Service.find(route).first
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

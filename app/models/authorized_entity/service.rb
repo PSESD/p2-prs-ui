@@ -28,7 +28,8 @@ class AuthorizedEntity::Service < PrsModel
     @district_services ||= {}
 
     districts.each do |district|
-      @district_services[district.name] = district.services.find { |s| s.externalServiceId == id }
+      services = self.class.create_objects(district.services)
+      @district_services[district.name] = services.find { |s| s.externalServiceId == id }
     end
 
     @district_services
