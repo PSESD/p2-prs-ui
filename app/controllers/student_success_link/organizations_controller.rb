@@ -14,7 +14,8 @@ class StudentSuccessLink::OrganizationsController < ApplicationController
 
   # GET /student_success_link/organizations/new
   def new
-    @organization = StudentSuccessLink::Organization.new()
+    @authorized_entities = AuthorizedEntity.all("/authorizedEntities")
+    @organization = StudentSuccessLink::Organization.new
   end
 
   # GET /student_success_link/organizations/1/edit

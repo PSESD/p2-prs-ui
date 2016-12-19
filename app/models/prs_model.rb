@@ -17,7 +17,7 @@ class PrsModel < ActiveRestClient::Base
   end
 
   def self.create_objects(attr_hashes)
-    attr_hashes.map.with_index do |attributes, index|
+    attr_hashes.map do |attributes|
       self.new(attributes)
     end
   end
