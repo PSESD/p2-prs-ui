@@ -59,7 +59,8 @@ class DataSets::DataObjectsController < DataSetsController
   # DELETE /data_sets/data_objects/1
   # DELETE /data_sets/data_objects/1.json
   def destroy
-    @data_object.destroy(data_set_id: @data_set.id, id: params[:id])
+    route = "/dataSets/#{@data_set.id}/sifDataObjects/#{@data_object.id}"
+    DataSet::DataObject.destroy(route)
     respond_to do |format|
       format.html { redirect_to @data_set, notice: 'Data object was successfully destroyed.' }
       format.json { head :no_content }
