@@ -1,11 +1,5 @@
 class AuthorizedEntity::Service < PrsModel
 
-  # get :all, "/authorizedEntities/:authorized_entity_id/services" + url_params
-  get :find, "/authorizedEntities/:authorized_entity_id/services/:id" + url_params
-  put :save, "/authorizedEntities/:authorized_entity_id/services/:id" + url_params
-  post :create, "/authorizedEntities/:authorized_entity_id/services/" + url_params
-  delete :destroy, "/authorizedEntities/:authorized_entity_id/services/:id" + url_params
-
   alias_attribute :name, :externalServiceName
   alias_attribute :description, :externalServiceDescription
 
