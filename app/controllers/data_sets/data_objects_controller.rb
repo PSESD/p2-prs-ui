@@ -69,7 +69,7 @@ class DataSets::DataObjectsController < DataSetsController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_data_object
-      @data_object = DataSet::DataObject.find(data_set_id: params[:data_set_id], id: params[:id]).items.first
+      @data_object = DataSet::DataObject.find("/dataSets/#{@data_set.id}/sifDataObjects/" + params[:id]).first
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
