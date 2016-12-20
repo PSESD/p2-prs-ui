@@ -44,13 +44,10 @@ class StudentSuccessLink::Organization
   end
 
   def add_admin_user(user)
-    # byebug
-    user.permissions.new(
-      organization: id,
-      activateStatus: "Active",
-      activate: true,
-      role: "admin"
-    )
+    user.permissions.new(organization: id,
+                         activateStatus: "Active",
+                         activate: true,
+                         role: "admin")
     user.save
   end
 

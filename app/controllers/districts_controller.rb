@@ -73,15 +73,16 @@ class DistrictsController < ApplicationController
     mismatched_expiration_alert = "All organizations must have the same expiration date in order to be included on the same form."
     return redirect_to(:back, alert: empty_list_alert) unless params[:services]
 
-    @services = params[:services].collect{ |id| District::Service.find(district_id: @district.id, id: id) }
-    @dataSets = @services.first.items.collect{ |d| d.dataSets }
-    return redirect_to(:back, alert: mismatched_datasets_alert) if @dataSets.collect{|d| d.collect(&:id) }.uniq.size > 1
-    return redirect_to(:back, alert: mismatched_expiration_alert) if @services.first.items.collect(&:expirationDate).uniq.size > 1
+    @services = params[:services].collect{ |id| District::Service.find("/districts/#{@district.id}/services/" + id) }.flatten
+    @dataSets = DataSet.create_objects(@services.first.dataSets)
 
-    @approval_range = [Date.today.year, @services.first.items.first.expirationDate.try(&:year)].uniq
+    return redirect_to(:back, alert: mismatched_datasets_alert) if @dataSets.collect(&:id).uniq.size > 1
+    return redirect_to(:back, alert: mismatched_expiration_alert) if @services.collect(&:expirationDate).uniq.size > 1
+
+    @approval_range = [Date.today.year, @services.first.expirationDate.try(&:year)].uniq
     @body_class = "consent_form"
     @container_class = "container-fluid"
-    @services_title = (@services.first.items.size > 1) ? "Multiple Organizations" : @services.first.items.first.name
+    @services_title = (@services.size > 1) ? "Multiple Organizations" : @services.first.name
     @page_title = "#{@approval_range.join("-")} CBO Parent/Guardian Consent Form - #{@services_title}"
   end
 

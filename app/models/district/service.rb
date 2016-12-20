@@ -22,14 +22,6 @@ class District::Service < PrsModel
     end
   end
 
-  def initiationDate
-    Date.parse self[:initiationDate] rescue nil
-  end
-
-  def expirationDate
-    Date.parse self[:expirationDate] rescue nil
-  end
-
   def expired?
     expirationDate.today? || expirationDate.past? if expirationDate.is_a?(Date)
   end

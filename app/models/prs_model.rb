@@ -54,7 +54,12 @@ class PrsModel < ActiveRestClient::Base
     ";zoneId=#{ZoneId};contextId=#{ContextId}"
   end
 
+  # def initialize(attrs={})
+  #
+  # end
+
   def initialize(attrs={})
+    # byebug
     @attributes = {}
     @dirty_attributes = Set.new
 
