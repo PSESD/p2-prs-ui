@@ -44,8 +44,9 @@ class StudentSuccessLink::Organization
   end
 
   def add_admin_user(user)
+    # byebug
     user.permissions.new(
-      organization: name,
+      organization: id,
       activateStatus: "Active",
       activate: true,
       role: "admin"

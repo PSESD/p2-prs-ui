@@ -1,5 +1,6 @@
 class StudentSuccessLink::OrganizationsController < ApplicationController
   before_action :set_organization, only: [:show, :edit, :update, :destroy, :add_admin_user]
+  before_action :set_authorized_entities, only: [:new, :edit]
 
   # GET /student_success_link/organizations
   # GET /student_success_link/organizations.json
@@ -14,7 +15,6 @@ class StudentSuccessLink::OrganizationsController < ApplicationController
 
   # GET /student_success_link/organizations/new
   def new
-    @authorized_entities = AuthorizedEntity.all("/authorizedEntities")
     @organization = StudentSuccessLink::Organization.new
   end
 
@@ -78,6 +78,10 @@ class StudentSuccessLink::OrganizationsController < ApplicationController
   end
 
   private
+    def set_authorized_entities
+      @authorized_entities = AuthorizedEntity.all("/authorizedEntities")
+    end
+
     # Use callbacks to share common setup or constraints between actions.
     def set_organization
       @organization = StudentSuccessLink::Organization.find(params[:organization_id] || params[:id])
