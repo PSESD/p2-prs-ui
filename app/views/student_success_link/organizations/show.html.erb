@@ -25,8 +25,7 @@
 				</div>
 				<div class="list-group-item">
 					<dt>External Service</dt>
-					<%# byebug %>
-					<dd><%= link_to @organization.authorized_entity_service.items.first.try(:name), authorized_entity_service_path(@organization.authorizedEntityId, @organization.externalServiceId) %>
+					<dd><%= link_to @organization.authorized_entity_service.try(:name), authorized_entity_service_path(@organization.authorizedEntityId, @organization.externalServiceId) %>
 						<small class="text-muted">#<%= @organization.externalServiceId %></small>
 					</dd>
 				</div>

@@ -11,8 +11,8 @@
 		<%= f.input :description, as: :text %>
 		<%= f.input :website, as: :url %>
 		<%= f.input :url, label: "Student Success Link Domain" %>
-		<%= f.input :authorizedEntityId, label: "Authorized Entity", collection: AuthorizedEntity.all %>
-		<%= f.input :externalServiceId, label: "External Service", as: :grouped_select, collection: AuthorizedEntity.all_full, group_method: :services, value_method: :id, prompt: "-- Please select --" %>
+		<%= f.input :authorizedEntityId, label: "Authorized Entity", collection: @authorized_entities %>
+		<%= f.input :externalServiceId, label: "External Service", as: :grouped_select, collection: @authorized_entities, group_method: :services_instantiated, value_method: :id, prompt: "-- Please select --" %>
 	</div>
 
 	<div class="form-actions">

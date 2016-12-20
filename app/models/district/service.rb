@@ -2,33 +2,24 @@ class District::Service < PrsModel
 
   verbose true if Rails.env.development?
 
-  get :all, "/districts/:district_id/services" + url_params
-  get :find, "/districts/:district_id/services/:id" + url_params, :has_many => { :students => District::Student, :dataSets => DataSet }
-  put :save, "/districts/:district_id/services/:id" + url_params
-  post :create, "/districts/:district_id/services" + url_params
-  delete :destroy, "/districts/:district_id/services/:id" + url_params
-
   alias_attribute :name, :externalServiceName
   delegate :mainContact, to: :authorized_entity
 
-  # before_request :replace_body
+  def data_sets_instantiated
+    dataSets.map do |data_set|
+      DataSet.new(data_set)
+    end
+  end
 
   def students
-    District::Student.all(district_id: districtId, service_id: id)
+    route = "/districts/#{districtId}/services/#{id}/students"
+    District::Student.all(route)
   end
 
   def students_full
     students.collect do |student|
       District::Student.find(district_id: districtId, service_id: id, id: student.id)
     end
-  end
-
-  def initiationDate
-    Date.parse self[:initiationDate] rescue nil
-  end
-
-  def expirationDate
-    Date.parse self[:expirationDate] rescue nil
   end
 
   def expired?
@@ -42,7 +33,8 @@ class District::Service < PrsModel
   end
 
   def authorized_entity
-    AuthorizedEntity.find(self[:authorizedEntityId]).first
+    route = "/authorizedEntities/" + authorizedEntityId
+    AuthorizedEntity.find(route).first
   end
 
   private

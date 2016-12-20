@@ -1,9 +1,4 @@
 class AuthorizedEntity::Service < PrsModel
-  get :all, "/authorizedEntities/:authorized_entity_id/services" + url_params
-  get :find, "/authorizedEntities/:authorized_entity_id/services/:id" + url_params
-  put :save, "/authorizedEntities/:authorized_entity_id/services/:id" + url_params
-  post :create, "/authorizedEntities/:authorized_entity_id/services/" + url_params
-  delete :destroy, "/authorizedEntities/:authorized_entity_id/services/:id" + url_params
 
   alias_attribute :name, :externalServiceName
   alias_attribute :description, :externalServiceDescription
@@ -27,7 +22,8 @@ class AuthorizedEntity::Service < PrsModel
     @district_services ||= {}
 
     districts.each do |district|
-      @district_services[district.name] = district.services.find { |s| s.externalServiceId == id }
+      services = self.class.create_objects(district.services)
+      @district_services[district.name] = services.find { |s| s.externalServiceId == id }
     end
 
     @district_services

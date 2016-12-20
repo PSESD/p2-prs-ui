@@ -1,20 +1,80 @@
 class PrsModel < ActiveRestClient::Base
   extend ActiveModel::Naming
 
-  base_url Rails.application.secrets.prs_url
-
-  before_request :add_authentication_details
-  request_body_type :json
-
-  ZoneId = Rails.application.secrets.prs_zone_id
+  BaseUrl = Rails.application.secrets.prs_url
   ContextId = Rails.application.secrets.prs_context_id
   SessionToken = Rails.application.secrets.prs_session_token
   SharedSecret = Rails.application.secrets.prs_shared_secret
+  ZoneId = Rails.application.secrets.prs_zone_id
 
   attr_accessor :new_record
 
+  def self.all(route)
+    response = HTTParty.get(BaseUrl + route + url_params, headers: headers)
+    attr_hashes = response.parsed_response
+
+    create_objects(attr_hashes)
+  end
+
+  def self.create_objects(attr_hashes)
+    attr_hashes.map do |attributes|
+      self.new(attributes)
+    end
+  end
+
+  def self.destroy(route)
+    response = HTTParty.delete(BaseUrl + route + url_params, headers: headers)
+    response.parsed_response
+  end
+
+  def self.find(route)
+    current_headers = headers
+
+    response = HTTParty.get(BaseUrl + route + url_params, headers: current_headers)
+    object_hash = response.parsed_response
+
+    create_objects(object_hash)
+  end
+
+  def self.headers
+    { "Authorization" => "SIF_HMACSHA256 #{PrsModel.credentials[:auth_token]}",
+      "Timestamp" => PrsModel.credentials[:timestamp],
+      "GeneratorId" => "prs-ui",
+      "Content-Type" => "application/json",
+      "Accept" => "application/json",
+      "ResponseFormat" => "object" }
+  end
+
+  # Override the model name to remove the inherited namespace. This helps in appropriate form_for generation.
+  def self.model_name
+    ActiveModel::Name.new(self, nil, self.to_s.split("::").last)
+  end
+
   def self.url_params
     ";zoneId=#{ZoneId};contextId=#{ContextId}"
+  end
+
+  # def initialize(attrs={})
+  #
+  # end
+
+  def initialize(attrs={})
+    # byebug
+    @attributes = {}
+    @dirty_attributes = Set.new
+
+    raise Exception.new("Cannot instantiate Base class") if self.class.name == "ActiveRestClient::Base"
+    attrs.each do |attribute_name, attribute_value|
+      attribute_name = attribute_name.to_sym
+
+      if attribute_name.to_s.include?("Date")
+        @attributes[attribute_name] = Date.parse(attribute_value)
+      else
+        @attributes[attribute_name] = attribute_value
+      end
+
+      @dirty_attributes << attribute_name
+    end
   end
 
   def to_param
@@ -31,11 +91,6 @@ class PrsModel < ActiveRestClient::Base
   def destroyed?()  false end
   def persisted?
     !new_record?
-  end
-
-  # Override the model name to remove the inherited namespace. This helps in appropriate form_for generation.
-  def self.model_name
-    ActiveModel::Name.new(self, nil, self.to_s.split("::").last)
   end
 
   def errors
@@ -55,22 +110,7 @@ class PrsModel < ActiveRestClient::Base
     save
   end
 
-  protected
-
-    def add_authentication_details(name, request)
-      raise Exception.new("Missing authentication credentials") if SessionToken.nil? || SharedSecret.nil?
-
-      set_request_headers(request)
-    end
-
-    def headers
-      { "Authorization" => "SIF_HMACSHA256 #{PrsModel.credentials[:auth_token]}",
-        "Timestamp" => PrsModel.credentials[:timestamp],
-        "GeneratorId" => "prs-ui",
-        "Content-Type" => "application/json",
-        "Accept" => "application/json",
-        "ResponseFormat" => "object" }
-    end
+  private
 
     def self.credentials
       timestamp = Time.now.utc.iso8601(3)
@@ -83,11 +123,5 @@ class PrsModel < ActiveRestClient::Base
       token_and_time = "#{SessionToken}:#{timestamp}"
       auth_hash = Base64.strict_encode64 OpenSSL::HMAC.digest('sha256', SharedSecret, token_and_time)
       auth_token = Base64.strict_encode64 "#{SessionToken}:#{auth_hash}"
-    end
-
-    def set_request_headers(request)
-      headers.each do |name, val|
-        request.headers[name] = val
-      end
     end
 end

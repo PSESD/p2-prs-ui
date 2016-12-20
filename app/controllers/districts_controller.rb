@@ -4,14 +4,13 @@ class DistrictsController < ApplicationController
   # GET /districts
   # GET /districts.json
   def index
-    @districts = District.all
+    @districts = District.all("/districts")
   end
 
   # GET /districts/1
   # GET /districts/1.json
   def show
-    @services = District::Service.all(district_id: @district.id)
-    # @services.class == ActiveRestClient::ResultIterator ? @services.items : @services
+    @services = District::Service.all("/districts/#{@district.id}/services")
   end
 
   # GET /districts/new
@@ -61,7 +60,7 @@ class DistrictsController < ApplicationController
   # DELETE /districts/1
   # DELETE /districts/1.json
   def destroy
-    @district.destroy
+    District.destroy("/districts/" + @district.id)
     respond_to do |format|
       format.html { redirect_to districts_url, notice: 'District was successfully destroyed.' }
       format.json { head :no_content }
@@ -74,22 +73,24 @@ class DistrictsController < ApplicationController
     mismatched_expiration_alert = "All organizations must have the same expiration date in order to be included on the same form."
     return redirect_to(:back, alert: empty_list_alert) unless params[:services]
 
-    @services = params[:services].collect{ |id| District::Service.find(district_id: @district.id, id: id) }
-    @dataSets = @services.first.items.collect{ |d| d.dataSets }
-    return redirect_to(:back, alert: mismatched_datasets_alert) if @dataSets.collect{|d| d.collect(&:id) }.uniq.size > 1
-    return redirect_to(:back, alert: mismatched_expiration_alert) if @services.first.items.collect(&:expirationDate).uniq.size > 1
+    @services = params[:services].collect{ |id| District::Service.find("/districts/#{@district.id}/services/" + id) }.flatten
+    @dataSets = DataSet.create_objects(@services.first.dataSets)
 
-    @approval_range = [Date.today.year, @services.first.items.first.expirationDate.try(&:year)].uniq
+    # return redirect_to(:back, alert: mismatched_datasets_alert) if @dataSets.collect(&:id).uniq.size > 1
+    return redirect_to(:back, alert: mismatched_expiration_alert) if @services.collect(&:expirationDate).uniq.size > 1
+
+    @approval_range = [Date.today.year, @services.first.expirationDate.try(&:year)].uniq
     @body_class = "consent_form"
     @container_class = "container-fluid"
-    @services_title = (@services.first.items.size > 1) ? "Multiple Organizations" : @services.first.items.first.name
+    @services_title = (@services.size > 1) ? "Multiple Organizations" : @services.first.name
     @page_title = "#{@approval_range.join("-")} CBO Parent/Guardian Consent Form - #{@services_title}"
   end
 
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_district
-      @district = District.find(params[:district_id] || params[:id]).first
+      route = "/districts/" + (params[:district_id] || params[:id])
+      @district = District.find(route).first
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

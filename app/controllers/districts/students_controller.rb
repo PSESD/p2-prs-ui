@@ -6,7 +6,8 @@ class Districts::StudentsController < DistrictsController
   # GET /districts/students
   # GET /districts/students.json
   def index
-    @students = District::Student.all(district_id: params[:district_id], service_id: params[:service_id])
+    route = "/districts/#{@district.id}/services/#{@service.id}/students"
+    @students = District::Student.all(route)
   end
 
   # GET /districts/students/1
@@ -96,7 +97,7 @@ class Districts::StudentsController < DistrictsController
   # DELETE /districts/students/1
   # DELETE /districts/students/1.json
   def destroy
-    @student.destroy(district_id: @district.id, service_id: @service.id, id: params[:id])
+    District::Student.destroy("/districts/#{@district.id}/services/#{@service.id}/students/" + params[:id])
     respond_to do |format|
       format.html { redirect_to [@district, @service], notice: 'Student was successfully destroyed.' }
       format.json { head :no_content }
@@ -104,29 +105,26 @@ class Districts::StudentsController < DistrictsController
   end
 
   def filters
-    @student.filters(
-      zoneid: @district.zoneID,
-      districtId: @district.id,
-      authorizedEntityId: @service.authorizedEntityId,
-      externalServiceId: @service.externalServiceId,
-      districtStudentId: @student.districtStudentId,
-      objectType: (params[:object_type] || "xSre")
-    )
-  rescue ActiveRestClient::ResponseParseException => e
-    render inline: CodeRay.scan(e.body, :xml).html(
-      :wrap => nil,
-      :css => :style
-    )
+    header_params = { "authorizedEntityId" => @service.authorizedEntityId,
+                      "externalServiceId" => @service.externalServiceId,
+                      "districtStudentId" => @student.districtStudentId,
+                      "objectType" => (params[:object_type] || "xSre") }
+
+    student_filtered = District::Student.filters("/filters", header_params)
+
+    render xml: student_filtered
   end
 
   private
 
   def set_districts_service
-    @service = District::Service.find(district_id: @district.id, id: params[:service_id]).first
+    route = "/districts/#{@district.id}/services/" + params[:service_id]
+    @service = District::Service.find(route).first
   end
 
   def set_districts_student
-    @student = District::Student.find(district_id: @district.id, service_id: params[:service_id], id: params[:id]).first
+    route = "/districts/#{@district.id}/services/#{@service.id}/students/" + params[:id]
+    @student = District::Student.find(route).first
   end
 
   # Never trust parameters from the scary internet, only allow the white list through.
@@ -139,4 +137,5 @@ class Districts::StudentsController < DistrictsController
   def districts_student_params_json
     districts_student_params.to_json
   end
+
 end

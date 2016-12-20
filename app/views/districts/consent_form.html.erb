@@ -26,13 +26,12 @@
 		<div class="col-xs-12">
 			<div class="well clearfix <%= "less-than-three" if @services.size < 2 %>">
 				<ul class="services">
-					<%- for service in @services.first.items -%>
+					<%- for service in @services -%>
 					<li>
 						<address>
-							<% #byebug %>
-							<strong><%= service.authorizedEntityName %></strong><br>
-							<%= safe_join [service.mainContact.try(:name), service.mainContact.try(:title)].compact, ", " %><br>
-							<%= safe_join [service.mainContact.try(:email), service.mainContact.try(:phone)].compact, " / " %><br>
+							<strong><%= service.authorized_entity.name %></strong><br>
+							<%= safe_join [service.mainContact["name"], service.mainContact["title"]].compact, ", " %><br>
+							<%= safe_join [service.mainContact["email"], service.mainContact["phone"]].compact, " / " %><br>
 						</address>
 					</li>
 					<% end %>
@@ -52,7 +51,7 @@
 			<p>I consent to the release of my child’s education records from the <%= @district.name %> to the above listed <%= "agency".pluralize(@services.count) %> and to the Puget Sound Educational Service District. I understand that education records include, but are not limited to:</p>
 
 			<ol class="datasets clearfix">
-				<%- for dataSet in @dataSets.first -%>
+				<%- for dataSet in @dataSets -%>
 					<li>
 						<strong><%= dataSet.name %></strong> &ndash;
 						<%= dataSet.description %>
@@ -68,7 +67,7 @@
 
 			<p>I further give my consent for the above-listed <%= "agency".pluralize(@services.count) %> to share in which of their programs my child participates with (1) <%= @district.name %> and (2) the other Student Success Link partners who also serve my child. A current list of all Student Success Link partners is available at <u><a href="studentsuccesslink.org/partners">studentsuccesslink.org/partners</a></u>. I acknowledge that I may revoke my consent to share my child’s program/services participation information by sending a written notification to help@studentsuccesslink.org or by mail to Puget Sound ESD, Personalized Learning Department, 800 Oakesdale Ave SW, Renton, WA 98057.</p>
 
-			<p>This Release of Information will make the above-listed educational records, which includes historical student data, available to agency staff from the date of consenting signature until <b><%= @services.first.items.first.expirationDate.to_s(:long) %></b>.</p>
+			<p>This Release of Information will make the above-listed educational records, which includes historical student data, available to agency staff from the date of consenting signature until <b><%= @services.first.expirationDate.to_s(:long) %></b>.</p>
 
 			<div class="well">
 				<p>I consent to <%= @district.name %> releasing information to the above listed <%= "agency".pluralize(@services.count) %> and to the Puget Sound Educational Service District, and for the above-listed <%= "agency".pluralize(@services.count) %> to share my child’s program participation information with the <%= @district.name %> and other Student Success Link partners <em>(please print clearly)</em>:</p>
@@ -123,9 +122,7 @@
 					</small>
 				</form>
 			</div>
-
-			<p>For more information please refer to <u><%= @district.mainContact.try(:webAddress) %></u>.</p>
+			<p>For more information please refer to <u><%= @district.mainContact %></u>.</p>
 		</div>
-
 	</div>
 </section>

@@ -48,7 +48,7 @@
 			</div>
 			<div class="panel-body">
 				<p><%= @service.name %> is allowed to access these data sets from <%= @district.name %>:</p>
-				<%= safe_join(@service.dataSets.items.collect{ |dataset| link_to(h(dataset.name), data_set_path(dataset)) }, ", ") %>
+				<%= safe_join(@service.data_sets_instantiated.collect{ |dataset| link_to(h(dataset.name), data_set_path(dataset)) }, ", ") %>
 			</div>
 		</div>
 	</div>
@@ -60,7 +60,7 @@
 			<div class="panel-heading">
 				<h3 class="panel-title">
 					Students
-					<span class="badge badge-default"><%= @service.students.items.count %></span>
+					<span class="badge badge-default"><%= @service.students.count %></span>
 				</h3>
 			</div>
 			<table class="table">
@@ -76,7 +76,7 @@
 				</thead>
 
 				<tbody>
-					<%= render partial: "districts/students/student", collection: @service.students.items %>
+					<%= render partial: "districts/students/student", collection: @service.students %>
 				</tbody>
 			</table>
 		</div>

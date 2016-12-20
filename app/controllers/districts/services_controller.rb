@@ -5,7 +5,7 @@ class Districts::ServicesController < DistrictsController
   # GET /district/services
   # GET /district/services.json
   def index
-    @services = District::Service.all(district_id: @district.id)
+    @services = District::Service.all("/districts/#{@district.id}/services")
   end
 
   # GET /district/services/1
@@ -61,7 +61,7 @@ class Districts::ServicesController < DistrictsController
   # DELETE /district/services/1
   # DELETE /district/services/1.json
   def destroy
-    @service.destroy
+    District::Service.destroy("/districts/#{@district.id}/services/#{@service.id}")
     respond_to do |format|
       format.html { redirect_to @district, notice: 'Service was successfully destroyed.' }
       format.json { head :no_content }
@@ -71,7 +71,8 @@ class Districts::ServicesController < DistrictsController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_service
-      @service = District::Service.find(district_id: params[:district_id], id: params[:id]).items.first
+      route = "/districts/#{@district.id}/services/" + (params[:id])
+      @service = District::Service.find(route).first
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

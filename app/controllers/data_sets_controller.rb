@@ -4,13 +4,13 @@ class DataSetsController < ApplicationController
   # GET /data_sets
   # GET /data_sets.json
   def index
-    @data_sets = DataSet.all
+    @data_sets = DataSet.all("/dataSets")
   end
 
   # GET /data_sets/1
   # GET /data_sets/1.json
   def show
-    @data_objects = @data_set.dataObjects.group_by(&:sifObjectName)
+    @data_objects = @data_set.data_objects_instantiated.group_by(&:sifObjectName)
   end
 
   # GET /data_sets/new
@@ -59,7 +59,7 @@ class DataSetsController < ApplicationController
   # DELETE /data_sets/1
   # DELETE /data_sets/1.json
   def destroy
-    @data_set.destroy(id: params[:id])
+    DataSet.destroy("/dataSets/" + @data_set.id)
     respond_to do |format|
       format.html { redirect_to data_sets_url, notice: 'Data set was successfully destroyed.' }
       format.json { head :no_content }
@@ -69,7 +69,8 @@ class DataSetsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_data_set
-      @data_set = DataSet.find(params[:data_set_id] || params[:id]).first
+      route = "/dataSets/" + (params[:data_set_id] || params[:id])
+      @data_set = DataSet.find(route).first
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

@@ -19,7 +19,7 @@
 			<td><%= district.id %></td>
 			<td><%= link_to district.name, district %></td>
 			<td><%= district.ncesleaCode %></td>
-			<td><%= district.zoneID %></td>
+			<td><%= district.zoneId %></td>
 			<td><%= link_to glyph(:pencil, "Edit"), edit_district_path(district) %></td>
 			<td><%= link_to glyph(:trash, "Delete"), district, method: :delete, data: { confirm: 'Are you sure?' } %></td>
 		</tr>
@@ -29,4 +29,4 @@
 
 <br>
 
-<%= link_to glyph(:plus) + " New District", new_district_path, class: "btn btn-default" %>
+<%= link_to glyph(:plus) + "New District", new_district_path, class: "btn btn-default" %>

@@ -7,9 +7,9 @@
 	<td><%= link_to service.name, [@district, service] %>
 		<small class="text-muted">#<%= service.externalServiceId %></small>
 		</td>
-	<td><%= service.initiationDate %></td>
+	<td><%= service[:initiationDate] %></td>
 	<td>
-		<%= service.expirationDate %>
+		<%= service[:expirationDate] %>
 		<%= content_tag :span, "Expired", class: "label label-danger" if service.expired? %>
 	</td>
 	<td><%= link_to glyph('option-horizontal', 'Details'), [@district, service] %></td>

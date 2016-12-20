@@ -4,13 +4,13 @@ class AuthorizedEntitiesController < ApplicationController
   # GET /authorized_entities
   # GET /authorized_entities.json
   def index
-    @authorized_entities = AuthorizedEntity.all.items
+    @authorized_entities = AuthorizedEntity.all("/authorizedEntities")
   end
 
   # GET /authorized_entities/1
   # GET /authorized_entities/1.json
   def show
-    services = AuthorizedEntity::Service.all(authorized_entity_id: @authorized_entity.id).items
+    services = AuthorizedEntity::Service.all("/authorizedEntities/#{@authorized_entity.id}/services")
     @services = services.select { |service| service.authorizedEntityId == @authorized_entity.id }
   end
 
@@ -21,7 +21,6 @@ class AuthorizedEntitiesController < ApplicationController
 
   # GET /authorized_entities/1/edit
   def edit
-    # byebug
   end
 
   # POST /authorized_entities
@@ -61,7 +60,7 @@ class AuthorizedEntitiesController < ApplicationController
   # DELETE /authorized_entities/1
   # DELETE /authorized_entities/1.json
   def destroy
-    @authorized_entity.destroy
+    AuthorizedEntity.destroy("/authorizedEntities/" + @authorized_entity.id)
     respond_to do |format|
       format.html { redirect_to authorized_entities_url, notice: 'Authorized entity was successfully destroyed.' }
       format.json { head :no_content }
@@ -75,7 +74,8 @@ class AuthorizedEntitiesController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_authorized_entity
-      @authorized_entity = AuthorizedEntity.find(params[:authorized_entity_id] || params[:id]).first
+      route = "/authorizedEntities/" + (params[:authorized_entity_id] || params[:id])
+      @authorized_entity = AuthorizedEntity.find(route).first
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
