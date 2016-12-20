@@ -76,7 +76,7 @@ class DistrictsController < ApplicationController
     @services = params[:services].collect{ |id| District::Service.find("/districts/#{@district.id}/services/" + id) }.flatten
     @dataSets = DataSet.create_objects(@services.first.dataSets)
 
-    return redirect_to(:back, alert: mismatched_datasets_alert) if @dataSets.collect(&:id).uniq.size > 1
+    # return redirect_to(:back, alert: mismatched_datasets_alert) if @dataSets.collect(&:id).uniq.size > 1
     return redirect_to(:back, alert: mismatched_expiration_alert) if @services.collect(&:expirationDate).uniq.size > 1
 
     @approval_range = [Date.today.year, @services.first.expirationDate.try(&:year)].uniq

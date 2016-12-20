@@ -11,6 +11,4 @@ $(function() {
 		var form = $(this).closest('form')
 		form.find("a[data-submit]").toggleClass('disabled', form.find("input:checkbox:checked").length == 0)
 	})
-
-
 })

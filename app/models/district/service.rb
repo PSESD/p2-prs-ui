@@ -33,7 +33,8 @@ class District::Service < PrsModel
   end
 
   def authorized_entity
-    AuthorizedEntity.find(self[:authorizedEntityId]).first
+    route = "/authorizedEntities/" + authorizedEntityId
+    AuthorizedEntity.find(route).first
   end
 
   private
