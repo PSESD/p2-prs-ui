@@ -15,7 +15,7 @@ class DistrictsController < ApplicationController
 
   # GET /districts/new
   def new
-    @mainContact = Contact.new
+    # @mainContact = Contact.new
     @district = District.new
   end
 
@@ -96,7 +96,7 @@ class DistrictsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def district_params
-      params.require(:district).permit(:name, :ncesleaCode, :zoneID, mainContact: %w[name title email phone mailingAddress webAddress] )
+      params.require(:district).permit(:name, :ncesleaCode, :zoneId, mainContact: %w[name title email phone mailingAddress webAddress] )
     end
 
     def district_params_json
