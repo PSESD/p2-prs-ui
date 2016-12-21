@@ -15,7 +15,6 @@ class DistrictsController < ApplicationController
 
   # GET /districts/new
   def new
-    # @mainContact = Contact.new
     @district = District.new
   end
 
@@ -27,10 +26,11 @@ class DistrictsController < ApplicationController
   # POST /districts.json
   def create
     district = http_request("post", "/districts", district_params_json)
-    @district = JSON.parse(district)
+    json_district = JSON.parse(district)
+    @district = District.new(json_district)
 
     respond_to do |format|
-      if !@district.keys.include?("error")
+      if @district
         format.html { redirect_to @district, notice: 'District was successfully created.' }
         format.json { render :show, status: :created, location: @district }
         format.xml { render :show, status: :created, location: @district }
@@ -96,7 +96,9 @@ class DistrictsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def district_params
-      params.require(:district).permit(:name, :ncesleaCode, :zoneId, mainContact: %w[name title email phone mailingAddress webAddress] )
+      incoming_params = params.require(:district).permit(:name, :ncesleaCode, :zoneId, main_contact: %w[name title email phone mailingAddress webAddress] )
+
+      set_mainContact(incoming_params)
     end
 
     def district_params_json
@@ -105,5 +107,11 @@ class DistrictsController < ApplicationController
 
     def district_params_xml
       JSON.parse(district_params_json).to_xml(root: :district)
+    end
+
+    def set_mainContact(incoming_params)
+      contact = incoming_params[:main_contact]
+      incoming_params[:mainContact] = contact
+      incoming_params
     end
 end

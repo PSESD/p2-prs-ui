@@ -29,8 +29,10 @@ class ApplicationController < ActionController::Base
     end
 
     def headers
-      { "Authorization" => "SIF_HMACSHA256 #{PrsModel.credentials[:auth_token]}",
-        "Timestamp" => PrsModel.credentials[:timestamp],
+      credentials = PrsModel.credentials
+
+      { "Authorization" => "SIF_HMACSHA256 #{credentials[:auth_token]}",
+        "Timestamp" => credentials[:timestamp],
         "GeneratorId" => "prs-ui",
         "Content-Type" => "application/json",
         "Accept" => "application/json",
