@@ -15,6 +15,7 @@ class DistrictsController < ApplicationController
 
   # GET /districts/new
   def new
+    @mainContact = Contact.new
     @district = District.new
   end
 
