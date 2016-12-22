@@ -7,7 +7,7 @@ class District < PrsModel
     end
   end
 
-  def main_contact_instantiated
+  def main_contact
     Contact.new(mainContact) if mainContact
   end
 

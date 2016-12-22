@@ -45,10 +45,11 @@ class Districts::ServicesController < DistrictsController
   # PATCH/PUT /district/services/1.json
   def update
     service = http_request("put", "/districts/#{@district.id}/services/#{@service.id}", service_params_json)
-    @service = JSON.parse(service)
+    json_service = JSON.parse(service)
+    @service = District::Service.new(json_service)
 
     respond_to do |format|
-      if !@service.keys.include?("error")
+      if @service
         format.html { redirect_to [@district, @service], notice: 'Service was successfully updated.' }
         format.json { render :show, status: :ok, location: [@district, @service] }
       else

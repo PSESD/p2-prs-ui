@@ -33,7 +33,13 @@ class PrsModel < ActiveRestClient::Base
     response = HTTParty.get(BaseUrl + route + url_params, headers: current_headers)
     object_hash = response.parsed_response
 
-    create_objects(object_hash)
+    unless object_hash.first.include?("error")
+      # begin
+        create_objects(object_hash)
+      # rescue
+
+      # end
+    end
   end
 
   def self.headers
@@ -58,14 +64,17 @@ class PrsModel < ActiveRestClient::Base
     @attributes = {}
 
     attrs.each do |a_key, a_value|
-      byebug if a_key.class == Hash
-      @attributes[a_key.to_sym] = a_value
+      # byebug if a_key.class == Hash
+
+      if a_key.to_s.include?("Date")
+        @attributes[a_key.to_sym] = Date.parse(a_value)
+      else
+        @attributes[a_key.to_sym] = a_value
+      end
     end
 
     @attributes
   end
-
-
 
   # def initialize(attrs={})
   #   @attributes = {}

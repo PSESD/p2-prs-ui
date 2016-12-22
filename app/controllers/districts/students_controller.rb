@@ -83,8 +83,13 @@ class Districts::StudentsController < DistrictsController
   # PATCH/PUT /districts/students/1
   # PATCH/PUT /districts/students/1.json
   def update
+    byebug
+    student = http_request("put", "/districts/#{@district.id}/services/#{@service.id}/students/#{@student.id}", districts_student_params_json)
+    json_student = JSON.parse(student)
+    @student = District::Student.new(json_student)
+
     respond_to do |format|
-      if @student.update(districts_student_params)
+      if @student
         format.html { redirect_to [@district, @service], notice: 'Student was successfully updated.' }
         format.json { render :show, status: :ok, location: [@district, @service, @student] }
       else

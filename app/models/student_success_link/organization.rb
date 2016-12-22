@@ -16,7 +16,8 @@ class StudentSuccessLink::Organization
   # Returns the full URL of the organization record, which tracks the proper subdomain for login.
   # Suitable for printing directly.
   def full_url
-    URI::HTTPS.build(url: url).to_s
+    url_host = url.split("//").last
+    URI::HTTPS.build(host: url_host).to_s
   end
 
   def website_url
@@ -24,12 +25,12 @@ class StudentSuccessLink::Organization
   end
 
   def authorized_entity
-    route = "/authorizedEntities/#{authorizedEntityId}"
-    @authorized_entity ||= AuthorizedEntity.find(route)
-
-    @authorized_entity.is_a?(AuthorizedEntity) ? @authorized_entity : nil
-    rescue ActiveRestClient::HTTPNotFoundClientException
+    unless authorizedEntityId.nil?
+      route = "/authorizedEntities/#{authorizedEntityId}"
+      @authorized_entity = AuthorizedEntity.find(route)
+    else
       @authorized_entity = nil
+    end
   end
 
   def authorized_entity_service

@@ -23,8 +23,14 @@
 				<small class="text-muted">#<%= organization[:authorizedEntityId] %></small>
 			</td>
 			<td>
-				<%= link_to organization.authorized_entity_service.try(:name), [organization.authorized_entity, organization.authorized_entity_service] if organization.authorized_entity && organization.authorized_entity_service %>
-				<small class="text-muted">#<%= organization[:externalServiceId] %></small>
+					<% if (organization.authorized_entity.class == Array) %>
+						<% nil %>
+					<% else %>
+						<% if organization.authorized_entity && organization.authorized_entity_service %>
+							<%= link_to organization.authorized_entity_service.name, authorized_entity_service_path([organization.authorized_entity, organization.authorized_entity_service]) %>
+							<small class="text-muted">#<%= organization[:externalServiceId] %></small>
+						<% end %>
+					<% end %>
 			</td>
 			<td><%= link_to glyph(:pencil, 'Edit'), [:edit, organization] %></td>
 			<td><%= link_to glyph(:trash, 'Destroy'), organization, method: :delete, data: { confirm: 'Are you sure?' } %></td>
