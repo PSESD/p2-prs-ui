@@ -1,5 +1,9 @@
 class AuthorizedEntity < PrsModel
 
+  def mainContactObject
+    Contact.new(mainContact)
+  end
+
   def services_instantiated
     Service.create_objects(services)
   end

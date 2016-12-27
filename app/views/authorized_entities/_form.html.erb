@@ -10,12 +10,12 @@
 				Specify contact information for the main contact related the data-sharing process.
 				This information is used when generating parent consent forms.
 			</p>
-			<%= contact.input :name, required: false %>
-			<%= contact.input :title, required: false %>
-			<%= contact.input :email, required: false %>
-			<%= contact.input :phone, required: false %>
-			<%= contact.input :mailingAddress, required: false, label: "Mailing Address", hint: "Parents or organizations should send formal communications to this address related to data sharing or to revoke consent." %>
-			<%= contact.input :webAddress, required: false, label: "Web Address", hint: "This web address may be specific to sharing student data, such as a web site that parents can access to learn more about the data-sharing process." %>
+			<%= contact.input :name, required: false, input_html: { value: @authorized_entity.mainContactObject.name } %>
+			<%= contact.input :title, required: false, input_html: { value: @authorized_entity.mainContactObject.title } %>
+			<%= contact.input :email, required: false, input_html: { value: @authorized_entity.mainContactObject.email } %>
+			<%= contact.input :phone, required: false, input_html: { value: @authorized_entity.mainContactObject.phone } %>
+			<%= contact.input :mailingAddress, required: false, label: "Mailing Address", hint: "Parents or organizations should send formal communications to this address related to data sharing or to revoke consent.", input_html: { value: @authorized_entity.mainContactObject.mailingAddress } %>
+			<%= contact.input :webAddress, required: false, label: "Web Address", hint: "This web address may be specific to sharing student data, such as a web site that parents can access to learn more about the data-sharing process.", input_html: { value: @authorized_entity.mainContactObject.webAddress } %>
 		<% end %>
 
 	</div>
