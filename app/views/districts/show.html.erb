@@ -11,7 +11,7 @@
   <li><strong>District ID:</strong>			<%= @district.id %></li>
   <li><strong>NCES LEA Code:</strong>		<%= @district.ncesleaCode %></li>
   <li><strong>Zone ID:</strong>					<samp><%= @district.zoneId %></samp></li>
-	<li><strong>Main Contact:</strong>		<%= contact_information(@district.main_contact_instantiated) %></li>
+	<li><strong>Main Contact:</strong>		<%= contact_information(@district.mainContactObject) %></li>
 </ul>
 
 

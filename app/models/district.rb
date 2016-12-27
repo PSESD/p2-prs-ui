@@ -7,8 +7,8 @@ class District < PrsModel
     end
   end
 
-  def main_contact
-    Contact.new(mainContact) if mainContact
+  def mainContactObject
+    Contact.new(mainContact)
   end
 
   def services_full
