@@ -39,4 +39,16 @@ class District::Student < PrsModel
     all_headers.delete("Accept")
     all_headers
   end
+
+  def consentType
+    consent["consentType"]
+  end
+
+  def consentStartDate
+    Date.parse(consent["startDate"])
+  end
+
+  def consentEndDate
+    Date.parse(consent["endDate"])
+  end
 end

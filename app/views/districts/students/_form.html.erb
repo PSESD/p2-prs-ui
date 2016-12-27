@@ -3,15 +3,15 @@
 
 	<div class="form-inputs">
 		<%= f.input :districtStudentId, label: "District Student ID(s)", hint: "Add multiple student ID's separated by commas." %>
-
 		<%= f.simple_fields_for :consent do |consent| -%>
-			<%= consent.input :consentType, label: "Consent Type", input_html: { value: @student.consent.try(:consentType) }, collection: District::Student::ConsentTypes %>
+		<%# byebug %>
+			<%= consent.input :consentType, label: "Consent Type", collection: District::Student::ConsentTypes, selected: @student.consentType %>
 
 			<%= consent.input :valid_date_range do %>
 				<div class="input-daterange input-group">
-					<%= consent.input_field :startDate, class: "form-control", placeholder: "Start Date", input_html: { value: @student.consent.try(:startDate) } %>
+					<%= consent.input_field :startDate, class: "form-control", placeholder: "Start Date", value: @student.consentStartDate %>
 				    <span class="input-group-addon">to</span>
-					<%= consent.input_field :endDate, class: "form-control", placeholder: "End Date", input_html: { value: @student.consent.try(:endDate) } %>
+					<%= consent.input_field :endDate, class: "form-control", placeholder: "End Date", value: @student.consentEndDate %>
 				</div>
 			<% end %>
 
