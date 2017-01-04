@@ -1,7 +1,7 @@
 class AuthorizedEntity < PrsModel
 
   def mainContactObject
-    Contact.new(mainContact)
+    Contact.new(mainContact) if mainContact
   end
 
   def services_instantiated
