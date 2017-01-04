@@ -7,6 +7,10 @@ class District < PrsModel
     end
   end
 
+  def mainContactObject
+    Contact.new(mainContact) if mainContact
+  end
+
   def services_full
     District::Service.all(district_id: id).parallelise do |item|
       District::Service.find(district_id: id, id: item.id)

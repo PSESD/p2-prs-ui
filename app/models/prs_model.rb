@@ -96,10 +96,6 @@ class PrsModel < ActiveRestClient::Base
   #   end
   # end
 
-  def mainContactObject
-    Contact.new(mainContact) if mainContact
-  end
-
   def to_param
     id.to_s
   end
