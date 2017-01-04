@@ -60,7 +60,7 @@
 			<div class="panel-heading">
 				<h3 class="panel-title">
 					Students
-					<span class="badge badge-default"><%= @service.students.count %></span>
+					<span class="badge badge-default"><%= @students.count %></span>
 				</h3>
 			</div>
 			<table class="table">
@@ -76,7 +76,7 @@
 				</thead>
 
 				<tbody>
-					<%= render partial: "districts/students/student", collection: @service.students %>
+					<%= render partial: "districts/students/student", collection: @students %>
 				</tbody>
 			</table>
 		</div>
@@ -84,6 +84,6 @@
 	</div>
 </div>
 
-<%= render partial: "districts/students/filters", layout: "layouts/modal", locals: {
+<%= render partial: "districts/students/filters", format: 'json', layout: "layouts/modal", locals: {
 		id: "filtersModal", title: "Compiled Filter Rules", dialog_class: "modal-lg"
 	} %>

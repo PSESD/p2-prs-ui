@@ -244,6 +244,7 @@ GEM
       ruby-progressbar (~> 1.7)
       unicode-display_width (~> 1.0, >= 1.0.1)
     ruby-progressbar (1.8.1)
+    ruby-xslt (0.9.9)
     ruby_parser (3.8.3)
       sexp_processor (~> 4.1)
     rugged (0.24.0)
@@ -336,6 +337,7 @@ DEPENDENCIES
   resque-rollbar
   resque-status
   rollbar
+  ruby-xslt
   sass-rails
   sdoc
   simple_form

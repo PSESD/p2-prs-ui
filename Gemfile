@@ -26,6 +26,7 @@ gem 'mongoid'
 gem 'bcrypt'
 gem 'byebug'
 gem 'httparty'
+gem 'ruby-xslt'
 
 group :development do
   gem 'web-console'

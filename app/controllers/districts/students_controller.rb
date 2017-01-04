@@ -1,7 +1,11 @@
+require 'xml/xslt'
+
 class Districts::StudentsController < DistrictsController
   before_action :set_district
   before_action :set_districts_service
   before_action :set_districts_student, only: [:show, :edit, :update, :destroy, :filters]
+
+  helper_method :filters
 
   # GET /districts/students
   # GET /districts/students.json
@@ -83,7 +87,6 @@ class Districts::StudentsController < DistrictsController
   # PATCH/PUT /districts/students/1
   # PATCH/PUT /districts/students/1.json
   def update
-    byebug
     student = http_request("put", "/districts/#{@district.id}/services/#{@service.id}/students/#{@student.id}", districts_student_params_json)
     json_student = JSON.parse(student)
     @student = District::Student.new(json_student)
@@ -110,14 +113,9 @@ class Districts::StudentsController < DistrictsController
   end
 
   def filters
-    header_params = { "authorizedEntityId" => @service.authorizedEntityId,
-                      "externalServiceId" => @service.externalServiceId,
-                      "districtStudentId" => @student.districtStudentId,
-                      "objectType" => (params[:object_type] || "xSre") }
-
     student_filtered = District::Student.filters("/filters", header_params)
 
-    render xml: student_filtered
+    render json: student_filtered
   end
 
   private
@@ -141,6 +139,13 @@ class Districts::StudentsController < DistrictsController
 
   def districts_student_params_json
     districts_student_params.to_json
+  end
+
+  def header_params
+    { "authorizedEntityId" => @service.authorizedEntityId,
+      "externalServiceId"  => @service.externalServiceId,
+      "districtStudentId"  => @student.districtStudentId,
+      "objectType"         => (params[:object_type] || "xSre") }
   end
 
 end

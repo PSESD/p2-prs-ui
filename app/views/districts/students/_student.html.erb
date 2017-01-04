@@ -7,7 +7,7 @@
 		<%=l student.consentEndDate, format: :short_date %>
 		<%= content_tag :span, "Expired", class: "label label-danger" if student.expired? %>
 	</td>
-	<td><%= link_to glyph("list-alt", 'Filter Rules'), "#", 'data-url' => url_for([:filters, @district, @service, student]), 'data-toggle' => "modal", 'data-target' => "#filtersModal" %></td>
+	<td><%= link_to glyph("list-alt", 'Filter Rules'), filters_district_service_student_path(district_id: @district.id, service_id: @service.id, id: student.id), { 'data-toggle' => "modal", 'data-target' => "#filtersModal"} %></td>
 	<td><%= link_to glyph(:pencil, 'Edit'), [:edit, @district, @service, student] %></td>
 	<td><%= link_to glyph(:trash, 'Destroy'), [@district, @service, student], method: :delete, data: { confirm: 'Are you sure?' } %></td>
 </tr>

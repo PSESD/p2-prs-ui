@@ -11,6 +11,7 @@ class Districts::ServicesController < DistrictsController
   # GET /district/services/1
   # GET /district/services/1.json
   def show
+    @students = @service.students
   end
 
   # GET /district/services/new
