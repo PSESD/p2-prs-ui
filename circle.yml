@@ -1,0 +1,13 @@
+deployment:
+ development:
+   branch: development
+   heroku:
+     appname: p2-prs-ui-dev
+ test:
+   branch: test
+   heroku:
+     appname: p2-prs-ui-demo
+ production:
+   branch: production
+   heroku:
+     appname: p2-prs-ui
