@@ -119,18 +119,7 @@ module ApplicationHelper
       partial: "layouts/contact_details", layout: "layouts/popover", object: contact,
       locals: { id: dom_id, title: (options[:title] || "Contact Information") }
     )
-
-    # byebug
-    # link_to(name_element, "#", options) + render(
-    #   partial: "layouts/contact_details", layout: "layouts/popover", object: contact,
-    #   locals: { id: dom_id, title: (options[:title] || "Contact Information") }
-    # )
   end
-
-  # link_to comment.user_name, "#", "title" => comment.user_name,
-  #     "data-content" => "#{render 'users/name_popover'}",
-  #       class: "comment-user-name"
-
 
   def link_to_submit(*args, &block)
     link_to (block_given? ? capture(&block) : args[0]), "#", { data: { submit: true } }.merge(args.extract_options!)

@@ -104,6 +104,18 @@ class PrsModel < ActiveRestClient::Base
     self
   end
 
+  # def mainContactNew
+  #   Contact.new
+  # end
+
+  def mainContactObject
+    if mainContact
+      Contact.new(mainContact)
+    else
+      Contact.new
+    end
+  end
+
   def new_record?
      !@attributes.any? || new_record
   end
