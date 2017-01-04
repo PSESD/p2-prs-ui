@@ -113,7 +113,7 @@ module ApplicationHelper
   # Displays the contact information in a popover.
   def contact_information(contact, options = {})
     dom_id = "contactInformationPopover_#{contact.hash}"
-    options.merge!({ role: "button", tabindex: 0, data: { toggle: "html-popover", trigger: "focus", source: "##{dom_id}", remote: "true" }})
+    options.merge!({ role: "button", tabindex: 0, data: { toggle: "html-popover", trigger: "hover", source: "##{dom_id}", remote: "true" }})
     name_element = contact.try(:name).blank? ? "None" : contact.name
     link_to(name_element, "#", options) + render(
       partial: "layouts/contact_details", layout: "layouts/popover", object: contact,
