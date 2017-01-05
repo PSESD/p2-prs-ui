@@ -25,8 +25,8 @@ class DistrictsController < ApplicationController
   # POST /districts
   # POST /districts.json
   def create
-    # district = http_request("post", "/districts", district_params_json)
-    district = District.create("/districts", district_params_json)
+    district = http_request("post", "/districts", district_params_json)
+    # district = District.create("/districts", district_params_json)
     json_district = JSON.parse(district)
     @district = District.new(json_district)
 

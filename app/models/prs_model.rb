@@ -67,14 +67,14 @@ class PrsModel < ActiveRestClient::Base
   def initialize(attrs={})
     @attributes = {}
 
-    attrs.each do |a_key|
+    attrs.each do |a_key, a_value|
       if a_key.to_s.include?("Date")
         @attributes[a_key.to_sym] = Date.parse(a_value)
       else
         @attributes[a_key.to_sym] = a_value
       end
     end
-    
+
     @attributes
   end
 
