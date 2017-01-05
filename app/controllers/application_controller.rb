@@ -40,7 +40,7 @@ class ApplicationController < ActionController::Base
     end
 
     def http_request(action, path, json_params)
-      url = "#{Rails.application.secrets.prs_url}#{path};zoneId=#{ZoneId};contextId=#{ContextId}"
+      url = "#{PrsModel::BaseUrl}#{path};zoneId=#{ZoneId};contextId=#{ContextId}"
       uri = URI.parse(url)
       http = Net::HTTP.new(uri.host, uri.port)
       http.use_ssl = true
