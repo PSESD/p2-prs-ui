@@ -83,7 +83,3 @@
 	<%= link_to glyph(:plus) + " Add Students", new_district_service_student_path(@district, @service), class: 'btn btn-default' %>
 	</div>
 </div>
-
-<%= render partial: "districts/students/filters", format: 'json', layout: "layouts/modal", locals: {
-		id: "filtersModal", title: "Compiled Filter Rules", dialog_class: "modal-lg"
-	} %>

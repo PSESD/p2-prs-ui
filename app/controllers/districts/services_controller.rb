@@ -2,6 +2,8 @@ class Districts::ServicesController < DistrictsController
   before_action :set_district
   before_action :set_service, only: [:show, :edit, :update, :destroy]
 
+  helper_method :student_filtered
+
   # GET /district/services
   # GET /district/services.json
   def index

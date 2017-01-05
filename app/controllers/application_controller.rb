@@ -7,8 +7,19 @@ class ApplicationController < ActionController::Base
   rescue_from ActiveRestClient::ConnectionFailedException, with: :connection_failure
   rescue_from ActionController::RedirectBackError, with: :error_message
 
+  helper_method :header_params
+
   ZoneId = Rails.application.secrets.prs_zone_id
   ContextId = Rails.application.secrets.prs_context_id
+
+  def header_params(districtStudentId=nil)
+    districtStudentId = @student.districtStudentId if districtStudentId.nil?
+
+    { "authorizedEntityId" => @service.authorizedEntityId,
+      "externalServiceId"  => @service.externalServiceId,
+      "districtStudentId"  => districtStudentId,
+      "objectType"         => (params[:object_type] || "xSre") }
+  end
 
   protected
 
@@ -45,5 +56,4 @@ class ApplicationController < ActionController::Base
 
       http.request(request).body
     end
-
 end

@@ -1,5 +1,3 @@
-require 'xml/xslt'
-
 class Districts::StudentsController < DistrictsController
   before_action :set_district
   before_action :set_districts_service
@@ -115,7 +113,7 @@ class Districts::StudentsController < DistrictsController
   def filters
     student_filtered = District::Student.filters("/filters", header_params)
 
-    render json: student_filtered
+    render xml: student_filtered
   end
 
   private
@@ -139,13 +137,6 @@ class Districts::StudentsController < DistrictsController
 
   def districts_student_params_json
     districts_student_params.to_json
-  end
-
-  def header_params
-    { "authorizedEntityId" => @service.authorizedEntityId,
-      "externalServiceId"  => @service.externalServiceId,
-      "districtStudentId"  => @student.districtStudentId,
-      "objectType"         => (params[:object_type] || "xSre") }
   end
 
 end
