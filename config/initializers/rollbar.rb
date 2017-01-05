@@ -7,7 +7,7 @@ Rollbar.configure do |config|
 
   # Here we'll disable in 'test':
   if Rails.env.test?
-    config.enabled = true
+    config.enabled = false
   end
 
 
