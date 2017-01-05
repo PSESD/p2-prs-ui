@@ -16,6 +16,15 @@ class PrsModel < ActiveRestClient::Base
     create_objects(attr_hashes)
   end
 
+  def self.create(route, body)
+    response = HTTParty.post(BaseUrl + route + url_params, headers: headers, body: body)
+    object_hash = response.parsed_response
+
+    unless object_hash.first.include?("error")
+      create_objects(object_hash)
+    end
+  end
+
   def self.create_objects(attr_hashes)
     attr_hashes.map do |attributes|
       self.new(attributes)
@@ -28,17 +37,11 @@ class PrsModel < ActiveRestClient::Base
   end
 
   def self.find(route)
-    current_headers = headers
-
-    response = HTTParty.get(BaseUrl + route + url_params, headers: current_headers)
+    response = HTTParty.get(BaseUrl + route + url_params, headers: headers)
     object_hash = response.parsed_response
 
     unless object_hash.first.include?("error")
-      # begin
-        create_objects(object_hash)
-      # rescue
-
-      # end
+      create_objects(object_hash)
     end
   end
 
@@ -103,10 +106,6 @@ class PrsModel < ActiveRestClient::Base
   def to_model
     self
   end
-
-  # def mainContactNew
-  #   Contact.new
-  # end
 
   def mainContactObject
     if mainContact
