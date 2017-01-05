@@ -22,7 +22,10 @@ class District::Student < PrsModel
     filter_headers = set_headers(header_params)
 
     response = HTTParty.get(BaseUrl + route + url_params, headers: filter_headers)
-    response.parsed_response
+    result = response.parsed_response
+
+    result_json = result.to_json
+    result_xml = JSON.parse(result_json).to_xml
   end
 
   def self.set_headers(header_params)
