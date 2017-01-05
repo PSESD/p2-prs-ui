@@ -21,7 +21,6 @@ class PrsModel < ActiveRestClient::Base
     object_hash = response.parsed_response
 # byebug
     create_objects(object_hash)
-
   end
 
   def self.create_objects(attr_hashes)

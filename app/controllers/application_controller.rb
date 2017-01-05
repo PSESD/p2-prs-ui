@@ -40,7 +40,7 @@ class ApplicationController < ActionController::Base
     end
 
     def http_request(action, path, json_params)
-      url = "https://srx-services-prs-dev.herokuapp.com#{path};zoneId=#{ZoneId};contextId=#{ContextId}"
+      url = "#{Rails.application.secrets.prs_url}#{path};zoneId=#{ZoneId};contextId=#{ContextId}"
       uri = URI.parse(url)
       http = Net::HTTP.new(uri.host, uri.port)
       http.use_ssl = true
