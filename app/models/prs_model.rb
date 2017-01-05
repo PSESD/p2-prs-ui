@@ -20,9 +20,7 @@ class PrsModel < ActiveRestClient::Base
     response = HTTParty.post(BaseUrl + route + url_params, headers: headers, body: body)
     object_hash = response.parsed_response
 
-    unless object_hash.first.include?("error")
-      create_objects(object_hash)
-    end
+    create_objects(object_hash)
   end
 
   def self.create_objects(attr_hashes)
@@ -69,7 +67,7 @@ class PrsModel < ActiveRestClient::Base
     @attributes = {}
 
     attrs.each do |a_key, a_value|
-      # byebug if a_key.class == Hash
+      byebug if a_key.class == Hash
 
       if a_key.to_s.include?("Date")
         @attributes[a_key.to_sym] = Date.parse(a_value)

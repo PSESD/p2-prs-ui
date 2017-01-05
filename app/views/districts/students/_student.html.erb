@@ -13,7 +13,6 @@
 	<td><%= link_to glyph(:trash, 'Destroy'), [@district, @service, student], method: :delete, data: { confirm: 'Are you sure?' } %></td>
 </tr>
 
-<% @student_filtered = District::Student.filters("/filters", header_params(student.districtStudentId)) %>
-
-<%= render partial: "districts/students/filters", student_filtered: @student_filtered, layout: "layouts/modal", locals: {
-		id: "filtersModal", title: "Compiled Filter Rules", dialog_class: "modal-lg" } %>
+<%=# render partial: "districts/students/filters", student_filtered: @student_filtered, layout: "layouts/modal", locals: {
+		#id: "filtersModal", title: "Compiled Filter Rules", dialog_class: "modal-lg" }
+		%>
