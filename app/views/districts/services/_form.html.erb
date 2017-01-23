@@ -2,7 +2,7 @@
 	<%= f.error_notification %>
 
 	<div class="form-inputs">
-		<%= f.input :externalServiceId, label: "External Service", as: :grouped_select, collection: AuthorizedEntity.all("/authorizedEntities"), group_method: :services_instantiated, value_method: :id, prompt: "-- Please select --" %>
+		<%= f.input :externalServiceId, label: "External Service", as: :grouped_select, collection: AuthorizedEntity.all("/authorizedEntities"), group_method: :services_instantiated, group_label_method: :name, value_method: :id, prompt: "-- Please select --" %>
 
 		<%= f.input :valid_date_range do %>
 			<div class="input-daterange input-group">
@@ -17,7 +17,7 @@
 			<%- DataSet.all("/dataSets").each_with_index do |data_set, index| -%>
 				<li class="list-group-item">
 					<label class="boolean optional" for="service_DataSets_<%= data_set.id %>">
-						<input class="boolean optional" type="checkbox" value="<%= data_set.id %>" name="service[DataSetSummary][][id]" id="service_DataSets_<%= data_set.id %>" <%= "checked" if @service.authorized_for_data_set?(data_set) %>>
+						<input class="boolean optional" type="checkbox" value="<%= data_set.id %>" name="service[DataSetSummary][][id]" id="service_DataSets_<%= data_set.id%>" <%= "checked" if @service.authorized_for_data_set?(data_set) %>>
 						<%= data_set.name %>
 					</label>
 				</li>
