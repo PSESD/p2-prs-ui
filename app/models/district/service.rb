@@ -27,7 +27,6 @@ class District::Service < PrsModel
   end
 
   def authorized_for_data_set?(data_set)
-
     return false unless dataSets
     data_set_ids = dataSets.collect{ |x| x[:id] ? x[:id] : x["id"]}
     data_set_ids.include? (data_set.is_a?(DataSet) ? data_set.id : data_set)

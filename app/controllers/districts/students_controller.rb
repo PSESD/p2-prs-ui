@@ -45,8 +45,6 @@ class Districts::StudentsController < DistrictsController
 
   # Create a bunch of students at once.
   def bulk_create
-# byebug
-
     # unless params[:id]
       # begin
         # Resque.enqueue(CreateStudentsWorker, districts_student_params)
@@ -55,11 +53,11 @@ class Districts::StudentsController < DistrictsController
         # Rails.logger.error("API returned #{e.status} : #{e.result.message}")
       # end
 
-      student_ids = districts_student_params[:districtStudentId].split(",").map(&:strip)
-      districts_student_params[:districtServiceId] = districts_student_params[:service_id]
+      ids = student_ids
+      set_params
 
-      total = student_ids.count
-      student_ids.each_with_index do |student_id, i|
+      total = ids.count
+      ids.each_with_index do |student_id, i|
         puts "Creating #{i + 1} of #{total}"
         districts_student_params[:districtStudentId] = student_id
         path = "/districts/" + districts_student_params[:district_id] + "/services/" + districts_student_params[:service_id] + "/students"
@@ -85,6 +83,7 @@ class Districts::StudentsController < DistrictsController
   # PATCH/PUT /districts/students/1
   # PATCH/PUT /districts/students/1.json
   def update
+    set_params
     student = http_request("put", "/districts/#{@district.id}/services/#{@service.id}/students/#{@student.id}", districts_student_params_json)
     json_student = JSON.parse(student)
     @student = District::Student.new(json_student)
@@ -137,6 +136,16 @@ class Districts::StudentsController < DistrictsController
 
   def districts_student_params_json
     districts_student_params.to_json
+  end
+
+  def set_params
+    districts_student_params[:districtServiceId] = districts_student_params[:service_id]
+    districts_student_params[:consent] = districts_student_params[:formConsent]
+    districts_student_params[:consent][:districtServiceId] = districts_student_params[:districtServiceId]
+  end
+
+  def student_ids
+    districts_student_params[:districtStudentId].split(",").map(&:strip)
   end
 
 end

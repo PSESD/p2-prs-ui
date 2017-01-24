@@ -2,7 +2,7 @@
 	<%= f.error_notification %>
 	<div class="form-inputs">
 			<%= f.input :districtStudentId, label: "District Student ID(s)", hint: "Add multiple student ID's separated by commas." %>
-				<%= f.simple_fields_for @student["consent"] do |consent| -%>
+				<%= f.simple_fields_for :formConsent do |consent| -%>
 					<%= consent.input :consentType, label: "Consent Type", collection: District::Student::ConsentTypes, selected: @student.consentType %>
 
 					<%= consent.input :valid_date_range do %>

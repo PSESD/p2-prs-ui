@@ -35,14 +35,18 @@ class District::Student < PrsModel
   end
 
   def consentType
-    consent["consentType"]
+    consent["consentType"] if consent
   end
 
   def consentStartDate
-    Date.parse(consent["startDate"])
+    Date.parse(consent["startDate"]) if consent
   end
 
   def consentEndDate
-    Date.parse(consent["endDate"])
+    Date.parse(consent["endDate"]) if consent
+  end
+
+  def formConsent
+    consent.nil? ? {} : consent
   end
 end
