@@ -14,13 +14,3 @@
 	<td><%= link_to glyph(:pencil, 'Edit'), [:edit, @district, @service, student] %></td>
 	<td><%= link_to glyph(:trash, 'Destroy'), [@district, @service, student], method: :delete, data: { confirm: 'Are you sure?' } %></td>
 </tr>
-
-<!--  -->
-
-		<!-- dom_id = "contactInformationPopover_#{contact.hash}"
-    options.merge!({ role: "button", tabindex: 0, data: { toggle: "html-popover", trigger: "hover", source: "##{dom_id}", remote: "true" }})
-    name_element = contact.try(:name).blank? ? "None" : contact.name
-    link_to(name_element, "#", options) + render(
-      partial: "layouts/contact_details", layout: "layouts/popover", object: contact,
-      locals: { id: dom_id, title: (options[:title] || "Contact Information") }
-    ) -->
