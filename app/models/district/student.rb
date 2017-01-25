@@ -18,8 +18,8 @@ class District::Student < PrsModel
   #   consentEndDate.today? || consentEndDate.past? if consentEndDate.is_a?(Date)
   # end
 
-  def self.filters(route, header_params)
-    filter_headers = set_headers(header_params)
+  def self.filters(route, filters_headers)
+    filter_headers = set_headers(filters_headers)
 
     response = HTTParty.get(BaseUrl + route + url_params, headers: filter_headers)
     result = response.parsed_response
@@ -28,8 +28,8 @@ class District::Student < PrsModel
     result_xml = JSON.parse(result_json).to_xml
   end
 
-  def self.set_headers(header_params)
-    all_headers = headers.merge(header_params)
+  def self.set_headers(filters_headers)
+    all_headers = headers.merge(filters_headers)
     all_headers.delete("Accept")
     all_headers
   end

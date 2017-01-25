@@ -7,12 +7,12 @@ class ApplicationController < ActionController::Base
   rescue_from ActiveRestClient::ConnectionFailedException, with: :connection_failure
   rescue_from ActionController::RedirectBackError, with: :error_message
 
-  helper_method :header_params
+  helper_method :filters_headers
 
   ZoneId = Rails.application.secrets.prs_zone_id
   ContextId = Rails.application.secrets.prs_context_id
 
-  def header_params(districtStudentId=nil)
+  def filters_headers(districtStudentId=nil)
     districtStudentId = @student.districtStudentId if districtStudentId.nil?
 
     { "authorizedEntityId" => @service.authorizedEntityId,

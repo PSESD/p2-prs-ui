@@ -110,9 +110,9 @@ class Districts::StudentsController < DistrictsController
   end
 
   def filters
-    student_filtered = District::Student.filters("/filters", header_params)
+    student_filtered = District::Student.filters("/filters", filters_headers)
 
-    render xml: student_filtered
+    render text: Hash.from_xml(student_filtered)["hash"]["stylesheet"].to_s
   end
 
   private

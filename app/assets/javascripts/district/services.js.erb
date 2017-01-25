@@ -1,0 +1,25 @@
+var loadFilters = function() {
+  $(".filtersModal").click(function() {
+    var studentId = String($(this)[0].id);
+    var districtId = $("#" + studentId).attr("district-id");
+    var serviceId = $("#" + studentId).attr("service-id");
+
+    $.ajax({
+      url: "/districts/" + districtId + "/services/" + serviceId + "/students/" + studentId + "/filters",
+      type: "GET",
+      accept: "application/json",
+      success: function(filters) {
+        $("div").remove(".filtersContent");
+        $(".modal-body").append("<div class=filtersContent>" + filters + "</div>");
+      },
+      error: function(message){
+        console.error(message);
+      }
+    });
+
+  })
+};
+
+$(document).ready(function() {
+  loadFilters();
+});
