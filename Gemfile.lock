@@ -340,7 +340,6 @@ DEPENDENCIES
   sdoc
   simple_form
   spring
-  turbolinks
   uglifier
   web-console
 

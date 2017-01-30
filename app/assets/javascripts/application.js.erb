@@ -14,14 +14,13 @@
 //= require jquery.turbolinks
 //= require jquery_ujs
 //= require bootstrap
-//= require turbolinks
 //= require nprogress
 //= require nprogress-turbolinks
 //= require_tree .
 
 $( function() {
   $('[data-toggle="tooltip"]').tooltip()
-  
+
   $('[data-toggle="html-popover"]').popover({
     html: true,
     content: function() {
@@ -33,7 +32,7 @@ $( function() {
       return $(title).children("summary").html()
     }
   })
-  
+
   $('#filtersModal').on('show.bs.modal', function (event) {
     var button = $(event.relatedTarget)
     var url = button.data('url')
@@ -45,7 +44,7 @@ $( function() {
       elem.html( html )
     })
   })
-  
+
   $('.input-daterange').datepicker({
       format: "yyyy-mm-dd",
       todayBtn: "linked",
@@ -53,10 +52,10 @@ $( function() {
       disableTouchKeyboard: true,
       autoclose: true
   });
-  
+
   $("a[data-submit]").on('click', function(event) {
 	  event.preventDefault();
 	  $( this ).closest('form').submit();
   })
-  
+
 })
