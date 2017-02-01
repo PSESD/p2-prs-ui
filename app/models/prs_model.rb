@@ -63,37 +63,37 @@ class PrsModel < ActiveRestClient::Base
     ";zoneId=#{ZoneId};contextId=#{ContextId}"
   end
 
-  def initialize(attrs={})
-    @attributes = {}
-
-    attrs.each do |a_key, a_value|
-      if a_key.to_s.include?("Date")
-        @attributes[a_key.to_sym] = Date.parse(a_value)
-      else
-        @attributes[a_key.to_sym] = a_value
-      end
-    end
-
-    @attributes
-  end
-
   # def initialize(attrs={})
   #   @attributes = {}
-  #   @dirty_attributes = Set.new
   #
-  #   raise Exception.new("Cannot instantiate Base class") if self.class.name == "ActiveRestClient::Base"
-  #   attrs.each do |attribute_name, attribute_value|
-  #     attribute_name = attribute_name.to_sym
-  #
-  #     if attribute_name.to_s.include?("Date")
-  #       @attributes[attribute_name] = Date.parse(attribute_value)
+  #   attrs.each do |a_key, a_value|
+  #     if a_key.to_s.include?("Date")
+  #       @attributes[a_key.to_sym] = Date.parse(a_value)
   #     else
-  #       @attributes[attribute_name] = attribute_value
+  #       @attributes[a_key.to_sym] = a_value
   #     end
-  #
-  #     @dirty_attributes << attribute_name
   #   end
+  #
+  #   @attributes
   # end
+
+  def initialize(attrs={})
+    @attributes = {}
+    @dirty_attributes = Set.new
+
+    raise Exception.new("Cannot instantiate Base class") if self.class.name == "ActiveRestClient::Base"
+    attrs.each do |attribute_name, attribute_value|
+      attribute_name = attribute_name.to_sym
+
+      if attribute_name.to_s.include?("Date")
+        @attributes[attribute_name] = Date.parse(attribute_value)
+      else
+        @attributes[attribute_name] = attribute_value
+      end
+
+      @dirty_attributes << attribute_name
+    end
+  end
 
   def to_param
     id.to_s
