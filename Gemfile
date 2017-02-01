@@ -36,7 +36,7 @@ group :test do
   gem 'minitest-ci', git: 'https://github.com/circleci/minitest-ci.git'
 end
 
-group :development, :test do
+group :development, :test, :production do
   gem 'dotenv'
   gem 'spring'
   gem 'awesome_print'
@@ -52,6 +52,4 @@ end
 group :production do
   gem 'rails_12factor'
   gem 'puma'
-  gem 'rack-wwwhisper'
-  gem 'net-http-persistent', '2.9.4'
 end
