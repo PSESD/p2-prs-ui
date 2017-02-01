@@ -336,7 +336,6 @@ DEPENDENCIES
   resque-rollbar
   resque-status
   rollbar
-  rugged (= 0.24.0)
   sass-rails
   sdoc
   simple_form
