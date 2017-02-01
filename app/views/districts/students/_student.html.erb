@@ -2,9 +2,9 @@
 	<td><%= student.id %></td>
 	<td><%= student.districtStudentId %></td>
 	<td><%= student.consentType %></td>
-	<td><%= localize(student.consentStartDate, format: :short) %></td>
+	<td><%= localize(student.consentStartDate) %></td>
 	<td>
-		<%= localize(student.consentEndDate, format: :short) %>
+		<%= localize(student.consentEndDate) %>
 		<%= content_tag :span, "Expired", class: "label label-danger" if student.expired? %>
 	</td>
 
