@@ -1,7 +1,7 @@
 <tr class="<%= 'danger' if service.expired? %>">
 	<td><%= check_box_tag "services[]", service.id %></td>
 	<td><%= service.id %></td>
-	<td><%= link_to AuthorizedEntity.find(service.authorizedEntityId).first.name, authorized_entity_path(service.authorizedEntityId) rescue service.name %>
+	<td><%= link_to service.authorized_entity.name, authorized_entity_path(service.authorizedEntityId) %>
 		<small class="text-muted">#<%= service.authorizedEntityId %></small>
 		</td>
 	<td><%= link_to service.name, [@district, service] %>

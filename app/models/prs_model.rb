@@ -19,7 +19,7 @@ class PrsModel < ActiveRestClient::Base
   def self.create(route, body)
     response = HTTParty.post(BaseUrl + route + url_params, headers: headers, body: body)
     object_hash = response.parsed_response
-# byebug
+
     create_objects(object_hash)
   end
 
