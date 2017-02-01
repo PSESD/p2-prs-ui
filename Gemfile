@@ -40,13 +40,9 @@ group :development, :test, :production do
   gem 'dotenv'
   gem 'spring'
   gem 'awesome_print'
-  gem 'pronto'
-  gem 'pronto-rubocop', require: false
-  gem 'pronto-brakeman', require: false
-  gem 'pronto-flay', require: false
-  gem 'pronto-rails_best_practices', require: false
   gem 'rack-wwwhisper'
   gem 'net-http-persistent', '2.9.4'
+  gem 'puma'
 end
 
 group :production do
