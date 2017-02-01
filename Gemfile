@@ -25,7 +25,6 @@ gem 'mongoid'
 gem 'bcrypt'
 gem 'byebug'
 gem 'httparty'
-gem 'thin'
 
 group :development do
   gem 'web-console'
