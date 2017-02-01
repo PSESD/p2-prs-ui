@@ -13,11 +13,12 @@
 		<% end %>
 
 		<%= f.input :data_sets, as: :checkbox do %>
+
 			<ul class="list-group input-group">
 			<%- DataSet.all("/dataSets").each_with_index do |data_set, index| -%>
 				<li class="list-group-item">
 					<label class="boolean optional" for="service_DataSets_<%= data_set.id %>">
-						<input class="boolean optional" type="checkbox" value="<%= data_set.id %>" name="service[DataSetSummary][][id]" id="service_DataSets_<%= data_set.id%>" <%= "checked" if @service.authorized_for_data_set?(data_set) %>>
+						<input class="boolean optional" type="checkbox" value="<%= data_set.id %>" name="service[dataSets][][id]" id="service_DataSets_<%= data_set.id%>" <%= "checked" if @service.authorized_for_data_set?(data_set) %>>
 						<%= data_set.name %>
 					</label>
 				</li>
