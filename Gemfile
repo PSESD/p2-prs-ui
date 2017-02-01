@@ -25,7 +25,6 @@ gem 'mongoid'
 gem 'bcrypt'
 gem 'byebug'
 gem 'httparty'
-gem 'unicorn'
 
 group :development do
   gem 'web-console'
@@ -48,6 +47,7 @@ group :development, :test, :production do
   gem 'pronto-rails_best_practices', require: false
   gem 'rack-wwwhisper'
   gem 'net-http-persistent', '2.9.4'
+  gem 'puma'
 end
 
 group :production do
