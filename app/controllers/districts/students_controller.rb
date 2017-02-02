@@ -29,7 +29,7 @@ class Districts::StudentsController < DistrictsController
   # POST /districts/students
   # POST /districts/students.json
   def create
-    bulk_create # if districts_student_params[:districtStudentId].include?(",")
+    return bulk_create # if districts_student_params[:districtStudentId].include?(",")
     # @student = District::Student.new(districts_student_params)
     #
     # respond_to do |format|
