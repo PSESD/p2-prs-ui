@@ -8,4 +8,8 @@ class AuthorizedEntity < PrsModel
     return services.size if services
     find(id).services.size
   end
+
+  def main_contact
+    mainContact ? mainContact : {}
+  end
 end
