@@ -3,7 +3,8 @@ require 'resque/failure/multiple'
 require 'resque/failure/redis'
 require 'resque/rollbar'
 
-Resque.redis = Rails.application.secrets.redis_url
+Resque.redis = Rails.application.secrets.redis_url #if Rails.env == 'production'
+# Resque.redis = 'localhost:6379' if Rails.env == 'local' ###
 
 # Resque.logger.formatter = Resque::VeryVerboseFormatter.new
 Resque.logger.level = Logger::DEBUG

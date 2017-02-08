@@ -8,4 +8,5 @@ class AuthorizedEntity < PrsModel
     return services.size if services
     find(id).services.size
   end
+  
 end

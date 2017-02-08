@@ -7,7 +7,7 @@ class District::Student < PrsModel
     "Institutional Designation",
     "Research Exemption"
   ]
-
+  
   # def expired?
   #   consentEndDate.today? || consentEndDate.past? if consentEndDate.is_a?(Date)
   # end
