@@ -1,8 +1,3 @@
-# require 'rake'
-#
-# Rake::Task.clear # necessary to avoid tasks being loaded several times in dev mode
-# P2PrsUi::Application.load_tasks
-
 class Districts::StudentsController < DistrictsController
   before_action :set_district
   before_action :set_districts_service
@@ -34,22 +29,7 @@ class Districts::StudentsController < DistrictsController
   # POST /districts/students
   # POST /districts/students.json
   def create
-    set_params
-    job_id = StudentWorker.create(districts_student_params)
-
-    respond_to do |format|
-      if @status
-        format.html { redirect_to bulk_create_status_district_service_students_path(district_id: @district.id, service_id: @service.id, id: @status.uuid) }
-        format.json { render :show, status: :created, location: [@district, @service, :students, :bulk_create] }
-      else
-        format.html { render :new }
-        format.json { render json: @status.errors, status: :unprocessable_entity }
-      end
-    end
-
-
-
-    # return bulk_create # if districts_student_params[:districtStudentId].include?(",")
+    return bulk_create # if districts_student_params[:districtStudentId].include?(",")
     # @student = District::Student.new(districts_student_params)
     #
     # respond_to do |format|
@@ -73,37 +53,22 @@ class Districts::StudentsController < DistrictsController
         # Rails.logger.error("API returned #{e.status} : #{e.result.message}")
       # end
 
-      # ids = student_ids
-      # set_params
-      #
-      # total = ids.count
-      # ids.each_with_index do |student_id, i|
-      #   puts "Creating #{i + 1} of #{total}"
-      #   districts_student_params[:districtStudentId] = student_id
-      #   path = "/districts/" + districts_student_params[:district_id] + "/services/" + districts_student_params[:service_id] + "/students"
-      #   http_request("post", path, districts_student_params.to_json)
-      # end
+      ids = student_ids
+      set_params
 
-      # student_ids = districts_student_params["districtStudentId"].split(",").map(&:strip)
-      # districts_student_params["total"] = student_ids.count
-      # job_ids = []
-      # student_ids.each_with_index do |student_id, i|
-      #   districts_student_params["districtStudentId"] = student_id
-      #   districts_student_params["current"] = i + 1
-      #
-      # byebug
-      # job_id = StudentWorker.create(districts_student_params)
-      #   # Resque.enqueue(StudentWorker, districts_student_params)
-      # end
+      total = ids.count
+      ids.each_with_index do |student_id, i|
+        puts "Creating #{i + 1} of #{total}"
+        districts_student_params[:districtStudentId] = student_id
+        path = "/districts/" + districts_student_params[:district_id] + "/services/" + districts_student_params[:service_id] + "/students"
+        http_request("post", path, districts_student_params.to_json)
+      end
 
-
-      # redirect_to district_service_path(district_id: @district.id, id: @service.id)
+      redirect_to district_service_path(district_id: @district.id, id: @service.id)
       # redirect_to(bulk_create_status_district_service_students_path(district_id: @district, service_id: @service, id: @job_id))
     # end
 
-    @status = Resque::Plugins::Status::Hash.get(params[:id])
-    # @status = Resque::Plugins::Status::Hash.get(job_id)
-    render :bulk_create
+    # @status = Resque::Plugins::Status::Hash.get(params[:id])
     # respond_to do |format|
     #   if @status
     #     format.html { render :bulk_create }
