@@ -294,6 +294,7 @@ DEPENDENCIES
   sdoc
   simple_form
   spring
+  tzinfo-data
   uglifier
   web-console
 
