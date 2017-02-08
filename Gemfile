@@ -27,6 +27,7 @@ gem 'mongoid'
 gem 'bcrypt'
 gem 'byebug'
 gem 'httparty'
+gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw]
 
 group :development do
   gem 'web-console'

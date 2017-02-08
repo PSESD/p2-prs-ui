@@ -41,49 +41,45 @@ module ApplicationHelper
     content_for(:breadcrumbs) do
       content_tag(:ol, class: "breadcrumb") do
         for arg in args
-          if arg.is_a?(String)
-            concat content_tag(:li, arg, class: "active")
-          elsif arg.is_a?(Symbol)
-            concat content_tag(:li, link_to(arg.to_s.titleize, arg))
-          elsif arg.is_a?(Array)
+          unless arg.nil?
+            if arg.is_a?(String)
+              concat content_tag(:li, arg, class: "active")
+            elsif arg.is_a?(Symbol)
+              concat content_tag(:li, link_to(arg.to_s.titleize, arg))
+            elsif arg.is_a?(Array)
+                title = arg.last.is_a?(Symbol) ? arg.last.to_s.titleize : guess_label_text(arg.last)
+                concat content_tag(:li, link_to(title, arg))
+            elsif arg.is_a?(ActiveRestClient::ResultIterator)
+              concat(content_tag(:li, class: "dropdown") do
+                concat(content_tag(:a, :class => "dropdown-toggle", "data-toggle" => "dropdown") do
 
-            arg.each do |a|
-              title = arg.last.is_a?(Symbol) ? arg.last.to_s.titleize : guess_label_text(arg.last)
-              concat content_tag(:li, link_to(title, district_services_path(a)))
-            end
-
-          elsif arg.is_a?(ActiveRestClient::ResultIterator)
-            concat(content_tag(:li, class: "dropdown") do
-              concat(content_tag(:a, :class => "dropdown-toggle", "data-toggle" => "dropdown") do
-
-                # if arg.is_a?(AuthorizedEntity::Service)
-                #   concat(guess_label_text( arg.select { |a| authorized_entity_services_path(a) }))
-                # else
-                  concat(guess_label_text( arg.select { |a| current_page?(a) }))
-                # end
-
-                concat(" ")
-                concat(content_tag(:span, "", class: "caret"))
-              end)
-              concat(content_tag(:ul, class: "dropdown-menu") do
-                for object in arg
-
-                  # if object.is_a?(AuthorizedEntity::Service)
-                  #   concat(content_tag(:li, link_to(guess_label_text(object), authorized_entity_services_path(object)), class: ("active" if authorized_entity_services_path(object))))
+                  # if arg.is_a?(AuthorizedEntity::Service)
+                  #   concat(guess_label_text( arg.select { |a| authorized_entity_services_path(a) }))
                   # else
-                    concat(content_tag(:li, link_to(guess_label_text(object), object), class: ("active" if current_page?(object))))
+                    concat(guess_label_text( arg.select { |a| current_page?(a) }))
                   # end
-                end
+
+                  concat(" ")
+                  concat(content_tag(:span, "", class: "caret"))
+                end)
+                concat(content_tag(:ul, class: "dropdown-menu") do
+                  for object in arg
+
+                    # if object.is_a?(AuthorizedEntity::Service)
+                    #   concat(content_tag(:li, link_to(guess_label_text(object), authorized_entity_services_path(object)), class: ("active" if authorized_entity_services_path(object))))
+                    # else
+                      concat(content_tag(:li, link_to(guess_label_text(object), object), class: ("active" if current_page?(object))))
+                    # end
+                  end
+                end)
               end)
-            end)
-          else
-
-            if args.index(arg) == 1 || arg.class == StudentSuccessLink::Organization
-              concat content_tag(:li, link_to(guess_label_text(arg), arg))
-            elsif args.index(arg) == 2
-              concat content_tag(:li, link_to(guess_label_text(arg), [args.second, args.last]))
+            else
+              if args.index(arg) == 1 || arg.class == StudentSuccessLink::Organization
+               concat content_tag(:li, link_to(guess_label_text(arg), arg))
+             elsif args.index(arg) == 2
+               concat content_tag(:li, link_to(guess_label_text(arg), [args.second, args.last]))
+              end
             end
-
           end
         end
       end
