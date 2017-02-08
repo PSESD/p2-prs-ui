@@ -33,12 +33,7 @@ class District::Service < PrsModel
 
   def authorized_entity
     route = "/authorizedEntities/" + authorizedEntityId
-    AuthorizedEntity.find(route).first
-  end
-
-  def mainContact
-    contact = authorized_entity.mainContact
-    contact ? contact : {}
+    @authorized_entity ||= AuthorizedEntity.find(route)
   end
 
   private

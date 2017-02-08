@@ -12,4 +12,8 @@ class District < PrsModel
       District::Service.find(district_id: id, id: item.id)
     end
   end
+
+  def main_contact
+    mainContact ? mainContact : {}
+  end
 end
