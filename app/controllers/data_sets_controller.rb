@@ -70,7 +70,7 @@ class DataSetsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_data_set
       route = "/dataSets/" + (params[:data_set_id] || params[:id])
-      @data_set = DataSet.find(route).first
+      @data_set = DataSet.find(route)
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

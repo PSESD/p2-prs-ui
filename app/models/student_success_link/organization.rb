@@ -35,7 +35,7 @@ class StudentSuccessLink::Organization
 
   def authorized_entity_service
     route = "/authorizedEntities/#{authorizedEntityId}/services/#{externalServiceId}"
-    @authorized_entity_service = AuthorizedEntity::Service.find(route).first rescue nil
+    @authorized_entity_service = AuthorizedEntity::Service.find(route) rescue nil
   rescue ActiveRestClient::HTTPNotFoundClientException
     @authorized_entity_service = nil
   end
