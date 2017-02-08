@@ -119,12 +119,12 @@ class Districts::StudentsController < DistrictsController
 
   def set_districts_service
     route = "/districts/#{@district.id}/services/" + params[:service_id]
-    @service = District::Service.find(route).first
+    @service = District::Service.find(route)
   end
 
   def set_districts_student
     route = "/districts/#{@district.id}/services/#{@service.id}/students/" + params[:id]
-    @student = District::Student.find(route).first
+    @student = District::Student.find(route)
   end
 
   # Never trust parameters from the scary internet, only allow the white list through.

@@ -75,7 +75,7 @@ class AuthorizedEntitiesController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_authorized_entity
       route = "/authorizedEntities/" + (params[:authorized_entity_id] || params[:id])
-      @authorized_entity = AuthorizedEntity.find(route).first
+      @authorized_entity = AuthorizedEntity.find(route)
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

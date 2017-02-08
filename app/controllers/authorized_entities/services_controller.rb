@@ -73,7 +73,7 @@ class AuthorizedEntities::ServicesController < AuthorizedEntitiesController
     # Use callbacks to share common setup or constraints between actions.
     def set_service
       route = "/authorizedEntities/#{@authorized_entity.id}/services/#{params[:id]}"
-      @service = AuthorizedEntity::Service.find(route).first
+      @service = AuthorizedEntity::Service.find(route)
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
