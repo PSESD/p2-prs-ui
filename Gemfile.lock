@@ -74,7 +74,6 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.11.1)
-    commonjs (0.2.7)
     concurrent-ruby (1.0.2)
     crack (0.4.3)
       safe_yaml (~> 1.0.0)
@@ -104,13 +103,6 @@ GEM
       railties (>= 3.1.0)
       turbolinks
     json (1.8.3)
-    less (2.6.0)
-      commonjs (~> 0.2.7)
-    less-rails (2.8.0)
-      actionpack (>= 4.0)
-      less (~> 2.6.0)
-      sprockets (> 2, < 4)
-      tilt
     loofah (2.0.3)
       nokogiri (>= 1.5.9)
     mail (2.6.4)
@@ -197,12 +189,6 @@ GEM
       rollbar (>= 1.4)
     resque-status (0.5.0)
       resque (~> 1.19)
-    resque-web (0.0.9)
-      coffee-rails
-      jquery-rails
-      resque
-      sass-rails
-      twitter-bootstrap-rails
     rollbar (2.13.3)
       multi_json
     ruby-progressbar (1.8.1)
@@ -239,11 +225,6 @@ GEM
     turbolinks (5.0.1)
       turbolinks-source (~> 5)
     turbolinks-source (5.0.0)
-    twitter-bootstrap-rails (3.2.2)
-      actionpack (>= 3.1)
-      execjs (>= 2.2.2, >= 2.2)
-      less-rails (>= 2.5.0)
-      railties (>= 3.1)
     tzinfo (1.2.2)
       thread_safe (~> 0.1)
     uglifier (3.0.4)
@@ -284,11 +265,9 @@ DEPENDENCIES
   rack-wwwhisper
   rails (= 4.2.7.1)
   rails_12factor
-  redis
   resque
   resque-rollbar
   resque-status
-  resque-web
   rollbar
   sass-rails
   sdoc

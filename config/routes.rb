@@ -5,6 +5,7 @@ P2PrsUi::Application.routes.draw do
 end
 
 Rails.application.routes.draw do
+
   # Authorized Entities
   resources :authorized_entities do
     resources :services, controller: "authorized_entities/services"

@@ -2,12 +2,18 @@ class District::Student < PrsModel
 
   verbose true if Rails.env.development?
 
+  # get :filters, "/filters" + url_params
+
   ConsentTypes = [
     "Parent Consent",
     "Institutional Designation",
     "Research Exemption"
   ]
-  
+
+  # def consentEndDate
+  #   Date.parse(self.consent.try(:consentEndDate)) rescue nil
+  # end
+  #
   # def expired?
   #   consentEndDate.today? || consentEndDate.past? if consentEndDate.is_a?(Date)
   # end
