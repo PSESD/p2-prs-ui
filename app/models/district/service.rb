@@ -3,7 +3,6 @@ class District::Service < PrsModel
   verbose true if Rails.env.development?
 
   alias_attribute :name, :externalServiceName
-  # delegate :mainContact, to: :authorized_entity
 
   def data_sets_instantiated
     dataSets.map do |data_set|
