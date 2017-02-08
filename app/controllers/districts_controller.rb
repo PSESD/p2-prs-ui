@@ -75,8 +75,9 @@ class DistrictsController < ApplicationController
     mismatched_expiration_alert = "All organizations must have the same expiration date in order to be included on the same form."
     return redirect_to(:back, alert: empty_list_alert) unless params[:services]
 
-    @services = params[:services].collect{ |id| District::Service.find("/districts/#{@district.id}/services/" + id) }.flatten
-    @dataSets = DataSet.create_objects(@services.first.dataSets)
+    @services = params[:services].map { |id| District::Service.find("/districts/#{@district.id}/services/" + id) }
+    @authorized_entities = @services.map { |service| service.authorized_entity }
+    @dataSets = @services.map { |service| DataSet.create_objects(service.dataSets) }.flatten
 
     # return redirect_to(:back, alert: mismatched_datasets_alert) if @dataSets.collect(&:id).uniq.size > 1
     return redirect_to(:back, alert: mismatched_expiration_alert) if @services.collect(&:expirationDate).uniq.size > 1
@@ -92,7 +93,7 @@ class DistrictsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_district
       route = "/districts/" + (params[:district_id] || params[:id])
-      @district = District.find(route).first
+      @district = District.find(route)
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
