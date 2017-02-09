@@ -52,6 +52,7 @@ class Districts::StudentsController < DistrictsController
       # rescue ActiveRestClient::HTTPClientException, ActiveRestClient::HTTPServerException => e
         # Rails.logger.error("API returned #{e.status} : #{e.result.message}")
       # end
+      byebug
 
       ids = student_ids
       set_params
@@ -140,7 +141,6 @@ class Districts::StudentsController < DistrictsController
 
   def set_params
     districts_student_params[:districtServiceId] = districts_student_params[:service_id]
-    districts_student_params[:consent] = districts_student_params[:formConsent]
     districts_student_params[:consent][:districtServiceId] = districts_student_params[:districtServiceId]
   end
 
