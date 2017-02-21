@@ -52,7 +52,6 @@ class Districts::StudentsController < DistrictsController
       # rescue ActiveRestClient::HTTPClientException, ActiveRestClient::HTTPServerException => e
         # Rails.logger.error("API returned #{e.status} : #{e.result.message}")
       # end
-      byebug
 
       ids = student_ids
       set_params
