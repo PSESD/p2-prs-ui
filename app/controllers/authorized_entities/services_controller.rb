@@ -38,6 +38,7 @@ class AuthorizedEntities::ServicesController < AuthorizedEntitiesController
         format.html { redirect_to [@authorized_entity, @service], notice: 'Service was successfully created.' }
         format.json { render :show, status: :created, location: [@authorized_entity, @service] }
       else
+        @service = AuthorizedEntity::Service.new
         format.html { render :new }
         format.json { render json: @service.errors, status: :unprocessable_entity }
       end
@@ -91,9 +92,13 @@ class AuthorizedEntities::ServicesController < AuthorizedEntitiesController
 
       { name: authorized_entity.name,
         website: contact.fullWebAddress,
-        url: contact.webAddress,
+        url: organization_url,
         authorizedEntityId: authorized_entity.id,
         externalServiceId: service_id}
+    end
+
+    def organization_url
+      Rails.application.secrets.organization_url
     end
 
     # Use callbacks to share common setup or constraints between actions.
