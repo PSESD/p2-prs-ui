@@ -53,19 +53,23 @@ class StudentSuccessLink::Organization
   end
 
 # Pending further planning across SSL app.
-  # def create_user
-  #   user = StudentSuccessLink::User.new(first_name: "test first name",
-  #                                       last_name: "test last name",
-  #                                       email: "test1@new_organization.com")
-  #
-  #   user.permissions.new(organization: 9,
-  #                        activateStatus: "Active",
-  #                        activateDate: DateTime.now,
-  #                        activate: true,
-  #                        role: "case-worker-unrestricted",
-  #                        permissions: [],
-  #                        students: [])
-  #   user.save
-  # end
+  def create_admin_user(email, name)
+    first_name, last_name = name.split
+
+    user = StudentSuccessLink::User.new(email: email,
+                                        first_name: first_name,
+                                        last_name:last_name)
+
+    user = set_permissions(user)
+    user.save
+  end
+
+  def set_permissions(user)
+    user.permissions.new(organization: id,
+                         activateStatus: "Active",
+                         activateDate: DateTime.now,
+                         activate: true,
+                         role: "admin")
+  end
 
 end
