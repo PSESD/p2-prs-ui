@@ -31,8 +31,6 @@ class AuthorizedEntities::ServicesController < AuthorizedEntitiesController
     service = http_request("post", "/authorizedEntities/#{@authorized_entity.id}/services", service_params_json)
     @service = JSON.parse(service)
 
-    # create_organization_record(@authorized_entity, @service["id"])
-
     respond_to do |format|
       if !@service.keys.include?("error")
         format.html { redirect_to [@authorized_entity, @service], notice: 'Service was successfully created.' }
@@ -84,7 +82,7 @@ class AuthorizedEntities::ServicesController < AuthorizedEntitiesController
       organization = StudentSuccessLink::Organization.new(org_params)
       organization.save
 
-      # create_organization_admin(organization, authorized_entity)
+      create_organization_admin(organization, authorized_entity)
     end
 
     def organization_params(authorized_entity, service_id)
