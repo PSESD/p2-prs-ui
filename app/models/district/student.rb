@@ -8,8 +8,6 @@ class District::Student < PrsModel
     "Research Exemption"
   ]
 
-  HTTParty::Basement.default_options.update(verify: false)
-
   # def consentEndDate
   #   Date.parse(self.consent.try(:consentEndDate)) rescue nil
   # end
