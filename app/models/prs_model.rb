@@ -7,6 +7,8 @@ class PrsModel < ActiveRestClient::Base
   SharedSecret = Rails.application.secrets.prs_shared_secret
   ZoneId = Rails.application.secrets.prs_zone_id
 
+  HTTParty::Basement.default_options.update(verify: false)
+
   attr_accessor :new_record
 
   def self.all(route)
