@@ -1,7 +1,7 @@
 class Contact < ActiveRestClient::Base
-  
+
   ATTRIBUTES = %w[name title email phone mailingAddress webAddress]
-  
+
   def errors
     @errors = {}
     ATTRIBUTES.each{|a| @errors[a] = []}
@@ -12,5 +12,5 @@ class Contact < ActiveRestClient::Base
     return "" if webAddress.blank?
     webAddress.prepend "http://" unless webAddress.start_with?('http://', 'https://')
   end
-  
+
 end

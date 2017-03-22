@@ -136,4 +136,5 @@ class PrsModel < ActiveRestClient::Base
       auth_hash = Base64.strict_encode64 OpenSSL::HMAC.digest('sha256', SharedSecret, token_and_time)
       auth_token = Base64.strict_encode64 "#{SessionToken}:#{auth_hash}"
     end
+
 end

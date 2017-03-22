@@ -36,6 +36,7 @@ class AuthorizedEntities::ServicesController < AuthorizedEntitiesController
         format.html { redirect_to [@authorized_entity, @service], notice: 'Service was successfully created.' }
         format.json { render :show, status: :created, location: [@authorized_entity, @service] }
       else
+        @service = AuthorizedEntity::Service.new
         format.html { render :new }
         format.json { render json: @service.errors, status: :unprocessable_entity }
       end
@@ -70,6 +71,36 @@ class AuthorizedEntities::ServicesController < AuthorizedEntitiesController
   end
 
   private
+    def create_organization_admin(organization, authorized_entity)
+      contact = @authorized_entity.mainContactObject
+      organization.create_admin_user(contact.email, contact.name)
+    end
+
+    def create_organization_record(authorized_entity, service_id)
+      org_params = organization_params(authorized_entity, service_id)
+
+      organization = StudentSuccessLink::Organization.new(org_params)
+      organization.save
+
+      create_organization_admin(organization, authorized_entity)
+    end
+
+    def organization_params(authorized_entity, service_id)
+      contact = authorized_entity.mainContactObject
+
+      { name: authorized_entity.name,
+        website: contact.fullWebAddress,
+        url: organization_url,
+        authorizedEntityId: authorized_entity.id,
+        externalServiceId: service_id,
+        created_at: DateTime.now,
+        updated_at: DateTime.now }
+    end
+
+    def organization_url
+      Rails.application.secrets.organization_url
+    end
+
     # Use callbacks to share common setup or constraints between actions.
     def set_service
       route = "/authorizedEntities/#{@authorized_entity.id}/services/#{params[:id]}"

@@ -27,7 +27,7 @@
 						<% nil %>
 					<% else %>
 						<% if organization.authorized_entity && organization.authorized_entity_service %>
-							<%= link_to organization.authorized_entity_service.name, authorized_entity_service_path([organization.authorized_entity, organization.authorized_entity_service]) %>
+							<%= link_to organization.authorized_entity_service.name, authorized_entity_service_path(authorized_entity_id: organization.authorized_entity.id, id: organization.authorized_entity_service.id) %>
 							<small class="text-muted">#<%= organization[:externalServiceId] %></small>
 						<% end %>
 					<% end %>
@@ -38,7 +38,6 @@
 		<% end %>
 	</tbody>
 </table>
-
 <br>
 
 <%= link_to glyph(:plus) + ' New Authorized Entity', new_student_success_link_organization_path, class: 'btn btn-default' %>

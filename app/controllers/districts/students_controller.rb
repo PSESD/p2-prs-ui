@@ -140,7 +140,6 @@ class Districts::StudentsController < DistrictsController
 
   def set_params
     districts_student_params[:districtServiceId] = districts_student_params[:service_id]
-    districts_student_params[:consent] = districts_student_params[:formConsent]
     districts_student_params[:consent][:districtServiceId] = districts_student_params[:districtServiceId]
   end
 

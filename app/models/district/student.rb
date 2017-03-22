@@ -2,8 +2,6 @@ class District::Student < PrsModel
 
   verbose true if Rails.env.development?
 
-  # get :filters, "/filters" + url_params
-
   ConsentTypes = [
     "Parent Consent",
     "Institutional Designation",

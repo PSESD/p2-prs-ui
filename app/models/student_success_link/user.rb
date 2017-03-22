@@ -9,6 +9,8 @@ class StudentSuccessLink::User
   field :first_name
   field :last_name
   field :email
+  field :hashedPassword
+  field :salt
 
   validates_presence_of :first_name, :last_name, :email
 
