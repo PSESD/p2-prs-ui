@@ -3,7 +3,6 @@ ruby '2.2.4'
 
 gem 'rails', '4.2.7.1'
 gem 'dotenv-rails', groups: [:development, :test]
-gem 'brakeman', require: false, groups: [:development, :test]
 gem 'sass-rails'
 gem 'uglifier'
 gem 'coffee-rails'
