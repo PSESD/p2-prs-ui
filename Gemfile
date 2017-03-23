@@ -45,7 +45,3 @@ group :development, :test, :production do
   gem 'net-http-persistent', '2.9.4'
   gem 'puma'
 end
-
-group :production do
-  gem 'rails_12factor'
-end
