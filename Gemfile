@@ -1,8 +1,9 @@
 source 'https://rubygems.org'
 ruby '2.2.4'
 
-gem 'rails'
+gem 'rails', '4.2.7.1'
 gem 'dotenv-rails', groups: [:development, :test]
+gem 'nokogiri', '1.7.1'
 gem 'sass-rails'
 gem 'uglifier'
 gem 'coffee-rails'
