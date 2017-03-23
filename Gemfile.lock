@@ -56,10 +56,10 @@ GEM
       execjs
     awesome_print (1.7.0)
     bcrypt (3.1.11)
+    bcrypt (3.1.11-x86-mingw32)
     bootstrap-sass (3.3.7)
       autoprefixer-rails (>= 5.2.1)
       sass (>= 3.3.4)
-    brakeman (3.4.1)
     bson (4.2.0)
     builder (3.2.2)
     bundler-audit (0.5.0)
@@ -131,6 +131,8 @@ GEM
     net-http-persistent (2.9.4)
     nokogiri (1.6.8.1)
       mini_portile2 (~> 2.1.0)
+    nokogiri (1.6.8.1-x86-mingw32)
+      mini_portile2 (~> 2.1.0)
     nprogress-rails (0.2.0.2)
     origin (2.2.2)
     public_suffix (2.0.4)
@@ -163,11 +165,6 @@ GEM
       rails-deprecated_sanitizer (>= 1.0.1)
     rails-html-sanitizer (1.0.3)
       loofah (~> 2.0)
-    rails_12factor (0.0.3)
-      rails_serve_static_assets
-      rails_stdout_logging
-    rails_serve_static_assets (0.0.5)
-    rails_stdout_logging (0.0.5)
     railties (4.2.7.1)
       actionpack (= 4.2.7.1)
       activesupport (= 4.2.7.1)
@@ -227,6 +224,8 @@ GEM
     turbolinks-source (5.0.0)
     tzinfo (1.2.2)
       thread_safe (~> 0.1)
+    tzinfo-data (1.2017.1)
+      tzinfo (>= 1.0.0)
     uglifier (3.0.4)
       execjs (>= 0.3.0, < 3)
     vegas (0.1.11)
@@ -238,13 +237,13 @@ GEM
 
 PLATFORMS
   ruby
+  x86-mingw32
 
 DEPENDENCIES
   active_rest_client
   awesome_print
   bcrypt
   bootstrap-sass
-  brakeman
   bundler-audit
   byebug
   coderay
@@ -263,8 +262,7 @@ DEPENDENCIES
   nprogress-rails
   puma
   rack-wwwhisper
-  rails (= 4.2.7.1)
-  rails_12factor
+  rails
   resque
   resque-rollbar
   resque-status
@@ -278,7 +276,7 @@ DEPENDENCIES
   web-console
 
 RUBY VERSION
-   ruby 2.2.4p230
+   ruby 2.2.6p396
 
 BUNDLED WITH
    1.13.6
