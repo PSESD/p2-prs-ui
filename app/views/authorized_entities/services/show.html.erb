@@ -3,7 +3,7 @@
 <div class="pull-right">
 	<!-- [:edit, @authorized_entity, @service] -->
 	<%= link_to glyph(:pencil) + " Edit", edit_authorized_entity_service_path(authorized_entity_id: @authorized_entity.id, id: @service.id), class: 'btn btn-primary' %>
-	<%= render "ssl_organization_link" %>
+	
 </div>
 
 <h1><%= @service.name %> <small>#<%= @service.id %></small></h1>
