@@ -2,7 +2,7 @@
 	<td><%= service.id %></td>
 	<td><%= link_to service.name, [@authorized_entity, service] %></td>
 	<td><%= service.description %></td>
-	<td><%= @authorized_entity.mainContactObject.webAddress %></td>
+	<td><%= @authorized_entity.mainContactObject.fullWebAddress %></td>
 	<td><%= link_to glyph(:pencil, "Edit"), [:edit, @authorized_entity, service] %></td>
 	<td><%= link_to glyph(:trash, "Delete"), [@authorized_entity, service], method: :delete, data: { confirm: 'Are you sure?' } %></td>
 </tr>
