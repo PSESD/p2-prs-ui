@@ -7,7 +7,7 @@ class Contact < ActiveRestClient::Base
     ATTRIBUTES.each{|a| @errors[a] = []}
     @errors.symbolize_keys
   end
-  
+
   def fullWebAddress
     return "" if webAddress.blank?
     webAddress.prepend "http://" unless webAddress.start_with?('http://', 'https://')

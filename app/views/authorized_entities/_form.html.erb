@@ -15,7 +15,7 @@
 			<%= contact.input :email, required: true, input_html: { value: @authorized_entity.mainContactObject.email } %>
 			<%= contact.input :phone, required: false, input_html: { value: @authorized_entity.mainContactObject.phone } %>
 			<%= contact.input :mailingAddress, required: false, label: "Mailing Address", hint: "Parents or organizations should send formal communications to this address related to data sharing or to revoke consent.", input_html: { value: @authorized_entity.mainContactObject.mailingAddress } %>
-			<%= contact.input :webAddress, required: false, label: "Web Address", hint: "This web address may be specific to sharing student data, such as a web site that parents can access to learn more about the data-sharing process.", input_html: { value: @authorized_entity.mainContactObject.webAddress } %>
+			<%= contact.input :webAddress, required: true, label: "Student Success Link Subdomain", input_html: { value: @authorized_entity.mainContactObject.webAddress } %>
 		<% end %>
 
 	</div>
