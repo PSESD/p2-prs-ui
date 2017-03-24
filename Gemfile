@@ -7,7 +7,7 @@ gem 'brakeman', require: false, groups: [:development, :test]
 gem 'sass-rails'
 gem 'uglifier'
 gem 'coffee-rails'
-gem 'jquery-rails'
+gem 'jquery-rails', '4.3.1'
 gem 'jquery-turbolinks'
 gem 'jbuilder'
 gem 'sdoc'
@@ -26,6 +26,7 @@ gem 'bcrypt'
 gem 'byebug'
 gem 'httparty'
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw]
+gem 'nokogiri', '1.7.1'
 
 group :development do
   gem 'web-console'
