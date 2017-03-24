@@ -1,8 +1,9 @@
 source 'https://rubygems.org'
-ruby '2.2.6'
+ruby '2.2.4'
 
-gem 'rails'
+gem 'rails', '4.2.7.1'
 gem 'dotenv-rails', groups: [:development, :test]
+gem 'brakeman', require: false, groups: [:development, :test]
 gem 'sass-rails'
 gem 'uglifier'
 gem 'coffee-rails'
@@ -44,4 +45,8 @@ group :development, :test, :production do
   gem 'rack-wwwhisper'
   gem 'net-http-persistent', '2.9.4'
   gem 'puma'
+end
+
+group :production do
+  gem 'rails_12factor'
 end
