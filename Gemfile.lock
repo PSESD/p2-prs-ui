@@ -1,9 +1,9 @@
 GIT
   remote: https://github.com/circleci/minitest-ci.git
-  revision: ca90e645696df77de310dc8adf53e7379d1e6fbe
+  revision: f533c14822e2de21323d26d0c0601adb580e9d5f
   specs:
-    minitest-ci (3.1.0)
-      minitest (~> 5.0, >= 5.0.6)
+    minitest-ci (3.2.0)
+      minitest (>= 5.0.6)
 
 GEM
   remote: https://rubygems.org/
@@ -51,8 +51,8 @@ GEM
     addressable (2.5.0)
       public_suffix (~> 2.0, >= 2.0.2)
     ansi (1.5.0)
-    arel (6.0.3)
-    autoprefixer-rails (6.5.4)
+    arel (6.0.4)
+    autoprefixer-rails (6.7.7.1)
       execjs
     awesome_print (1.7.0)
     bcrypt (3.1.11)
@@ -60,7 +60,8 @@ GEM
     bootstrap-sass (3.3.7)
       autoprefixer-rails (>= 5.2.1)
       sass (>= 3.3.4)
-    bson (4.2.0)
+    brakeman (3.6.0)
+    bson (4.2.1)
     builder (3.2.3)
     bundler-audit (0.5.0)
       bundler (~> 1.2)
@@ -73,27 +74,26 @@ GEM
     coffee-script (2.4.1)
       coffee-script-source
       execjs
-    coffee-script-source (1.11.1)
-    concurrent-ruby (1.0.2)
+    coffee-script-source (1.12.2)
+    concurrent-ruby (1.0.5)
     crack (0.4.3)
       safe_yaml (~> 1.0.0)
     debug_inspector (0.0.2)
-    dotenv (2.1.1)
-    dotenv-rails (2.1.1)
-      dotenv (= 2.1.1)
-      railties (>= 4.0, < 5.1)
+    dotenv (2.2.0)
+    dotenv-rails (2.2.0)
+      dotenv (= 2.2.0)
+      railties (>= 3.2, < 5.1)
     erubis (2.7.0)
     execjs (2.7.0)
-    faraday (0.10.0)
+    faraday (0.11.0)
       multipart-post (>= 1.2, < 3)
     globalid (0.3.7)
       activesupport (>= 4.1.0)
-    httparty (0.13.7)
-      json (~> 1.8)
+    httparty (0.14.0)
       multi_xml (>= 0.5.2)
     i18n (0.8.1)
-    jbuilder (2.6.1)
-      activesupport (>= 3.0.0, < 5.1)
+    jbuilder (2.6.3)
+      activesupport (>= 3.0.0, < 5.2)
       multi_json (~> 1.2)
     jquery-rails (4.3.1)
       rails-dom-testing (>= 1, < 3)
@@ -112,17 +112,17 @@ GEM
     mime-types-data (3.2016.0521)
     mini_portile2 (2.1.0)
     minitest (5.10.1)
-    minitest-reporters (1.1.13)
+    minitest-reporters (1.1.14)
       ansi
       builder
       minitest (>= 5.0)
       ruby-progressbar
-    mongo (2.4.0)
-      bson (~> 4.2.0)
-    mongoid (5.1.6)
+    mongo (2.4.1)
+      bson (>= 4.2.1, < 5.0.0)
+    mongoid (5.2.0)
       activemodel (~> 4.0)
-      mongo (~> 2.1)
-      origin (~> 2.2)
+      mongo (>= 2.4.1, < 3.0.0)
+      origin (~> 2.3)
       tzinfo (>= 0.3.37)
     mono_logger (1.1.0)
     multi_json (1.12.1)
@@ -131,20 +131,20 @@ GEM
     net-http-persistent (2.9.4)
     nokogiri (1.7.1)
       mini_portile2 (~> 2.1.0)
-    nokogiri (1.6.8.1-x86-mingw32)
+    nokogiri (1.7.1-x86-mingw32)
       mini_portile2 (~> 2.1.0)
     nprogress-rails (0.2.0.2)
-    origin (2.2.2)
-    public_suffix (2.0.4)
-    puma (3.6.2)
+    origin (2.3.0)
+    public_suffix (2.0.5)
+    puma (3.8.2)
     rack (1.6.5)
     rack-protection (1.5.3)
       rack
     rack-test (0.6.3)
       rack (>= 1.0)
-    rack-wwwhisper (1.1.10)
+    rack-wwwhisper (1.1.12)
       addressable (~> 2.0)
-      net-http-persistent
+      net-http-persistent (< 3.0)
       rack (>= 1.0)
     rails (4.2.7.1)
       actionmailer (= 4.2.7.1)
@@ -165,6 +165,11 @@ GEM
       rails-deprecated_sanitizer (>= 1.0.1)
     rails-html-sanitizer (1.0.3)
       loofah (~> 2.0)
+    rails_12factor (0.0.3)
+      rails_serve_static_assets
+      rails_stdout_logging
+    rails_serve_static_assets (0.0.5)
+    rails_stdout_logging (0.0.5)
     railties (4.2.7.1)
       actionpack (= 4.2.7.1)
       activesupport (= 4.2.7.1)
@@ -172,10 +177,10 @@ GEM
       thor (>= 0.18.1, < 2.0)
     rake (12.0.0)
     rdoc (4.3.0)
-    redis (3.3.2)
-    redis-namespace (1.5.2)
+    redis (3.3.3)
+    redis-namespace (1.5.3)
       redis (~> 3.0, >= 3.0.4)
-    resque (1.26.0)
+    resque (1.27.2)
       mono_logger (~> 1.0)
       multi_json (~> 1.0)
       redis-namespace (~> 1.3)
@@ -186,11 +191,11 @@ GEM
       rollbar (>= 1.4)
     resque-status (0.5.0)
       resque (~> 1.19)
-    rollbar (2.13.3)
+    rollbar (2.14.1)
       multi_json
     ruby-progressbar (1.8.1)
     safe_yaml (1.0.4)
-    sass (3.4.22)
+    sass (3.4.23)
     sass-rails (5.0.6)
       railties (>= 4.0.0, < 6)
       sass (~> 3.1)
@@ -200,16 +205,16 @@ GEM
     sdoc (0.4.2)
       json (~> 1.7, >= 1.7.7)
       rdoc (~> 4.0)
-    simple_form (3.3.1)
+    simple_form (3.4.0)
       actionpack (> 4, < 5.1)
       activemodel (> 4, < 5.1)
-    sinatra (1.4.7)
+    sinatra (1.4.8)
       rack (~> 1.5)
       rack-protection (~> 1.4)
       tilt (>= 1.3, < 3)
-    spring (2.0.0)
+    spring (2.0.1)
       activesupport (>= 4.2)
-    sprockets (3.7.0)
+    sprockets (3.7.1)
       concurrent-ruby (~> 1.0)
       rack (> 1, < 3)
     sprockets-rails (3.2.0)
@@ -218,15 +223,15 @@ GEM
       sprockets (>= 3.0.0)
     thor (0.19.4)
     thread_safe (0.3.6)
-    tilt (2.0.5)
+    tilt (2.0.7)
     turbolinks (5.0.1)
       turbolinks-source (~> 5)
     turbolinks-source (5.0.0)
     tzinfo (1.2.2)
       thread_safe (~> 0.1)
-    tzinfo-data (1.2017.1)
+    tzinfo-data (1.2017.2)
       tzinfo (>= 1.0.0)
-    uglifier (3.0.4)
+    uglifier (3.1.9)
       execjs (>= 0.3.0, < 3)
     vegas (0.1.11)
       rack (>= 1.0.0)
@@ -244,6 +249,7 @@ DEPENDENCIES
   awesome_print
   bcrypt
   bootstrap-sass
+  brakeman
   bundler-audit
   byebug
   coderay
@@ -263,7 +269,8 @@ DEPENDENCIES
   nprogress-rails
   puma
   rack-wwwhisper
-  rails
+  rails (= 4.2.7.1)
+  rails_12factor
   resque
   resque-rollbar
   resque-status
