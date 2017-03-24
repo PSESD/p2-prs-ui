@@ -10,7 +10,7 @@ class Contact < ActiveRestClient::Base
 
   def fullWebAddress
     return "" if webAddress.blank?
-    webAddress.prepend "http://" unless webAddress.start_with?('http://', 'https://')
+    webAddress.prepend "https://" unless webAddress.start_with?('http://', 'https://')
   end
 
 end
