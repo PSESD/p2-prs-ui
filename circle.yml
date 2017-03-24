@@ -1,7 +1,3 @@
-dependencies:
-  pre:
-    - gem install nokogiri
-
 deployment:
  development:
    branch: development

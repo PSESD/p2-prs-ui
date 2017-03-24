@@ -44,9 +44,7 @@ class ApplicationController < ActionController::Base
       uri = URI.parse(url)
       http = Net::HTTP.new(uri.host, uri.port)
       http.use_ssl = Rails.application.secrets.http_use_ssl
-      if http.use_ssl == false
-        http.verify_mode = OpenSSL::SSL::VERIFY_NONE
-      end
+      http.verify_mode = OpenSSL::SSL::VERIFY_NONE
 
       if action == "post"
         request = Net::HTTP::Post.new(uri.request_uri, PrsModel.headers)
