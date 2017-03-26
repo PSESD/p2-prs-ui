@@ -24,19 +24,14 @@
 				</li>
 			<% end %>
 
-			<li class="list-group-item">
+ 			<li class="list-group-item">
 				<label class="boolean optional" for="service_DataSets_all">
-					<input class="boolean optional" type="checkbox" value="all" name="service[dataSets][][id]" id="service_DataSets_all">
+					<%= check_box_tag "select_all" %>
 					Select All
 				</label>
 			</li>
-
 			</ul>
 		<% end %>
-
-		<%#= f.input "Options", required: false do %>
-			<%#= f.input :requiresPersonnel, label: "Require personnel identity information when requesting data", hint: "This district service is required to specify personnel when requesting student data, and personnel must be authorized per student.", as: :boolean, checked_value: true, unchecked_value: false %>
-		<%# end %>
 
 	</div>
 

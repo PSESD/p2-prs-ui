@@ -43,7 +43,7 @@ class ApplicationController < ActionController::Base
       url = "#{PrsModel::BaseUrl}#{path};zoneId=#{ZoneId};contextId=#{ContextId}"
       uri = URI.parse(url)
       http = Net::HTTP.new(uri.host, uri.port)
-      http.use_ssl = Rails.application.secrets.http_use_ssl
+      http.use_ssl = true
       http.verify_mode = OpenSSL::SSL::VERIFY_NONE
 
       if action == "post"
