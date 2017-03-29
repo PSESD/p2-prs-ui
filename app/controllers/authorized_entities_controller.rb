@@ -1,5 +1,5 @@
 class AuthorizedEntitiesController < ApplicationController
-  before_action :set_authorized_entity, only: [:show, :edit, :update, :destroy]
+  before_action :set_authorized_entity, only: [:show, :edit, :update, :destroy, :data_share_agreement]
 
   # GET /authorized_entities
   # GET /authorized_entities.json
@@ -65,6 +65,11 @@ class AuthorizedEntitiesController < ApplicationController
       format.html { redirect_to authorized_entities_url, notice: 'Authorized entity was successfully destroyed.' }
       format.json { head :no_content }
     end
+  end
+
+  def data_share_agreement
+    @body_class = "data_share_agreement"
+    @container_class = "container-fluid"
   end
 
   def authorized_entity_param_json

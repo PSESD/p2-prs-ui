@@ -9,6 +9,10 @@ Rails.application.routes.draw do
   # Authorized Entities
   resources :authorized_entities do
     resources :services, controller: "authorized_entities/services"
+
+    member do
+      get 'data_share_agreement'
+    end
   end
 
   # Data Sets
