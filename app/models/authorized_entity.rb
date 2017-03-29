@@ -12,4 +12,8 @@ class AuthorizedEntity < PrsModel
   def main_contact
     mainContact ? mainContact : {}
   end
+
+  def possessive_name
+    name[-1].downcase == "s" ? name + "'" : name + "'s"
+  end
 end
