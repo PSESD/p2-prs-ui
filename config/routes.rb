@@ -11,7 +11,7 @@ Rails.application.routes.draw do
     resources :services, controller: "authorized_entities/services"
 
     member do
-      get 'data_share_agreement'
+      get 'data_sharing_agreement'
     end
   end
 

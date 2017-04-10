@@ -1,5 +1,5 @@
 class AuthorizedEntitiesController < ApplicationController
-  before_action :set_authorized_entity, only: [:show, :edit, :update, :destroy, :data_share_agreement]
+  before_action :set_authorized_entity, only: [:show, :edit, :update, :destroy, :data_sharing_agreement]
 
   # GET /authorized_entities
   # GET /authorized_entities.json
@@ -67,8 +67,8 @@ class AuthorizedEntitiesController < ApplicationController
     end
   end
 
-  def data_share_agreement
-    @body_class = "data_share_agreement"
+  def data_sharing_agreement
+    @body_class = "data_sharing_agreement"
     @container_class = "container-fluid"
   end
 
