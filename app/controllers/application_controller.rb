@@ -43,7 +43,7 @@ class ApplicationController < ActionController::Base
       url = "#{PrsModel::BaseUrl}#{path};zoneId=#{ZoneId};contextId=#{ContextId}"
       uri = URI.parse(url)
       http = Net::HTTP.new(uri.host, uri.port)
-      http.use_ssl = true
+      http.use_ssl = false
       http.verify_mode = OpenSSL::SSL::VERIFY_NONE
 
       if action == "post"
