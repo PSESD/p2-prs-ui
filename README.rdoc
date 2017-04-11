@@ -27,4 +27,4 @@ Things you may want to cover:
 Please feel free to use a different markup language if you do not plan to run
 <tt>rake doc:app</tt>.
 
-This project uses Ruby version 2.2.6.
+This project uses Ruby version 2.2.6 and the Puma http server.
