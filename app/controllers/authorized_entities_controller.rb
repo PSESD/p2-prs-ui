@@ -1,5 +1,6 @@
 class AuthorizedEntitiesController < ApplicationController
   before_action :set_authorized_entity, only: [:show, :edit, :update, :destroy, :data_sharing_agreement]
+  before_action :set_service, only: [:show, :edit, :update]
 
   # GET /authorized_entities
   # GET /authorized_entities.json
@@ -98,12 +99,31 @@ class AuthorizedEntitiesController < ApplicationController
       JSON.parse(authorized_entity_params_json).to_xml(root: :authorizedEntity)
     end
 
+
+    # External Service
+    def set_service
+      services = AuthorizedEntity::Service.all("/authorizedEntities/#{@authorized_entity.id}/services")
+      @service = services.find { |service| service.authorizedEntityId == @authorized_entity.id }
+    end
+
     def create_external_service
       http_request("post", "/authorizedEntities/#{@authorized_entity["id"]}/services", service_params_json)
     end
 
+    def update_external_service
+      http_request("put", "/authorizedEntities/#{@authorized_entity.id}/services/#{@service.id}", service_params_json)
+    end
+
+    def externalServiceDescription
+      @service.nil? ? authorized_entity_params["externalServiceDescription"] : @service.description
+    end
+
+    def service_params
+      { "authorized_entity_id"        => @authorized_entity["id"],
+         "externalServiceDescription" => externalServiceDescription }
+    end
+
     def service_params_json
-      ({ "authorized_entity_id"       => @authorized_entity["id"],
-         "externalServiceDescription" => authorized_entity_params["externalServiceDescription"] }).to_json
+      service_params.to_json
     end
 end
