@@ -6,7 +6,6 @@
 			<th>ID</th>
 			<th>Name</th>
 			<th>Student Success Link Domain</th>
-			<th colspan="2"></th>
 		</tr>
 	</thead>
 
@@ -15,7 +14,7 @@
 		<tr>
 			<td><%= authorized_entity.id %></td>
 			<td><%= link_to authorized_entity.name, authorized_entity %></td>
-			<td><span class="badge"><%#= authorized_entity.services_count %></span></td>
+			<td><%= link_to authorized_entity.mainContactObject.fullWebAddress, authorized_entity.mainContactObject.fullWebAddress %></td>
 			<td><%= link_to glyph(:pencil, 'Edit'), edit_authorized_entity_path(authorized_entity) %></td>
 			<td><%= link_to glyph(:trash, 'Destroy'), authorized_entity, method: :delete, data: { confirm: 'Are you sure?' } %></td>
 		</tr>
