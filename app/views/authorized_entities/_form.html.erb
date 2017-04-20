@@ -3,7 +3,7 @@
 
 	<div class="form-inputs">
 		<%= f.input :name, label: "Name" %>
-		<%= f.input :description, label: "Description", required: false %>
+		<%= f.input :externalServiceDescription, label: "Description", required: false %>
 
 		<%= f.simple_fields_for :mainContact, f.object.mainContact do |contact| %>
 			<h3>Main Contact Information</h3>

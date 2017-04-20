@@ -29,9 +29,11 @@ class AuthorizedEntitiesController < ApplicationController
     authorized_entity = http_request("post", "/authorizedEntities", authorized_entity_params_json)
     @authorized_entity = JSON.parse(authorized_entity)
 
+    create_external_service
+
     respond_to do |format|
       if !@authorized_entity.keys.include?("error")
-        format.html { redirect_to @authorized_entity, notice: 'Authorized entity was successfully created.' }
+        format.html { redirect_to authorized_entity_path(@authorized_entity["id"]), notice: 'Authorized entity was successfully created.' }
         format.json { render :show, status: :created, location: @authorized_entity }
       else
         format.html { render :new }
@@ -48,7 +50,7 @@ class AuthorizedEntitiesController < ApplicationController
 
     respond_to do |format|
       if !@authorized_entity.keys.include?("error")
-        format.html { redirect_to @authorized_entity, notice: 'Authorized entity was successfully updated.' }
+        format.html { redirect_to @authorized_entity.id, notice: 'Authorized entity was successfully updated.' }
         format.json { render :show, status: :ok, location: @authorized_entity }
       else
         format.html { render :edit }
@@ -85,7 +87,7 @@ class AuthorizedEntitiesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def authorized_entity_params
-      params.require(:authorized_entity).permit(:name, :description, { mainContact: %w[name title email phone mailingAddress webAddress] })
+      params.require(:authorized_entity).permit(:name, :externalServiceDescription, { mainContact: %w[name title email phone mailingAddress webAddress] })
     end
 
     def authorized_entity_params_json
@@ -94,5 +96,14 @@ class AuthorizedEntitiesController < ApplicationController
 
     def authorized_entity_params_xml
       JSON.parse(authorized_entity_params_json).to_xml(root: :authorizedEntity)
+    end
+
+    def create_external_service
+      http_request("post", "/authorizedEntities/#{@authorized_entity["id"]}/services", service_params_json)
+    end
+
+    def service_params_json
+      ({ "authorized_entity_id"       => @authorized_entity["id"],
+         "externalServiceDescription" => authorized_entity_params["externalServiceDescription"] }).to_json
     end
 end
