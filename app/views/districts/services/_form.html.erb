@@ -2,7 +2,7 @@
 	<%= f.error_notification %>
 
 	<div class="form-inputs">
-		<%= f.input :externalServiceId, label: "External Service", as: :grouped_select, collection: AuthorizedEntity.all("/authorizedEntities"), group_method: :services_instantiated, group_label_method: :name, value_method: :id, prompt: "-- Please select --" %>
+		<%= f.input :externalServiceId, label: "Organization", collection: AuthorizedEntity.all("/authorizedEntities"), value_method: :external_service_id %>
 
 		<%= f.input :valid_date_range do %>
 			<div class="input-daterange input-group">
@@ -36,6 +36,6 @@
 	</div>
 
 	<div class="form-actions">
-		<%= f.button :submit, "Authorize Service" %>
+		<%= f.button :submit, "Authorize Organization" %>
 	</div>
 <% end %>

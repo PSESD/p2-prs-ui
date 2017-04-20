@@ -35,7 +35,7 @@ class Districts::ServicesController < DistrictsController
 
     respond_to do |format|
       if !@service.keys.include?("error")
-        format.html { redirect_to [@district, @service], notice: 'Service was successfully created.' }
+        format.html { redirect_to [@district, @service], notice: 'Organization was successfully authorized.' }
         format.json { render :show, status: :created, location: [@district, @service] }
       else
         format.html { render :new }
@@ -53,7 +53,7 @@ class Districts::ServicesController < DistrictsController
 
     respond_to do |format|
       if @service
-        format.html { redirect_to [@district, @service], notice: 'Service was successfully updated.' }
+        format.html { redirect_to [@district, @service], notice: 'Authorization was successfully updated.' }
         format.json { render :show, status: :ok, location: [@district, @service] }
       else
         format.html { render :edit }

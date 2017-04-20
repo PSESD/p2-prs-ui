@@ -10,28 +10,57 @@
 
 <ul class="list-inline attribute-summary">
   <li><strong>Entity ID:</strong>			<%= @authorized_entity.id %></li>
+	<li><strong>Student Success Link Domain:</strong>	<%= link_to @authorized_entity.mainContactObject.fullWebAddress, @authorized_entity.mainContactObject.fullWebAddress %></li>
 	<li><strong>Main Contact:</strong>	<%= contact_information(@authorized_entity.mainContactObject) %></li>
+</ul>
+
+<ul class="list-inline attribute-summary">
+	<li><strong>Description:</strong>		<%= @service.description %></li>
 </ul>
 
 <div class="panel panel-default">
 	<div class="panel-heading">
-		<h3 class="panel-title">Services</h3>
+		<h3 class="panel-title">District Authorizations</h3>
 	</div>
 	<table class="table">
 		<thead>
 			<tr>
 				<th>ID</th>
-				<th>Name</th>
-				<th>Description</th>
-				<th>Student Success Link Domain</th>
-				<th colspan="2"></th>
+				<th>District</th>
+				<th>Initiation Date</th>
+				<th>Expiration Date</th>
+				<th></th>
 			</tr>
 		</thead>
 		<tbody>
-			<%= render partial: "authorized_entities/services/service", collection: @services %>
+			<%- for district_name, matching_service in @district_services -%>
+				<%- unless matching_service.nil? -%>
+						<tr><td><%= matching_service.id %></td>
+							<td><%= link_to district_name, district_service_path(matching_service.districtId, matching_service) %></td>
+							<td><%= matching_service.initiationDate %></td>
+							<td><%= matching_service.expirationDate %></td>
+							<td><%= link_to glyph('option-horizontal', 'Details'), district_service_path(matching_service.districtId, matching_service) %></td>
+						</tr>
+				<% end %>
+			<% end %>
 		</tbody>
 	</table>
 </div>
 
-<%= link_to glyph(:plus) + " Add Service", [:new, @authorized_entity, :service], class: 'btn btn-default' %>
+<div>
+	<p class="inline">Authorize this service in &nbsp; </p>
+	<div class="dropdown inline">
+		<a id="district_select" data-target="#" href="http://example.com" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" class="btn btn-default">
+			Select District
+			<span class="caret"></span>
+		</a>
+
+		<ul class="dropdown-menu" aria-labelledby="district_select">
+			<%- for district in @districts -%>
+				<li><%= link_to district.name, new_district_service_path(district.id, externalServiceId: @service.id) %></li>
+			<% end %>
+		</ul>
+	</div>
+</div>
+
 <%= link_to glyph(:edit) + " Generate Data Sharing Agreement", [:data_sharing_agreement, @authorized_entity], class: 'btn btn-info pull-right' %>
