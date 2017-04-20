@@ -35,10 +35,10 @@ class AuthorizedEntitiesController < ApplicationController
     respond_to do |format|
       if !@authorized_entity.keys.include?("error")
         format.html { redirect_to authorized_entity_path(@authorized_entity["id"]), notice: 'Authorized entity was successfully created.' }
-        format.json { render :show, status: :created, location: @authorized_entity }
+        format.json { render :show, status: :created, location: authorized_entity_path(@authorized_entity["id"]) }
       else
         format.html { render :new }
-        format.json { render json: @authorized_entity.errors, status: :unprocessable_entity }
+        format.json { render json: @authorized_entity["errors"], status: :unprocessable_entity }
       end
     end
   end
@@ -49,13 +49,15 @@ class AuthorizedEntitiesController < ApplicationController
     authorized_entity = http_request("put", "/authorizedEntities/#{@authorized_entity.id}", authorized_entity_params_json)
     @authorized_entity = JSON.parse(authorized_entity)
 
+    update_external_service
+
     respond_to do |format|
       if !@authorized_entity.keys.include?("error")
-        format.html { redirect_to @authorized_entity.id, notice: 'Authorized entity was successfully updated.' }
+        format.html { redirect_to @authorized_entity, notice: 'Authorized entity was successfully updated.' }
         format.json { render :show, status: :ok, location: @authorized_entity }
       else
         format.html { render :edit }
-        format.json { render json: @authorized_entity.errors, status: :unprocessable_entity }
+        format.json { render json: @authorized_entity["errors"], status: :unprocessable_entity }
       end
     end
   end
@@ -111,16 +113,12 @@ class AuthorizedEntitiesController < ApplicationController
     end
 
     def update_external_service
-      http_request("put", "/authorizedEntities/#{@authorized_entity.id}/services/#{@service.id}", service_params_json)
-    end
-
-    def externalServiceDescription
-      @service.nil? ? authorized_entity_params["externalServiceDescription"] : @service.description
+      http_request("put", "/authorizedEntities/#{@authorized_entity["id"]}/services/#{@service.id}", service_params_json)
     end
 
     def service_params
       { "authorized_entity_id"        => @authorized_entity["id"],
-         "externalServiceDescription" => externalServiceDescription }
+         "externalServiceDescription" => authorized_entity_params["externalServiceDescription"] }
     end
 
     def service_params_json
