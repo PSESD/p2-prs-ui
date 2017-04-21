@@ -11,9 +11,6 @@ class AuthorizedEntitiesController < ApplicationController
   # GET /authorized_entities/1
   # GET /authorized_entities/1.json
   def show
-    # services = AuthorizedEntity::Service.all("/authorizedEntities/#{@authorized_entity.id}/services")
-    # @services = services.select { |service| service.authorizedEntityId == @authorized_entity.id }
-
     @districts = District.all("/districts")
     @district_services = @service.district_services(@districts)
   end
@@ -21,6 +18,7 @@ class AuthorizedEntitiesController < ApplicationController
   # GET /authorized_entities/new
   def new
     @authorized_entity = AuthorizedEntity.new
+    @service = AuthorizedEntity::Service.new
   end
 
   # GET /authorized_entities/1/edit
