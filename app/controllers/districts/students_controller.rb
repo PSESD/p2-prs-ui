@@ -53,18 +53,23 @@ class Districts::StudentsController < DistrictsController
         # Rails.logger.error("API returned #{e.status} : #{e.result.message}")
       # end
 
-      ids = student_ids
-      set_params
+      if student_ids.count > 10
+        redirect_to new_district_service_student_path(@district.id, @service.id), notice: 'Cannot add more than 10 students at a time.'
+      else
+        ids = student_ids
+        set_params
 
-      total = ids.count
-      ids.each_with_index do |student_id, i|
-        puts "Creating #{i + 1} of #{total}"
-        districts_student_params[:districtStudentId] = student_id
-        path = "/districts/" + districts_student_params[:district_id] + "/services/" + districts_student_params[:service_id] + "/students"
-        http_request("post", path, districts_student_params.to_json)
+        total = ids.count
+        ids.each_with_index do |student_id, i|
+          puts "Creating #{i + 1} of #{total}"
+          districts_student_params[:districtStudentId] = student_id
+          path = "/districts/" + districts_student_params[:district_id] + "/services/" + districts_student_params[:service_id] + "/students"
+          http_request("post", path, districts_student_params.to_json)
+        end
+
+        redirect_to district_service_path(district_id: @district.id, id: @service.id)
       end
 
-      redirect_to district_service_path(district_id: @district.id, id: @service.id)
       # redirect_to(bulk_create_status_district_service_students_path(district_id: @district, service_id: @service, id: @job_id))
     # end
 
