@@ -1,10 +1,6 @@
 <tr class="<%= 'danger' if service.expired? %>">
-	<td><%= check_box_tag "services[]", service.id %></td>
 	<td><%= service.id %></td>
-	<td><%= link_to service.authorized_entity.name, authorized_entity_path(service.authorizedEntityId) %>
-		<small class="text-muted">#<%= service.authorizedEntityId %></small>
-		</td>
-	<td><%= link_to service.name, [@district, service] %>
+	<td><%= link_to service.authorized_entity.name, [@district, service] %>
 		<small class="text-muted">#<%= service.externalServiceId %></small>
 		</td>
 	<td><%= service[:initiationDate] %></td>
@@ -12,5 +8,6 @@
 		<%= service[:expirationDate] %>
 		<%= content_tag :span, "Expired", class: "label label-danger" if service.expired? %>
 	</td>
+	<td><%= link_to "FERPA", [:consent_form, @district, services: [service.id]]%></td>
 	<td><%= link_to glyph('option-horizontal', 'Details'), [@district, service] %></td>
 </tr>

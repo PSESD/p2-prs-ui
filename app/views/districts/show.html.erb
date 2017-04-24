@@ -18,15 +18,13 @@
 <%= form_tag [:consent_form, @district], method: :get do %>
 	<div class="panel panel-default">
 		<div class="panel-heading">
-			<h3 class="panel-title">Service Authorizations</h3>
+			<h3 class="panel-title">Authorized Organizations</h3>
 		</div>
 		<table class="table">
 			<thead>
 				<tr>
-					<th><%= check_box_tag "select_all" %></th>
 					<th>ID</th>
 					<th>Authorized Entity</th>
-					<th>Service</th>
 					<th>Initiation Date</th>
 					<th>Expiration Date</th>
 					<th></th>
@@ -38,6 +36,5 @@
 		</table>
 	</div>
 
-	<%= link_to glyph(:plus) + " Authorize another service", [:new, @district, :service], class: 'btn btn-default' %>
-  <%= link_to_submit glyph(:edit) + " Generate consent form", class: 'btn btn-info pull-right disabled' %>
+	<%= link_to glyph(:plus) + " Authorize Organization", [:new, @district, :service], class: 'btn btn-default' %>
 <% end %>
