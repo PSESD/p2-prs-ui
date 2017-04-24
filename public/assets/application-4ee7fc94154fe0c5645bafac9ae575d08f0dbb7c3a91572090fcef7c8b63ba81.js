@@ -14480,10 +14480,15 @@ jQuery(function() {
     NProgress.remove();
   });
 });
-(function() {
+var domain = function() {
+  $('#authorized_entity_mainContact_webAddress').parent().attr('class', 'col-sm-3');
+  $('#authorized_entity_mainContact_webAddress').parent().parent().append('<div class="col-sm-3 form-control-static">.studentsuccesslink.org</div><div class="col-sm-3></div>');
+  $('#authorized_entity_mainContact_webAddress').parent().parent().append('<p class="col-sm-3"></p><p class="help-block col-sm-9">Must be unique. Only enter numbers, letters, or a "-".</p>');
+}
 
-
-}).call(this);
+$(document).ready(function() {
+  domain();
+});
 (function() {
 
 
@@ -14514,8 +14519,15 @@ var loadFilters = function() {
   })
 };
 
+var selectAll = function() {
+  $('input#service_DataSets_all').change(function(event) {
+    $('input:checkbox:not(#service_DataSets_all)').prop('checked', $(this).is(':checked'));
+  })
+};
+
 $(document).ready(function() {
   loadFilters();
+  selectAll();
 });
 (function() {
 
@@ -14600,7 +14612,7 @@ $( function() {
     })
   })
 
-  $('.input-daterange').datepicker({
+  $('.input-daterange input').datepicker({
       format: "yyyy-mm-dd",
       todayBtn: "linked",
       todayHighlight: true,

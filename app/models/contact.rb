@@ -18,4 +18,10 @@ class Contact < ActiveRestClient::Base
     end
   end
 
+  def partialWebAddress
+    unless webAddress.nil?
+      webAddress.split(".").first
+    end
+  end
+
 end

@@ -5,7 +5,7 @@
 		<%= f.input :name, label: "Name" %>
 		<%= f.input :externalServiceDescription, required: false, label: "Description", input_html: { value: @service.description } %>
 		<%= f.simple_fields_for :mainContact, f.object.mainContact do |contact| %>
-			<%= contact.input :webAddress, required: true, label: "Student Success Link Subdomain", input_html: { value: @authorized_entity.mainContactObject.webAddress } %>
+			<%= contact.input :webAddress, required: true, label: "Student Success Link Subdomain", input_html: { value: @authorized_entity.mainContactObject.partialWebAddress }, hint: 'Only enter numbers, letters, or a dash. Subdomain must be unique.' %>
 
 			<h3>Main Contact Information</h3>
 			<p>

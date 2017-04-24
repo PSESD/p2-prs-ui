@@ -91,7 +91,9 @@ class AuthorizedEntitiesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def authorized_entity_params
-      params.require(:authorized_entity).permit(:name, :externalServiceDescription, { mainContact: %w[name title email phone mailingAddress webAddress] })
+      ae_params = params.require(:authorized_entity).permit(:name, :externalServiceDescription, { mainContact: %w[name title email phone mailingAddress webAddress] })
+      ae_params[:mainContact][:webAddress] = ae_params[:mainContact][:webAddress] + ".studentsuccesslink.org"
+      ae_params
     end
 
     def authorized_entity_params_json
@@ -101,7 +103,6 @@ class AuthorizedEntitiesController < ApplicationController
     def authorized_entity_params_xml
       JSON.parse(authorized_entity_params_json).to_xml(root: :authorizedEntity)
     end
-
 
     # External Service
     def set_service
