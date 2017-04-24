@@ -4,8 +4,9 @@
 	<div class="form-inputs">
 		<%= f.input :name, label: "Name" %>
 		<%= f.input :externalServiceDescription, required: false, label: "Description", input_html: { value: @service.description } %>
-
 		<%= f.simple_fields_for :mainContact, f.object.mainContact do |contact| %>
+			<%= contact.input :webAddress, required: true, label: "Student Success Link Subdomain", input_html: { value: @authorized_entity.mainContactObject.webAddress } %>
+
 			<h3>Main Contact Information</h3>
 			<p>
 				Specify contact information for the main contact related the data-sharing process.
@@ -16,7 +17,7 @@
 			<%= contact.input :email, required: true, input_html: { value: @authorized_entity.mainContactObject.email } %>
 			<%= contact.input :phone, required: false, input_html: { value: @authorized_entity.mainContactObject.phone } %>
 			<%= contact.input :mailingAddress, required: false, label: "Mailing Address", hint: "Parents or organizations should send formal communications to this address related to data sharing or to revoke consent.", input_html: { value: @authorized_entity.mainContactObject.mailingAddress } %>
-			<%= contact.input :webAddress, required: true, label: "Student Success Link Subdomain", input_html: { value: @authorized_entity.mainContactObject.webAddress } %>
+
 		<% end %>
 
 	</div>
