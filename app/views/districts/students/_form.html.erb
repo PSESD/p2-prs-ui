@@ -1,7 +1,7 @@
 <%= simple_form_for [@district, @service, @student], wrapper: :horizontal_form do |f| %>
 	<%= f.error_notification %>
 	<div class="form-inputs">
-			<%= f.input :districtStudentId, label: "District Student ID(s)", hint: "Add multiple student ID's separated by commas." %>
+			<%= f.input :districtStudentId, label: "District Student ID(s)", hint: "Add no more than 10 student ID's separated by commas." %>
 				<%= f.simple_fields_for :consent do |consent_form| -%>
 					<%= consent_form.input :consentType, label: "Consent Type", collection: District::Student::ConsentTypes, selected: @student.consentType %>
 
