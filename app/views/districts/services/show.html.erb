@@ -5,17 +5,21 @@
 	<%= link_to glyph(:edit) + " Consent form", [:consent_form, @district, services: [@service.id]], class: 'btn btn-info' %>
 </div>
 
-<h1><%= @service.name %> <small>#<%= @service.externalServiceId %></small></h1>
+<h1><%= @service.authorized_entity.name %></h1>
+
+<ul class="list-inline attribute-summary">
+	<li><strong>Description:</strong> <%= @service.authorized_entity.external_service.description %></li>
+</ul>
 
 <div class="row">
 	<div class="col-md-6">
 		<div class="panel panel-default">
 			<div class="panel-heading">
-				<h3 class="panel-title">Attributes</h3>
+				<h3 class="panel-title">Authorization Details</h3>
 			</div>
 			<dl class="list-group dl-horizontal">
 				<div class="list-group-item">
-					<dt>Authorized Entity</dt>
+					<dt>Organization</dt>
 					<dd><%= link_to @service.authorized_entity.name, authorized_entity_path(@service.authorizedEntityId) %>
 						<small class="text-muted">#<%= @service.authorizedEntityId %></small>
 					</dd>
@@ -23,10 +27,6 @@
 				<div class="list-group-item">
 					<dt>District</dt>
 					<dd><%= link_to @district.name, @district %></dd>
-				</div>
-				<div class="list-group-item">
-					<dt>Requires Personnel?</dt>
-					<dd><%= @service.requiresPersonnel ? glyph(:ok, "Yes") : glyph(:remove, "No") %></dd>
 				</div>
 				<div class="list-group-item">
 					<dt>Initiation Date</dt>
@@ -47,7 +47,7 @@
 				<h3 class="panel-title">Data Sets</h3>
 			</div>
 			<div class="panel-body">
-				<p><%= @service.name %> is allowed to access these data sets from <%= @district.name %>:</p>
+				<p><strong><%= @service.authorized_entity.name %></strong> is allowed to access the following data sets from <%= @district.name %>:</p>
 				<%= safe_join(@service.data_sets_instantiated.collect{ |dataset| link_to(h(dataset.name), data_set_path(dataset)) }, ", ") %>
 			</div>
 		</div>

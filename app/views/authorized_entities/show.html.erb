@@ -9,13 +9,13 @@
 <%= raw_attributes @authorized_entity, class: "pull-right", title: "Raw Attributes" %>
 
 <ul class="list-inline attribute-summary">
-  <li><strong>Entity ID:</strong>			<%= @authorized_entity.id %></li>
+  <li><strong>Entity ID:</strong> <%= @authorized_entity.id %></li>
 	<li><strong>Student Success Link Domain:</strong>	<%= link_to @authorized_entity.mainContactObject.fullWebAddress, @authorized_entity.mainContactObject.fullWebAddress %></li>
-	<li><strong>Main Contact:</strong>	<%= contact_information(@authorized_entity.mainContactObject) %></li>
+	<li><strong>Main Contact:</strong> <%= contact_information(@authorized_entity.mainContactObject) %></li>
 </ul>
 
 <ul class="list-inline attribute-summary">
-	<li><strong>Description:</strong>		<%= @service.description %></li>
+	<li><strong>Description:</strong>	<%= @service.description %></li>
 </ul>
 
 <div class="panel panel-default">
